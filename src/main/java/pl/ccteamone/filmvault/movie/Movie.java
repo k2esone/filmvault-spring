@@ -1,21 +1,45 @@
 package pl.ccteamone.filmvault.movie;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
-@Data
-@AllArgsConstructor
+import java.util.Set;
+import java.util.UUID;
+
+@Entity
+@Builder
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Movie {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+
+    @Column(nullable = false)
+
+    private UUID id;
     private String title;
-    private int rating;
-    private String description;
-    private int year;
-    private String genre;
-    //poster (file)
-    //vodPlaforms (Set)
-    //users (Set)
+    private String posterPath;
+    private String overview;
+    private String vodProviders;
+    private String releaseDate;
+    private String runtime;
+    private String credits;
+    private double rating;
+
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    private Set<User> users;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    private Set<VODPlatform> vodPlatforms;
+
 }
+
