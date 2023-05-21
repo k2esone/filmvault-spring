@@ -1,10 +1,8 @@
 package pl.ccteamone.filmvault.vodplatform.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 import pl.ccteamone.filmvault.vodplatform.service.VODPlatformService;
 
@@ -25,6 +23,12 @@ public class VODPlatformController {
     @GetMapping("/{id}")
     public VODPlatformDto getPlatform(@PathVariable("id") String id) {
         return platformService.getVODPlatformDtoById(id);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/update/{id}")
+    public void updateVODPlatform(@PathVariable("id") String id, @RequestBody VODPlatformDto platformDto) {
+        platformService.updateFromDto(id, platformDto);
     }
 
 }
