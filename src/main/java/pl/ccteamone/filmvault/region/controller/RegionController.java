@@ -33,21 +33,21 @@ public class RegionController {
         return regionService.getLocationsList();
     }
 
-    @GetMapping("/{locationId}")
-    public RegionResponse getLocationById(@PathVariable UUID locationId) {
-        log.info("someone asked for a location with id - {}", locationId);
-        return regionService.getLocationById(locationId);
+    @GetMapping("/{regionId}")
+    public RegionResponse getLocationById(@PathVariable UUID regionId) {
+        log.info("someone asked for a location with id - {}", regionId);
+        return regionService.getLocationById(regionId);
     }
 
-    @PatchMapping("/{locationId}")
-    public UpdateRegionResponse updateLocation (@PathVariable UUID locationId, @RequestBody CreateRegionRequest request) {
-        log.info("location update with id - {} has been triggered, data: {}", locationId, request);
-        return regionService.updateLocation(locationId, request);
+    @PatchMapping("/{regionId}")
+    public UpdateRegionResponse updateLocation (@PathVariable UUID regionId, @RequestBody CreateRegionRequest request) {
+        log.info("location update with id - {} has been triggered, data: {}", regionId, request);
+        return regionService.updateLocation(regionId, request);
     }
 
-    @DeleteMapping("/{locationId")
-        public void deleteLocationById(UUID locationId) {
-        log.info("someone ask to delete location with id - {}", locationId);
-        regionService.deleteLocationById(locationId);
+    @DeleteMapping("/{regionId}")
+        public void deleteLocationById(UUID regionId) {
+        log.info("someone ask to delete location with id - {}", regionId);
+        regionService.deleteLocationById(regionId);
     }
 }

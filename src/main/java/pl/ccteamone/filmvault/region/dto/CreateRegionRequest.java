@@ -3,7 +3,7 @@ package pl.ccteamone.filmvault.region.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.MyUser;
 
 import java.util.Set;
 
@@ -15,5 +15,5 @@ public class CreateRegionRequest {
     private String cityR;
     private String countryR;
     private String flagR;
-    private Set<User> usersR;
+    private Set<MyUser> usersR;
 }

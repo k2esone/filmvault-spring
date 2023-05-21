@@ -2,7 +2,7 @@ package pl.ccteamone.filmvault.movie;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.MyUser;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.util.Set;
@@ -34,7 +34,7 @@ public class Movie {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<User> users;
+    private Set<MyUser> myUsers;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

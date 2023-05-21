@@ -3,7 +3,7 @@ package pl.ccteamone.filmvault.user.service;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.MyUser;
 import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
 import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
 import pl.ccteamone.filmvault.user.dto.UserResponse;
@@ -24,7 +24,7 @@ public class UserService {
 
 //    @Override
 //    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-//        Optional<User> user = userRepository.findByUserName(userName);
+//        Optional<MyUser> user = userRepository.findByUserName(userName);
 //
 //        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + userName));
 //
@@ -34,11 +34,11 @@ public class UserService {
 
 
     public UserResponse createUser(CreateUserRequest request) {
-//        Optional<User> users = userRepository.findByUserName(request.getUsernameR());
-//        if (users.isPresent()) {
+//        Optional<MyUser> myUsers = userRepository.findByUserName(request.getUsernameR());
+//        if (myUsers.isPresent()) {
 //            return null;
 //        }
-        User user = User.builder()
+        MyUser myUser = MyUser.builder()
                 .email(request.getEmailR())
                 .password(request.getPasswordR())
                 .username(request.getUsernameR())
@@ -57,9 +57,9 @@ public class UserService {
                 .vodPlatforms(request.getVodPlatformsR())
                 .build();
 
-        userRepository.save(user);
+        userRepository.save(myUser);
 
-        return UserMapper.mapUserToUserResponse(user);
+        return UserMapper.mapUserToUserResponse(myUser);
     }
 
     public List<UserResponse> getUsersList() {
@@ -72,39 +72,39 @@ public class UserService {
         return userRepository.findById(userId)
                 .stream().map(UserMapper::mapUserToUserResponse)
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("User not found, id: " + userId));
+                .orElseThrow(() -> new EntityNotFoundException("MyUser not found, id: " + userId));
     }
 
 
 
     public UpdateUserResponse updateUser(UUID userId, CreateUserRequest request) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found, id: " + userId));
-        user.setEmail(request.getEmailR());
-        user.setPassword(request.getPasswordR());
-        user.setName(request.getNameR());
-        user.setSurname(request.getSurnameR());
-        user.setBirthDate(request.getBirthDateR());
-        user.setGender(request.getGenderR());
-        user.setRegion(request.getRegionR());
-        user.setProfilePic(request.getProfilePicR());
-        user.setRole(request.getRoleR());
-        user.setActive(request.isActiveR());
-        user.setLastActivity(request.getLastActivityR());
-        user.setMovies(request.getMoviesR());
-        user.setTvSeries(request.getTvSeriesR());
-        user.setVodPlatforms(request.getVodPlatformsR());
+        MyUser myUser = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("MyUser not found, id: " + userId));
+        myUser.setEmail(request.getEmailR());
+        myUser.setPassword(request.getPasswordR());
+        myUser.setName(request.getNameR());
+        myUser.setSurname(request.getSurnameR());
+        myUser.setBirthDate(request.getBirthDateR());
+        myUser.setGender(request.getGenderR());
+        myUser.setRegion(request.getRegionR());
+        myUser.setProfilePic(request.getProfilePicR());
+        myUser.setRole(request.getRoleR());
+        myUser.setActive(request.isActiveR());
+        myUser.setLastActivity(request.getLastActivityR());
+        myUser.setMovies(request.getMoviesR());
+        myUser.setTvSeries(request.getTvSeriesR());
+        myUser.setVodPlatforms(request.getVodPlatformsR());
 
-        user = userRepository.save(user);
+        myUser = userRepository.save(myUser);
 
-        return UserMapper.userToUserResponse(user);
+        return UserMapper.userToUserResponse(myUser);
     }
 
     public void deleteUserById(UUID userId) {
         try {
             userRepository.deleteById(userId);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("User not found, id: " + userId);
+            throw new EntityNotFoundException("MyUser not found, id: " + userId);
         }
     }
 

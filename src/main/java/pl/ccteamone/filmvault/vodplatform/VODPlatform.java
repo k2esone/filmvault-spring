@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.MyUser;
 
 import java.util.Set;
 import java.util.UUID;
@@ -27,10 +27,10 @@ public class VODPlatform {
     private String apiID;
 
     @ManyToMany(mappedBy = "vodPlatforms")
-    private Set<User> users;
+    private Set<MyUser> myUsers;
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<Movie> movies;
-    @ManyToMany(mappedBy = "vodPlatforms")
+    @ManyToMany(mappedBy = "platforms")
     private Set<TvSeries> tvSeries;
 
 }

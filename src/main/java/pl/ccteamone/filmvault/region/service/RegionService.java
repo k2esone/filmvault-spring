@@ -39,31 +39,31 @@ public class RegionService {
                 .toList();
     }
 
-    public RegionResponse getLocationById(UUID locationId) {
-        return regionRepository.findById(locationId)
+    public RegionResponse getLocationById(UUID regionId) {
+        return regionRepository.findById(regionId)
                 .stream().map(RegionMapper::mapLocationToLocationResponse)
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("Location not found, id: " + locationId));
+                .orElseThrow(() -> new EntityNotFoundException("Location not found, id: " + regionId));
     }
 
-    public UpdateRegionResponse updateLocation(UUID locationId, CreateRegionRequest request) {
-        Region region = regionRepository.findById(locationId)
-                .orElseThrow(() -> new EntityNotFoundException("Location not found, id:" + locationId));
+    public UpdateRegionResponse updateLocation(UUID regionId, CreateRegionRequest request) {
+        Region region = regionRepository.findById(regionId)
+                .orElseThrow(() -> new EntityNotFoundException("Location not found, id:" + regionId));
         region.setCity(request.getCityR());
         region.setCountry(request.getCountryR());
         region.setFlag(request.getFlagR());
-        region.setUsers(request.getUsersR());
+        region.setMyUsers(request.getUsersR());
 
         region = regionRepository.save(region);
 
         return RegionMapper.locationToLocationResponse(region);
     }
 
-    public void deleteLocationById(UUID locationId) {
+    public void deleteLocationById(UUID regionId) {
         try {
-            regionRepository.deleteById(locationId);
+            regionRepository.deleteById(regionId);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("Location not found, id: " + locationId);
+            throw new EntityNotFoundException("Location not found, id: " + regionId);
         }
 
     }

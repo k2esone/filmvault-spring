@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.tvseries.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 import java.time.LocalDate;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class TvSeriesDto {
     private LocalDate lastAirDate;
     private int seasons;
 
-    private Set<String> regions;
+    private Set<Region> regions;
     private Set<VODPlatformDto> platforms;
 
     private Long apiID;

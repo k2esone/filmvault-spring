@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping()
     public List<UserResponse> getUsersList() {
-        log.info("someone asked for an users list");
+        log.info("someone asked for an myUsers list");
         return userService.getUsersList();
     }
     @GetMapping("/{userId}")

@@ -2,7 +2,7 @@ package pl.ccteamone.filmvault.region;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.MyUser;
 
 import java.util.Set;
 import java.util.UUID;
@@ -24,7 +24,7 @@ public class Region {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "location")
-    private Set<User> users;
+    @OneToMany(mappedBy = "region")
+    private Set<MyUser> myUsers;
 }
 
