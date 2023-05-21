@@ -14,7 +14,6 @@ public class MovieDto {
     private String title;
     private String posterPath;
     private String overview;
-    private String vodProviders;
     private String releaseDate;
     private String runtime;
     private String credits;

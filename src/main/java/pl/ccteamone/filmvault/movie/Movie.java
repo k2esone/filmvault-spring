@@ -11,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
@@ -18,13 +19,12 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
 
-    @Column(nullable = false)
+    @Column
 
     private UUID id;
     private String title;
     private String posterPath;
     private String overview;
-    private String vodProviders;
     private String releaseDate;
     private String runtime;
     private String credits;

@@ -35,9 +35,9 @@ public class MovieController {
         return movieService.getMovieById(movieId);
     }
     @PatchMapping("/{Id}")
-    public MovieDto updateMovie (@PathVariable UUID movieId, @RequestBody MovieDto update) {
+    public void updateMovie (@PathVariable UUID movieId, @RequestBody MovieDto update) {
         log.info("update movie with id - {}, data: {}", movieId, update);
-        return movieService.updateMovie(movieId, update);
+       movieService.updateMovie(movieId, update);
     }
 
     @DeleteMapping("/{Id}")

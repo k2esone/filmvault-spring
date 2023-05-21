@@ -11,12 +11,10 @@ public class MovieMapper {
                 .title(movie.getTitle())
                 .posterPath(movie.getPosterPath())
                 .overview(movie.getOverview())
-                .vodProviders(movie.getVodProviders())
                 .releaseDate(movie.getReleaseDate())
                 .runtime(movie.getRuntime())
                 .credits(movie.getCredits())
                 .rating(movie.getRating())
                 .build();
-
     }
 }

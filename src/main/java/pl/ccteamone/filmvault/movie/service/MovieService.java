@@ -29,7 +29,6 @@ public class MovieService {
                 .title(create.getTitle())
                 .posterPath(create.getPosterPath())
                 .overview(create.getOverview())
-                .vodProviders(create.getVodProviders())
                 .releaseDate(create.getReleaseDate())
                 .runtime(create.getRuntime())
                 .credits(create.getCredits())
@@ -49,19 +48,20 @@ public class MovieService {
     }
 
 
-    public MovieDto updateMovie(UUID movieId, MovieDto update) {
-        Movie movie = Movie.builder()
-                .title(update.getTitle())
-                .posterPath(update.getPosterPath())
-                .overview(update.getOverview())
-                .vodProviders(update.getVodProviders())
-                .releaseDate(update.getReleaseDate())
-                .runtime(update.getRuntime())
-                .credits(update.getCredits())
-                .rating(update.getRating())
-                .build();
+    public void updateMovie(UUID movieId, MovieDto update) {
+
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
+
+        movie.setTitle(update.getTitle());
+        movie.setPosterPath(update.getPosterPath());
+        movie.setOverview(update.getOverview());
+        movie.setReleaseDate(update.getReleaseDate());
+        movie.setRuntime(update.getRuntime());
+        movie.setCredits(update.getCredits());
+        movie.setRating(update.getRating());
+
         movieRepository.save(movie);
-        return MovieMapper.toMovieDto(movie);
+//      return MovieMapper.toMovieDto(movie);
     }
 
     public void deleteMovieById(UUID movieId) {
