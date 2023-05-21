@@ -1,4 +1,4 @@
-package pl.ccteamone.filmvault.user.user;
+package pl.ccteamone.filmvault.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.user.location.Location;
+import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
@@ -42,7 +42,7 @@ public class User {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne
-    private Location location;
+    private Region region;
 
     private String profilePic;
     private String role;

@@ -1,11 +1,11 @@
-package pl.ccteamone.filmvault.user.user.controller;
+package pl.ccteamone.filmvault.user.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.user.user.dto.CreateUserRequest;
-import pl.ccteamone.filmvault.user.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.user.dto.UserResponse;
-import pl.ccteamone.filmvault.user.user.service.UserService;
+import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
+import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
+import pl.ccteamone.filmvault.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.service.UserService;
 
 import java.util.List;
 import java.util.UUID;

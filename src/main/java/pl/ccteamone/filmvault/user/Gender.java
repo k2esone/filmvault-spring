@@ -1,4 +1,4 @@
-package pl.ccteamone.filmvault.user.user;
+package pl.ccteamone.filmvault.user;
 
 public enum Gender {
     MALE,

@@ -1,8 +1,8 @@
-package pl.ccteamone.filmvault.user.location;
+package pl.ccteamone.filmvault.region;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.user.User;
+import pl.ccteamone.filmvault.user.User;
 
 import java.util.Set;
 import java.util.UUID;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

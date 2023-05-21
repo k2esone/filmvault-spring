@@ -1,10 +1,10 @@
-package pl.ccteamone.filmvault.user.user.dto;
+package pl.ccteamone.filmvault.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.ccteamone.filmvault.user.user.Gender;
-import pl.ccteamone.filmvault.user.location.Location;
+import pl.ccteamone.filmvault.user.Gender;
+import pl.ccteamone.filmvault.region.Region;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,8 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-
+public class UpdateUserResponse {
     private UUID idR;
 
     private String emailR;
@@ -28,9 +27,9 @@ public class UserResponse {
     private LocalDate birthDateR;
     private Gender genderR;
 
-    private Location locationR;
+    private Region regionR;
 
-    private String profilePic;
+    private String profilePicR;
     private String roleR;
     private boolean isActiveR;
 

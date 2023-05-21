@@ -1,8 +1,8 @@
-package pl.ccteamone.filmvault.user.user.mapper;
+package pl.ccteamone.filmvault.user.mapper;
 
-import pl.ccteamone.filmvault.user.user.User;
-import pl.ccteamone.filmvault.user.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
+import pl.ccteamone.filmvault.user.dto.UserResponse;
 
 import java.util.stream.Collectors;
 
@@ -18,7 +18,7 @@ public class UserMapper {
                 user.getSurname(),
                 user.getBirthDate(),
                 user.getGender(),
-                user.getLocation(),
+                user.getRegion(),
                 user.getProfilePic(),
                 user.getRole(),
                 user.isActive(),
@@ -39,7 +39,7 @@ public class UserMapper {
                 user.getSurname(),
                 user.getBirthDate(),
                 user.getGender(),
-                user.getLocation(),
+                user.getRegion(),
                 user.getProfilePic(),
                 user.getRole(),
                 user.isActive(),

@@ -1,21 +1,19 @@
-package pl.ccteamone.filmvault.user.location.dto;
-
+package pl.ccteamone.filmvault.region.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.ccteamone.filmvault.user.User;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocationResponse {
+public class CreateRegionRequest {
 
-    private UUID idR;
     private String cityR;
     private String countryR;
     private String flagR;
-    private Set<UUID> usersR;
+    private Set<User> usersR;
 }

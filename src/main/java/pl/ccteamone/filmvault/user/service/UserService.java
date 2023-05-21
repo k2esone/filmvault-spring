@@ -1,14 +1,14 @@
-package pl.ccteamone.filmvault.user.user.service;
+package pl.ccteamone.filmvault.user.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import pl.ccteamone.filmvault.user.user.User;
-import pl.ccteamone.filmvault.user.user.dto.CreateUserRequest;
-import pl.ccteamone.filmvault.user.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.user.dto.UserResponse;
-import pl.ccteamone.filmvault.user.user.mapper.UserMapper;
-import pl.ccteamone.filmvault.user.user.repository.UserRepository;
+import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
+import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
+import pl.ccteamone.filmvault.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.mapper.UserMapper;
+import pl.ccteamone.filmvault.user.repository.UserRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -46,7 +46,7 @@ public class UserService {
                 .surname(request.getSurnameR())
                 .birthDate(request.getBirthDateR())
                 .gender(request.getGenderR())
-                .location(request.getLocationR())
+                .region(request.getRegionR())
                 .profilePic(request.getProfilePicR())
                 .role(request.getRoleR())
                 .isActive(request.isActiveR())
@@ -86,7 +86,7 @@ public class UserService {
         user.setSurname(request.getSurnameR());
         user.setBirthDate(request.getBirthDateR());
         user.setGender(request.getGenderR());
-        user.setLocation(request.getLocationR());
+        user.setRegion(request.getRegionR());
         user.setProfilePic(request.getProfilePicR());
         user.setRole(request.getRoleR());
         user.setActive(request.isActiveR());
