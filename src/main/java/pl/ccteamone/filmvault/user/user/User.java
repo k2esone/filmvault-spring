@@ -1,4 +1,4 @@
-package pl.ccteamone.filmvault.user;
+package pl.ccteamone.filmvault.user.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -22,7 +22,8 @@ import java.util.UUID;
 public class User {
 
     @Id
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     @Email
@@ -68,3 +69,8 @@ public class User {
     private Set<VODPlatform> vodPlatforms;
 
 }
+
+
+
+
+

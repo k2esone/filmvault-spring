@@ -1,17 +1,18 @@
-package pl.ccteamone.filmvault.user.service;
+package pl.ccteamone.filmvault.user.user.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import pl.ccteamone.filmvault.user.User;
-import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
-import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.dto.UserResponse;
-import pl.ccteamone.filmvault.user.repository.UserRepository;
+import pl.ccteamone.filmvault.user.user.User;
+import pl.ccteamone.filmvault.user.user.dto.CreateUserRequest;
+import pl.ccteamone.filmvault.user.user.dto.UpdateUserResponse;
+import pl.ccteamone.filmvault.user.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.user.mapper.UserMapper;
+import pl.ccteamone.filmvault.user.user.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
+
 
 @Service
 public class UserService {
@@ -30,27 +31,7 @@ public class UserService {
 //        return user.map(MyUserDetails::new).get();
 //    }
 
-    private UserResponse mapUserToUserResponse(User user) {
-        return new UserResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getUsername(),
-                user.getName(),
-                user.getSurname(),
-                user.getBirthDate(),
-                user.getGender(),
-                user.getLocation(),
-                user.getProfilePic(),
-                user.getRole(),
-                user.isActive(),
-                user.getCreatedAt(),
-                user.getLastActivity(),
-                user.getMovies().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                user.getTvSeries().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                user.getVodPlatforms().stream().map(i -> i.getId()).collect(Collectors.toSet())
-        );
-    }
+
 
     public UserResponse createUser(CreateUserRequest request) {
 //        Optional<User> users = userRepository.findByUserName(request.getUsernameR());
@@ -78,45 +59,25 @@ public class UserService {
 
         userRepository.save(user);
 
-        return mapUserToUserResponse(user);
+        return UserMapper.mapUserToUserResponse(user);
     }
 
     public List<UserResponse> getUsersList() {
         return userRepository.findAll()
-                .stream().map(user -> mapUserToUserResponse(user))
+                .stream().map(UserMapper::mapUserToUserResponse)
                 .toList();
     }
 
-    public UserResponse getUserById(Long userId) {
+    public UserResponse getUserById(UUID userId) {
         return userRepository.findById(userId)
-                .stream().map(user -> mapUserToUserResponse(user))
+                .stream().map(UserMapper::mapUserToUserResponse)
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("User not found, id: " + userId));
     }
 
-    private UpdateUserResponse userToUserResponse(User user) {
-        return new UpdateUserResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getUsername(),
-                user.getName(),
-                user.getSurname(),
-                user.getBirthDate(),
-                user.getGender(),
-                user.getLocation(),
-                user.getProfilePic(),
-                user.getRole(),
-                user.isActive(),
-                user.getCreatedAt(),
-                user.getLastActivity(),
-                user.getMovies(),
-                user.getTvSeries(),
-                user.getVodPlatforms()
-        );
-    }
 
-    public UpdateUserResponse updateUser(Long userId, CreateUserRequest request) {
+
+    public UpdateUserResponse updateUser(UUID userId, CreateUserRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found, id: " + userId));
         user.setEmail(request.getEmailR());
@@ -136,14 +97,15 @@ public class UserService {
 
         user = userRepository.save(user);
 
-        return userToUserResponse(user);
+        return UserMapper.userToUserResponse(user);
     }
 
-    public void deleteUserById(Long userId) {
+    public void deleteUserById(UUID userId) {
         try {
             userRepository.deleteById(userId);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("User not found, id: " + userId);
         }
     }
+
 }

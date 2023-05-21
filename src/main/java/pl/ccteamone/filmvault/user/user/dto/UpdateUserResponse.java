@@ -1,13 +1,10 @@
-package pl.ccteamone.filmvault.user.dto;
+package pl.ccteamone.filmvault.user.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.ccteamone.filmvault.movie.Movie;
-import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.user.Gender;
+import pl.ccteamone.filmvault.user.user.Gender;
 import pl.ccteamone.filmvault.user.location.Location;
-import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,9 +37,9 @@ public class UpdateUserResponse {
 
     private LocalDateTime lastActivityR;
 
-    private Set<Movie> moviesR;
+    private Set<UUID> moviesR;
 
-    private Set<TvSeries> tvSeriesR;
+    private Set<UUID> tvSeriesR;
 
-    private Set<VODPlatform> vodPlatformsR;
+    private Set<UUID> vodPlatformsR;
 }

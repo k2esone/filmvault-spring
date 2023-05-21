@@ -1,10 +1,8 @@
 package pl.ccteamone.filmvault.user.location;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.user.user.User;
 
 import java.util.Set;
 import java.util.UUID;
@@ -17,7 +15,8 @@ import java.util.UUID;
 public class Location {
 
     @Id
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String city;
     private String country;

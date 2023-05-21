@@ -1,13 +1,14 @@
-package pl.ccteamone.filmvault.user.controller;
+package pl.ccteamone.filmvault.user.user.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
-import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.dto.UserResponse;
-import pl.ccteamone.filmvault.user.service.UserService;
+import pl.ccteamone.filmvault.user.user.dto.CreateUserRequest;
+import pl.ccteamone.filmvault.user.user.dto.UpdateUserResponse;
+import pl.ccteamone.filmvault.user.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.user.service.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -30,22 +31,21 @@ public class UserController {
         log.info("someone asked for an users list");
         return userService.getUsersList();
     }
-
     @GetMapping("/{userId}")
-    public UserResponse getUserById(@PathVariable Long userId) {
+    public UserResponse getUserById(@PathVariable UUID userId) {
         log.info("someone asked for user with id - {}", userId);
         return userService.getUserById(userId);
     }
 
     @PatchMapping("/{userId}")
-    public UpdateUserResponse updateUser (@PathVariable Long userId, @RequestBody CreateUserRequest request) {
+    public UpdateUserResponse updateUser (@PathVariable UUID userId, @RequestBody CreateUserRequest request) {
         log.info("user update with id - {} has been triggered, data: {}", userId, request);
         return userService.updateUser(userId, request);
 
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUserById(Long userId) {
+    public void deleteUserById(UUID userId) {
         log.info("someone ask to delete user with id - {}", userId);
         userService.deleteUserById(userId);
     }

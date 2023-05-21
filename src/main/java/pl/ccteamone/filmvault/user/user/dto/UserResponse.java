@@ -1,20 +1,22 @@
-package pl.ccteamone.filmvault.user.dto;
+package pl.ccteamone.filmvault.user.user.dto;
 
-import lombok.*;
-import pl.ccteamone.filmvault.movie.Movie;
-import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.user.Gender;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import pl.ccteamone.filmvault.user.user.Gender;
 import pl.ccteamone.filmvault.user.location.Location;
-import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserRequest {
+public class UserResponse {
+
+    private UUID idR;
 
     private String emailR;
 
@@ -28,7 +30,7 @@ public class CreateUserRequest {
 
     private Location locationR;
 
-    private String profilePicR;
+    private String profilePic;
     private String roleR;
     private boolean isActiveR;
 
@@ -36,9 +38,9 @@ public class CreateUserRequest {
 
     private LocalDateTime lastActivityR;
 
-    private Set<Movie> moviesR;
+    private Set<UUID> moviesR;
 
-    private Set<TvSeries> tvSeriesR;
+    private Set<UUID> tvSeriesR;
 
-    private Set<VODPlatform> vodPlatformsR;
+    private Set<UUID> vodPlatformsR;
 }
