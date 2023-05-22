@@ -1,48 +1,53 @@
 package pl.ccteamone.filmvault.movie.controller;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.movie.dto.MovieDto;
+import pl.ccteamone.filmvault.movie.dto.CreateMovieRequest;
+import pl.ccteamone.filmvault.movie.dto.MovieResponse;
+import pl.ccteamone.filmvault.movie.dto.UpdateMovieResponse;
 import pl.ccteamone.filmvault.movie.service.MovieService;
 
 import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/movies")
+@RequestMapping("/movies")
 public class MovieController {
 
     private final MovieService movieService;
 
-    @PostMapping("/add")
-    public MovieDto createMovie(@RequestBody MovieDto create) {
-        log.info("adding new movie: {}", create);
-        return movieService.createMovie(create);
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
     }
 
-    @GetMapping("/list")
-    public List<MovieDto> getMovieList() {
-        log.info("request for movies list");
+    @PostMapping()
+    public MovieResponse createMovie(@RequestBody CreateMovieRequest request) {
+        log.info("movie addition has been triggered: {}", request);
+        return movieService.createMovie(request);
+    }
+
+    @GetMapping()
+    public List<MovieResponse> getMovieList() {
+        log.info("someone asked for a movie list");
         return movieService.getMovieList();
     }
-
-    @GetMapping("/{Id}")
-    public MovieDto getMovieById(@PathVariable UUID movieId) {
-        log.info("request for movie id - {}", movieId);
+    @GetMapping("/{movieId}")
+    public MovieResponse getUserById(@PathVariable UUID movieId) {
+        log.info("someone asked for a movie with id - {}", movieId);
         return movieService.getMovieById(movieId);
     }
-    @PatchMapping("/{Id}")
-    public void updateMovie (@PathVariable UUID movieId, @RequestBody MovieDto update) {
-        log.info("update movie with id - {}, data: {}", movieId, update);
-       movieService.updateMovie(movieId, update);
+
+    @PatchMapping("/{movieId}")
+    public UpdateMovieResponse updateUser (@PathVariable UUID movieId, @RequestBody CreateMovieRequest request) {
+        log.info("movie update with id - {} has been triggered, data: {}", movieId, request);
+        return movieService.updateMovie(movieId, request);
+
     }
 
-    @DeleteMapping("/{Id}")
-    public void deleteMovieById(UUID movieId) {
-        log.info("delete movie with id - {}", movieId);
+    @DeleteMapping("/{movieId}")
+    public void deleteUserById(UUID movieId) {
+        log.info("someone ask to delete movie with id - {}", movieId);
         movieService.deleteMovieById(movieId);
     }
 }

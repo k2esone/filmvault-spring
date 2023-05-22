@@ -17,4 +17,6 @@ public class UpdateRegionResponse {
     private String countryR;
     private String flagR;
     private Set<UUID> usersR;
+    private Set<UUID> tvSeriesR;
+
 }

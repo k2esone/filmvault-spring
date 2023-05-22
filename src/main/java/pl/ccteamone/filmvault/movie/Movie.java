@@ -10,18 +10,15 @@ import java.util.UUID;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-
-    @Column
-
     private UUID id;
+
     private String title;
     private String posterPath;
     private String overview;
@@ -33,7 +30,7 @@ public class Movie {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "movies")
     private Set<MyUser> myUsers;
 
     @ToString.Exclude

@@ -14,7 +14,8 @@ public class RegionMapper {
                 region.getCity(),
                 region.getCountry(),
                 region.getFlag(),
-                region.getMyUsers().stream().map(i -> i.getId()).collect(Collectors.toSet())
+                region.getMyUsers().stream().map(i -> i.getId()).collect(Collectors.toSet()),
+                region.getTvSeries().stream().map(i ->i.getId()).collect(Collectors.toSet())
         );
     }
 
@@ -24,7 +25,8 @@ public class RegionMapper {
                 region.getCity(),
                 region.getCountry(),
                 region.getFlag(),
-                region.getMyUsers().stream().map(i->i.getId()).collect(Collectors.toSet())
+                region.getMyUsers().stream().map(i->i.getId()).collect(Collectors.toSet()),
+                region.getTvSeries().stream().map(i ->i.getId()).collect(Collectors.toSet())
         );
     }
 }

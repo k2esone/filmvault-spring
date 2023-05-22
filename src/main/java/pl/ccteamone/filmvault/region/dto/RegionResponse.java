@@ -18,4 +18,6 @@ public class RegionResponse {
     private String countryR;
     private String flagR;
     private Set<UUID> usersR;
+    private Set<UUID> tvSeriesR;
+
 }

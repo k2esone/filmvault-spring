@@ -27,6 +27,8 @@ public class RegionService {
                 .city(request.getCityR())
                 .country(request.getCountryR())
                 .flag(request.getFlagR())
+                .myUsers(request.getUsersR())
+                .tvSeries(request.getTvSeriesR())
                 .build();
         regionRepository.save(region);
 
@@ -53,6 +55,7 @@ public class RegionService {
         region.setCountry(request.getCountryR());
         region.setFlag(request.getFlagR());
         region.setMyUsers(request.getUsersR());
+        region.setTvSeries(region.getTvSeries());
 
         region = regionRepository.save(region);
 

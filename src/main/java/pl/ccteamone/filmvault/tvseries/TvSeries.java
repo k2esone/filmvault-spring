@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.ccteamone.filmvault.region.Region;
+import pl.ccteamone.filmvault.user.MyUser;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
@@ -12,14 +13,12 @@ import java.util.UUID;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TvSeries {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.PRIVATE)
     private UUID id;
     private String name;
     private String description;
@@ -33,10 +32,20 @@ public class TvSeries {
     private LocalDate lastAirDate;
     private int seasons;
 
-    @ManyToMany
-    private Set<Region> regions;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
+    private Region region;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> platforms;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "tvSeries")
+    private Set<MyUser> myUsers;
 
     private Long apiID;
 }

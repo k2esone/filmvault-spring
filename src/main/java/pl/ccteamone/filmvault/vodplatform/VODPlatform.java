@@ -11,14 +11,12 @@ import java.util.UUID;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class VODPlatform {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.PRIVATE)
     private UUID id;
     private String name;
     private String logoPath;
@@ -26,10 +24,18 @@ public class VODPlatform {
     private boolean isAvailable;
     private String apiID;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<MyUser> myUsers;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<Movie> movies;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "platforms")
     private Set<TvSeries> tvSeries;
 

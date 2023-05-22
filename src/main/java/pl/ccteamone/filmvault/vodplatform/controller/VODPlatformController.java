@@ -1,34 +1,53 @@
 package pl.ccteamone.filmvault.vodplatform.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
+import pl.ccteamone.filmvault.vodplatform.dto.CreateVODPlatformRequest;
+import pl.ccteamone.filmvault.vodplatform.dto.UpdateVODPlatformResponse;
+import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformResponse;
 import pl.ccteamone.filmvault.vodplatform.service.VODPlatformService;
 
 import java.util.List;
+import java.util.UUID;
 
-@RequiredArgsConstructor
+@Slf4j
 @RestController
-@RequestMapping("/api/v1/platforms")
+@RequestMapping("/platforms")
 public class VODPlatformController {
 
     private final VODPlatformService platformService;
 
-    @GetMapping("/list")
-    public List<VODPlatformDto> getPlatformList() {
-        return platformService.getVODPlatformDtoList();
+    public VODPlatformController(VODPlatformService platformService) {
+        this.platformService = platformService;
     }
 
-    @GetMapping("/{id}")
-    public VODPlatformDto getPlatform(@PathVariable("id") String id) {
-        return platformService.getVODPlatformDtoById(id);
+    @PostMapping()
+    public VODPlatformResponse createVODPlatform(@RequestBody CreateVODPlatformRequest request) {
+        log.info("vodPlatform addition has been triggered: {}", request);
+        return platformService.createVODPlatform(request);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/update/{id}")
-    public void updateVODPlatform(@PathVariable("id") String id, @RequestBody VODPlatformDto platformDto) {
-        platformService.updateFromDto(id, platformDto);
+    @GetMapping()
+    public List<VODPlatformResponse> getVODPlatformList() {
+        log.info("someone asked for a vodPlatform list");
+        return platformService.getVODPlatformList();
+    }
+    @GetMapping("/{vodPlatformId}")
+    public VODPlatformResponse getVODPlatformById(@PathVariable UUID vodPlatformId) {
+        log.info("someone asked for a vodPlatform with id - {}", vodPlatformId);
+        return platformService.getVODPlatformById(vodPlatformId);
     }
 
+    @PatchMapping("/{vodPlatformId}")
+    public UpdateVODPlatformResponse updateVODPlatform (@PathVariable UUID vodPlatformId, @RequestBody CreateVODPlatformRequest request) {
+        log.info("vodPlatform update with id - {} has been triggered, data: {}", vodPlatformId, request);
+        return platformService.updateVODPlatform(vodPlatformId, request);
+
+    }
+
+    @DeleteMapping("/{vodPlatformId}")
+    public void deleteVODPlatformById(UUID vodPlatformId) {
+        log.info("someone ask to delete vodPlatform with id - {}", vodPlatformId);
+        platformService.deleteVODPlatformById(vodPlatformId);
+    }
 }
