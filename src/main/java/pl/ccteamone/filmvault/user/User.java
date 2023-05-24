@@ -11,6 +11,7 @@ import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -56,17 +57,17 @@ public class User {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<Movie> movies;
+    private Set<Movie> movies = new HashSet<>();
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<TvSeries> tvSeries;
+    private Set<TvSeries> tvSeries = new HashSet<>();
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<VODPlatform> vodPlatforms;
+    private Set<VODPlatform> vodPlatforms = new HashSet<>();
 
 }
 

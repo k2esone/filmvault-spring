@@ -2,9 +2,7 @@ package pl.ccteamone.filmvault.region.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.region.dto.CreateRegionRequest;
-import pl.ccteamone.filmvault.region.dto.RegionResponse;
-import pl.ccteamone.filmvault.region.dto.UpdateRegionResponse;
+import pl.ccteamone.filmvault.region.dto.RegionDto;
 import pl.ccteamone.filmvault.region.service.RegionService;
 
 import java.util.List;
@@ -22,31 +20,31 @@ public class RegionController {
     }
 
     @PostMapping()
-    public RegionResponse createLocation(@RequestBody CreateRegionRequest request) {
+    public RegionDto createLocation(@RequestBody RegionDto request) {
         log.info("location addition has been triggered: {}", request);
         return regionService.createLocation(request);
     }
 
     @GetMapping()
-    public List<RegionResponse> getLocationsList() {
+    public List<RegionDto> getLocationsList() {
         log.info("someone asked for a locations list");
         return regionService.getLocationsList();
     }
 
     @GetMapping("/{locationId}")
-    public RegionResponse getLocationById(@PathVariable UUID locationId) {
+    public RegionDto getLocationById(@PathVariable("locationId") UUID locationId) {
         log.info("someone asked for a location with id - {}", locationId);
         return regionService.getLocationById(locationId);
     }
 
     @PatchMapping("/{locationId}")
-    public UpdateRegionResponse updateLocation (@PathVariable UUID locationId, @RequestBody CreateRegionRequest request) {
+    public RegionDto updateLocation (@PathVariable("locationId") UUID locationId, @RequestBody RegionDto request) {
         log.info("location update with id - {} has been triggered, data: {}", locationId, request);
         return regionService.updateLocation(locationId, request);
     }
 
-    @DeleteMapping("/{locationId")
-        public void deleteLocationById(UUID locationId) {
+    @DeleteMapping("/{locationId}")
+        public void deleteLocationById(@PathVariable("locationId") UUID locationId) {
         log.info("someone ask to delete location with id - {}", locationId);
         regionService.deleteLocationById(locationId);
     }

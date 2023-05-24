@@ -24,7 +24,7 @@ public class Region {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "region")
     private Set<User> users;
 }
 

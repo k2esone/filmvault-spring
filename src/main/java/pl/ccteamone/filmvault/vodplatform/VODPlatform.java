@@ -30,7 +30,7 @@ public class VODPlatform {
     private Set<User> users;
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<Movie> movies;
-    @ManyToMany(mappedBy = "vodPlatforms")
+    @ManyToMany(mappedBy = "platforms")
     private Set<TvSeries> tvSeries;
 
 }

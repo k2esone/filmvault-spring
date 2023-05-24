@@ -3,11 +3,10 @@ package pl.ccteamone.filmvault.tvseries;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.ccteamone.filmvault.user.location.Location;
+import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -34,7 +33,8 @@ public class TvSeries {
     private LocalDate lastAirDate;
     private int seasons;
 
-    private Set<String> regions;
+    @ManyToMany
+    private Set<Region> regions;
     @ManyToMany
     private Set<VODPlatform> platforms;
 

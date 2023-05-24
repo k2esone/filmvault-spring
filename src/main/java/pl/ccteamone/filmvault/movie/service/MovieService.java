@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final MovieMapper movieMapper;
 
 
     public MovieDto createMovie(MovieDto create) {
@@ -35,16 +36,16 @@ public class MovieService {
                 .rating(create.getRating())
                 .build();
         movieRepository.save(movie);
-        return MovieMapper.toMovieDto(movie);
+        return movieMapper.mapToMovieDto(movie);
     }
 
     public List<MovieDto> getMovieList() {
-        return movieRepository.findAll().stream().map(MovieMapper::toMovieDto).collect(Collectors.toList());
+        return movieRepository.findAll().stream().map(movieMapper::mapToMovieDto).collect(Collectors.toList());
     }
 
     public MovieDto getMovieById(UUID movieId) {
         Optional<Movie> movie = movieRepository.findById(movieId);
-        return MovieMapper.toMovieDto(movie.orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
+        return movieMapper.mapToMovieDto(movie.orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
     }
 
 

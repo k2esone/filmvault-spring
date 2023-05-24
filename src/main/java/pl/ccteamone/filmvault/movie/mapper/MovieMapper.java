@@ -1,20 +1,23 @@
 package pl.ccteamone.filmvault.movie.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 
-public class MovieMapper {
+import java.util.Set;
 
-    public static MovieDto toMovieDto(Movie movie) {
-        return MovieDto.builder()
-                .id(movie.getId())
-                .title(movie.getTitle())
-                .posterPath(movie.getPosterPath())
-                .overview(movie.getOverview())
-                .releaseDate(movie.getReleaseDate())
-                .runtime(movie.getRuntime())
-                .credits(movie.getCredits())
-                .rating(movie.getRating())
-                .build();
-    }
+@Mapper(componentModel = "spring")
+public interface MovieMapper {
+
+    MovieDto mapToMovieDto(Movie movie);
+
+    @InheritInverseConfiguration(name = "mapToMovieDto")
+    Movie mapToMovie(MovieDto movieDto);
+
+    Set<MovieDto> mapToMovieDtoSet(Set<Movie> movies);
+
+    @InheritInverseConfiguration(name = "mapToMovieDtoSet")
+    Set<Movie> mapToMovieSet(Set<MovieDto> movieDtos);
+
 }
