@@ -1,29 +1,25 @@
 package pl.ccteamone.filmvault.tvseries.mapper;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
-import pl.ccteamone.filmvault.vodplatform.mapper.VODPlatformMapper;
 
-import java.util.stream.Collectors;
+import java.util.Set;
 
-public class TvSeriesMapper {
+@Mapper(componentModel = "spring")
+public interface TvSeriesMapper {
 
-    public static TvSeriesDto tvSeriesToDto(TvSeries tvSeries) {
-        return TvSeriesDto.builder()
-                .id(tvSeries.getId())
-                .name(tvSeries.getName())
-                .description(tvSeries.getDescription())
-                .genre(tvSeries.getGenre())
-                .poster(tvSeries.getPoster())
-                .adult(tvSeries.isAdult())
-                .origin(tvSeries.getOrigin())
-                .firstAirDate(tvSeries.getFirstAirDate())
-                .lastAirDate(tvSeries.getLastAirDate())
-                .seasons(tvSeries.getSeasons())
-                .regions(tvSeries.getRegions())
-                .platforms(tvSeries.getPlatforms().stream()
-                        .map(VODPlatformMapper::toVODPlatformDto)
-                        .collect(Collectors.toSet()))
-                .apiID(tvSeries.getApiID())
-                .build();
-    }
+
+    @Mapping(source = "regions", target = "regions")
+    @Mapping(source = "platforms", target = "platforms")
+    TvSeriesDto mapToTvSeriesDto(TvSeries tvSeries);
+
+    @InheritInverseConfiguration(name = "mapToTvSeriesDto")
+    TvSeries mapToTvSeries(TvSeriesDto tvSeriesDto);
+
+    Set<TvSeriesDto> mapToTvSeriesDtoSet(Set<TvSeries> tvSeries);
+
+    @InheritInverseConfiguration
+    Set<TvSeries> mapToTvSeriesSet(Set<TvSeriesDto> tvSeriesDtos);
 }

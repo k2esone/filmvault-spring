@@ -17,13 +17,25 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class TvSeriesService {
     private final TvSeriesRepository tvRepository;
+    private final TvSeriesMapper tvSeriesMapper;
+
+
+    public TvSeries save (TvSeries tvSeries) {
+        return tvRepository.save(tvSeries);
+    }
+
+    public TvSeriesDto saveFromDto (TvSeriesDto tvSeriesDto) {
+        TvSeries tvSeries = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
+        return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
+    }
 
     public List<TvSeriesDto> getTvSeriesDtoList() {
-        return StreamSupport.stream(tvRepository.findAll().spliterator(), false).map(TvSeriesMapper::tvSeriesToDto).collect(Collectors.toList());
+        return StreamSupport.stream(tvRepository.findAll().spliterator(), false).map(tvSeriesMapper::mapToTvSeriesDto).collect(Collectors.toList());
     }
 
     public TvSeriesDto getTvSeriesDtoById(UUID id) {
         Optional<TvSeries> tvSeries = tvRepository.findById(id);
-        return TvSeriesMapper.tvSeriesToDto(tvSeries.orElseThrow(() -> new RuntimeException("Tv Series id=" + id + " not found")));
+        return tvSeriesMapper.mapToTvSeriesDto(tvSeries.orElseThrow(() -> new RuntimeException("Tv Series id=" + id + " not found")));
     }
+
 }

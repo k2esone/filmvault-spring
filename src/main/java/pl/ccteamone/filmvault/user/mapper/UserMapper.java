@@ -1,53 +1,27 @@
 package pl.ccteamone.filmvault.user.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.user.User;
-import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.dto.UserCreationDto;
+import pl.ccteamone.filmvault.user.dto.UserDto;
 
-import java.util.stream.Collectors;
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-public class UserMapper {
+    @Mapping(source = "movies", target = "movies")
+    @Mapping(source = "tvSeries", target = "tvSeries")
+    @Mapping(source = "vodPlatforms", target = "vodPlatforms")
+    UserDto mapToUserDto(User user);
 
-    public static UserResponse mapUserToUserResponse(User user) {
-        return new UserResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getUsername(),
-                user.getName(),
-                user.getSurname(),
-                user.getBirthDate(),
-                user.getGender(),
-                user.getRegion(),
-                user.getProfilePic(),
-                user.getRole(),
-                user.isActive(),
-                user.getCreatedAt(),
-                user.getLastActivity(),
-                user.getMovies().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                user.getTvSeries().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                user.getVodPlatforms().stream().map(i -> i.getId()).collect(Collectors.toSet())
-        );
-    }
-    public static UpdateUserResponse userToUserResponse(User user) {
-        return new UpdateUserResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getUsername(),
-                user.getName(),
-                user.getSurname(),
-                user.getBirthDate(),
-                user.getGender(),
-                user.getRegion(),
-                user.getProfilePic(),
-                user.getRole(),
-                user.isActive(),
-                user.getCreatedAt(),
-                user.getLastActivity(),
-                user.getMovies().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                user.getTvSeries().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                user.getVodPlatforms().stream().map(i -> i.getId()).collect(Collectors.toSet())
-        );
-    }
+
+    UserCreationDto mapToUserCreationDto(User user);
+
+    @InheritInverseConfiguration(name = "mapToUserCreationDto")
+    User mapToUser(UserCreationDto userCreationDto);
+
+    @InheritInverseConfiguration(name = "mapToUserDto")
+    User mapToUser(UserDto userDto);
+
 }

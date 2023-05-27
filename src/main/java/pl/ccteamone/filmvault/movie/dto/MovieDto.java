@@ -9,7 +9,6 @@ import java.util.UUID;
 @Data
 @Builder
 public class MovieDto {
-
     private UUID id;
     private String title;
     private String posterPath;
@@ -18,5 +17,4 @@ public class MovieDto {
     private String runtime;
     private String credits;
     private double rating;
-
 }

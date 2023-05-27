@@ -1,12 +1,12 @@
 package pl.ccteamone.filmvault.user.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.user.User;
-import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
-import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
-import pl.ccteamone.filmvault.user.dto.UserResponse;
+import pl.ccteamone.filmvault.user.dto.UserCreationDto;
+import pl.ccteamone.filmvault.user.dto.UserDto;
 import pl.ccteamone.filmvault.user.mapper.UserMapper;
 import pl.ccteamone.filmvault.user.repository.UserRepository;
 
@@ -15,12 +15,10 @@ import java.util.UUID;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserMapper userMapper;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -33,71 +31,40 @@ public class UserService {
 
 
 
-    public UserResponse createUser(CreateUserRequest request) {
-//        Optional<User> users = userRepository.findByUserName(request.getUsernameR());
+    public UserCreationDto createUser(UserCreationDto userCreationDto) {
+//        Optional<User> users = userRepository.findByUserName(userCreationDto.getUsernameR());
 //        if (users.isPresent()) {
 //            return null;
 //        }
         User user = User.builder()
-                .email(request.getEmailR())
-                .password(request.getPasswordR())
-                .username(request.getUsernameR())
-                .name(request.getNameR())
-                .surname(request.getSurnameR())
-                .birthDate(request.getBirthDateR())
-                .gender(request.getGenderR())
-                .region(request.getRegionR())
-                .profilePic(request.getProfilePicR())
-                .role(request.getRoleR())
-                .isActive(request.isActiveR())
-                .createdAt(request.getCreatedAtR())
-                .lastActivity(request.getLastActivityR())
-                .movies(request.getMoviesR())
-                .tvSeries(request.getTvSeriesR())
-                .vodPlatforms(request.getVodPlatformsR())
+                .email(userCreationDto.getEmail())
+                .password(userCreationDto.getPassword())
+                .username(userCreationDto.getUsername())
                 .build();
 
         userRepository.save(user);
 
-        return UserMapper.mapUserToUserResponse(user);
+        return userMapper.mapToUserCreationDto(user);
     }
 
-    public List<UserResponse> getUsersList() {
+    public List<UserDto> getUsersList() {
         return userRepository.findAll()
-                .stream().map(UserMapper::mapUserToUserResponse)
+                .stream().map(userMapper::mapToUserDto)
                 .toList();
     }
 
-    public UserResponse getUserById(UUID userId) {
+    public UserDto getUserById(UUID userId) {
         return userRepository.findById(userId)
-                .stream().map(UserMapper::mapUserToUserResponse)
+                .stream().map(userMapper::mapToUserDto)
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("User not found, id: " + userId));
     }
 
 
 
-    public UpdateUserResponse updateUser(UUID userId, CreateUserRequest request) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found, id: " + userId));
-        user.setEmail(request.getEmailR());
-        user.setPassword(request.getPasswordR());
-        user.setName(request.getNameR());
-        user.setSurname(request.getSurnameR());
-        user.setBirthDate(request.getBirthDateR());
-        user.setGender(request.getGenderR());
-        user.setRegion(request.getRegionR());
-        user.setProfilePic(request.getProfilePicR());
-        user.setRole(request.getRoleR());
-        user.setActive(request.isActiveR());
-        user.setLastActivity(request.getLastActivityR());
-        user.setMovies(request.getMoviesR());
-        user.setTvSeries(request.getTvSeriesR());
-        user.setVodPlatforms(request.getVodPlatformsR());
-
-        user = userRepository.save(user);
-
-        return UserMapper.userToUserResponse(user);
+    public UserDto updateUser(UUID userId, UserDto request) {
+        User user = userMapper.mapToUser(request);
+        return userMapper.mapToUserDto(userRepository.save(user));
     }
 
     public void deleteUserById(UUID userId) {

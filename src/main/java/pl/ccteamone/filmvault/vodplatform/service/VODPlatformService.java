@@ -17,6 +17,7 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class VODPlatformService {
     private final VODPlatformRepository platformRepository;
+    private final VODPlatformMapper vodPlatformMapper;
 
     public VODPlatform save(VODPlatform platform) {
         return platformRepository.save(platform);
@@ -30,7 +31,7 @@ public class VODPlatformService {
                 .isAvailable(platformDto.isAvailable())
                 .apiID(platformDto.getApiID())
                 .build();
-        return VODPlatformMapper.toVODPlatformDto(platformRepository.save(platform));
+        return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }
 
     public boolean existsById(String id) {
@@ -38,18 +39,18 @@ public class VODPlatformService {
     }
 
     public List<VODPlatformDto> getVODPlatformDtoList() {
-        return StreamSupport.stream(platformRepository.findAll().spliterator(), false).map(VODPlatformMapper::toVODPlatformDto).collect(Collectors.toList());
+        return StreamSupport.stream(platformRepository.findAll().spliterator(), false).map(vodPlatformMapper::mapToVODPlatformDto).collect(Collectors.toList());
     }
 
     //TODO: create custom exception for handling missing VOD Platform
     public VODPlatformDto getVODPlatformDtoById(String id) {
         Optional<VODPlatform> platform = platformRepository.findById(UUID.fromString(id));
-        return VODPlatformMapper.toVODPlatformDto(platform.orElseThrow(() -> new RuntimeException("VOD Platform id=" + id + " not found")));
+        return vodPlatformMapper.mapToVODPlatformDto(platform.orElseThrow(() -> new RuntimeException("VOD Platform id=" + id + " not found")));
     }
 
     public VODPlatformDto getVODPlatformDtoByApiID(String id) {
         Optional<VODPlatform> platform = platformRepository.findByApiID(id);
-        return VODPlatformMapper.toVODPlatformDto(platform.orElseThrow(() -> new RuntimeException("VOD Platform apiID=" + id + " not found")));
+        return vodPlatformMapper.mapToVODPlatformDto(platform.orElseThrow(() -> new RuntimeException("VOD Platform apiID=" + id + " not found")));
     }
 
     public void updateFromDto(String id, VODPlatformDto platformDto) {
