@@ -6,7 +6,7 @@ import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface VODPlatformRepository extends CrudRepository<VODPlatform, UUID> {
+public interface VODPlatformRepository extends CrudRepository<VODPlatform, Long> {
 
     Optional<VODPlatform> findByApiID(String apiID);
 

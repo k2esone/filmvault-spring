@@ -24,7 +24,7 @@ public class TvSeriesController {
     }
 
     @GetMapping("/{id}")
-    public TvSeriesDto getTvSeries(@PathVariable("id") UUID id) {
+    public TvSeriesDto getTvSeries(@PathVariable("id") Long id) {
         return tvService.getTvSeriesDtoById(id);
     }
 

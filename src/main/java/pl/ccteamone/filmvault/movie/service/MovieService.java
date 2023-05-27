@@ -43,13 +43,13 @@ public class MovieService {
         return movieRepository.findAll().stream().map(movieMapper::mapToMovieDto).collect(Collectors.toList());
     }
 
-    public MovieDto getMovieById(UUID movieId) {
+    public MovieDto getMovieById(Long movieId) {
         Optional<Movie> movie = movieRepository.findById(movieId);
         return movieMapper.mapToMovieDto(movie.orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
     }
 
 
-    public void updateMovie(UUID movieId, MovieDto update) {
+    public void updateMovie(Long movieId, MovieDto update) {
 
         Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
 
@@ -65,7 +65,7 @@ public class MovieService {
 //      return MovieMapper.toMovieDto(movie);
     }
 
-    public void deleteMovieById(UUID movieId) {
+    public void deleteMovieById(Long movieId) {
         try {
             movieRepository.deleteById(movieId);
         } catch (EmptyResultDataAccessException e) {

@@ -7,11 +7,11 @@ import pl.ccteamone.filmvault.region.dto.RegionDto;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
+
 @Data
 @Builder
 public class TvSeriesDto {
-    private UUID id;
+    private Long id;
     private String name;
     private String description;
     private String genre;

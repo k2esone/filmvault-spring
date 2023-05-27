@@ -32,20 +32,20 @@ public class RegionController {
     }
 
     @GetMapping("/{locationId}")
-    public RegionDto getLocationById(@PathVariable("locationId") UUID locationId) {
-        log.info("someone asked for a location with id - {}", locationId);
-        return regionService.getLocationById(locationId);
+    public RegionDto getLocationById(@PathVariable("locationId") Long regionId) {
+        log.info("someone asked for a location with id - {}", regionId);
+        return regionService.getLocationById(regionId);
     }
 
     @PatchMapping("/{locationId}")
-    public RegionDto updateLocation (@PathVariable("locationId") UUID locationId, @RequestBody RegionDto request) {
-        log.info("location update with id - {} has been triggered, data: {}", locationId, request);
-        return regionService.updateLocation(locationId, request);
+    public RegionDto updateLocation (@PathVariable("locationId") Long regionId, @RequestBody RegionDto request) {
+        log.info("location update with id - {} has been triggered, data: {}", regionId, request);
+        return regionService.updateLocation(regionId, request);
     }
 
     @DeleteMapping("/{locationId}")
-        public void deleteLocationById(@PathVariable("locationId") UUID locationId) {
-        log.info("someone ask to delete location with id - {}", locationId);
-        regionService.deleteLocationById(locationId);
+        public void deleteLocationById(@PathVariable("locationId") Long regionId) {
+        log.info("someone ask to delete location with id - {}", regionId);
+        regionService.deleteLocationById(regionId);
     }
 }

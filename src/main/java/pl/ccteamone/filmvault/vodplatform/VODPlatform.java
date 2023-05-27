@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.appuser.AppUser;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Builder
@@ -17,9 +16,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class VODPlatform {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
-    private UUID id;
+    private Long id;
     private String name;
     private String logoPath;
     private String vodURL;
@@ -27,7 +26,7 @@ public class VODPlatform {
     private String apiID;
 
     @ManyToMany(mappedBy = "vodPlatforms")
-    private Set<User> users;
+    private Set<AppUser> appUsers;
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<Movie> movies;
     @ManyToMany(mappedBy = "platforms")

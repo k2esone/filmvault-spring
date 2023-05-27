@@ -33,7 +33,7 @@ public class TvSeriesService {
         return StreamSupport.stream(tvRepository.findAll().spliterator(), false).map(tvSeriesMapper::mapToTvSeriesDto).collect(Collectors.toList());
     }
 
-    public TvSeriesDto getTvSeriesDtoById(UUID id) {
+    public TvSeriesDto getTvSeriesDtoById(Long id) {
         Optional<TvSeries> tvSeries = tvRepository.findById(id);
         return tvSeriesMapper.mapToTvSeriesDto(tvSeries.orElseThrow(() -> new RuntimeException("Tv Series id=" + id + " not found")));
     }

@@ -2,11 +2,10 @@ package pl.ccteamone.filmvault.movie;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.appuser.AppUser;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Builder
@@ -17,11 +16,11 @@ import java.util.UUID;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column
 
-    private UUID id;
+    private Long id;
     private String title;
     private String posterPath;
     private String overview;
@@ -34,7 +33,7 @@ public class Movie {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<User> users;
+    private Set<AppUser> appUsers;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

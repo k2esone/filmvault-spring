@@ -21,13 +21,13 @@ public class VODPlatformController {
     }
 
     @GetMapping("/{id}")
-    public VODPlatformDto getPlatform(@PathVariable("id") String id) {
+    public VODPlatformDto getPlatform(@PathVariable("id") Long id) {
         return platformService.getVODPlatformDtoById(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/update/{id}")
-    public void updateVODPlatform(@PathVariable("id") String id, @RequestBody VODPlatformDto platformDto) {
+    public void updateVODPlatform(@PathVariable("id") Long id, @RequestBody VODPlatformDto platformDto) {
         platformService.updateFromDto(id, platformDto);
     }
 

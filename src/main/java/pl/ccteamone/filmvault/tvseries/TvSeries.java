@@ -8,7 +8,6 @@ import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Builder
@@ -18,9 +17,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TvSeries {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
-    private UUID id;
+    private Long id;
     private String name;
     private String description;
     private String genre;

@@ -1,4 +1,4 @@
-package pl.ccteamone.filmvault.user;
+package pl.ccteamone.filmvault.appuser;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -13,18 +13,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class AppUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(nullable = false)
     @Email

@@ -30,18 +30,18 @@ public class MovieController {
     }
 
     @GetMapping("/{Id}")
-    public MovieDto getMovieById(@PathVariable UUID movieId) {
+    public MovieDto getMovieById(@PathVariable Long movieId) {
         log.info("request for movie id - {}", movieId);
         return movieService.getMovieById(movieId);
     }
     @PatchMapping("/{Id}")
-    public void updateMovie (@PathVariable UUID movieId, @RequestBody MovieDto update) {
+    public void updateMovie (@PathVariable Long movieId, @RequestBody MovieDto update) {
         log.info("update movie with id - {}, data: {}", movieId, update);
        movieService.updateMovie(movieId, update);
     }
 
     @DeleteMapping("/{Id}")
-    public void deleteMovieById(UUID movieId) {
+    public void deleteMovieById(Long movieId) {
         log.info("delete movie with id - {}", movieId);
         movieService.deleteMovieById(movieId);
     }

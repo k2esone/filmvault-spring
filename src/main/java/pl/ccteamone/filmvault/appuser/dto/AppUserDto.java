@@ -1,22 +1,21 @@
-package pl.ccteamone.filmvault.user.dto;
+package pl.ccteamone.filmvault.appuser.dto;
 
 import lombok.Builder;
 import lombok.Data;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
-import pl.ccteamone.filmvault.user.Gender;
+import pl.ccteamone.filmvault.appuser.Gender;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Builder
-public class UserDto {
-    private UUID id;
+public class AppUserDto {
+    private Long id;
 
     private String email;
 

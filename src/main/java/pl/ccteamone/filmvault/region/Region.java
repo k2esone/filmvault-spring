@@ -2,10 +2,9 @@ package pl.ccteamone.filmvault.region;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.User;
+import pl.ccteamone.filmvault.appuser.AppUser;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -15,8 +14,8 @@ import java.util.UUID;
 public class Region {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String city;
     private String country;
@@ -25,6 +24,6 @@ public class Region {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "region")
-    private Set<User> users;
+    private Set<AppUser> appUsers;
 }
 

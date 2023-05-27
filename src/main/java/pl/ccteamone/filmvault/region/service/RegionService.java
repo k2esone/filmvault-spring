@@ -35,16 +35,16 @@ public class RegionService {
                 .toList();
     }
 
-    public RegionDto getLocationById(UUID locationId) {
-        return regionRepository.findById(locationId)
+    public RegionDto getLocationById(Long region) {
+        return regionRepository.findById(region)
                 .stream().map(regionMapper::mapToRegionDto)
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("Location not found, id: " + locationId));
+                .orElseThrow(() -> new EntityNotFoundException("Location not found, id: " + region));
     }
 
-    public RegionDto updateLocation(UUID locationId, RegionDto request) {
-        Region region = regionRepository.findById(locationId)
-                .orElseThrow(() -> new EntityNotFoundException("Location not found, id:" + locationId));
+    public RegionDto updateLocation(Long regionId, RegionDto request) {
+        Region region = regionRepository.findById(regionId)
+                .orElseThrow(() -> new EntityNotFoundException("Location not found, id:" + regionId));
         region.setCity(request.getCity());
         region.setCountry(request.getCountry());
         region.setFlag(request.getFlag());
@@ -53,11 +53,11 @@ public class RegionService {
         return regionMapper.mapToRegionDto(region);
     }
 
-    public void deleteLocationById(UUID locationId) {
+    public void deleteLocationById(Long regionId) {
         try {
-            regionRepository.deleteById(locationId);
+            regionRepository.deleteById(regionId);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("Location not found, id: " + locationId);
+            throw new EntityNotFoundException("Location not found, id: " + regionId);
         }
 
     }
