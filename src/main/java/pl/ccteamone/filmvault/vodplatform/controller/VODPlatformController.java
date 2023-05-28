@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.vodplatform.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.vodplatform.dto.CreateVODPlatformRequest;
+import pl.ccteamone.filmvault.vodplatform.dto.UpdateVODPlatformRequest;
 import pl.ccteamone.filmvault.vodplatform.dto.UpdateVODPlatformResponse;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformResponse;
 import pl.ccteamone.filmvault.vodplatform.service.VODPlatformService;
@@ -39,7 +40,7 @@ public class VODPlatformController {
     }
 
     @PatchMapping("/{vodPlatformId}")
-    public UpdateVODPlatformResponse updateVODPlatform (@PathVariable UUID vodPlatformId, @RequestBody CreateVODPlatformRequest request) {
+    public UpdateVODPlatformResponse updateVODPlatform (@PathVariable UUID vodPlatformId, @RequestBody UpdateVODPlatformRequest request) {
         log.info("vodPlatform update with id - {} has been triggered, data: {}", vodPlatformId, request);
         return platformService.updateVODPlatform(vodPlatformId, request);
 

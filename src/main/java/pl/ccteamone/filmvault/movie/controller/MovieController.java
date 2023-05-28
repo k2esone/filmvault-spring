@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.movie.dto.CreateMovieRequest;
 import pl.ccteamone.filmvault.movie.dto.MovieResponse;
+import pl.ccteamone.filmvault.movie.dto.UpdateMovieRequest;
 import pl.ccteamone.filmvault.movie.dto.UpdateMovieResponse;
 import pl.ccteamone.filmvault.movie.service.MovieService;
 
@@ -39,7 +40,7 @@ public class MovieController {
     }
 
     @PatchMapping("/{movieId}")
-    public UpdateMovieResponse updateUser (@PathVariable UUID movieId, @RequestBody CreateMovieRequest request) {
+    public UpdateMovieResponse updateUser (@PathVariable UUID movieId, @RequestBody UpdateMovieRequest request) {
         log.info("movie update with id - {} has been triggered, data: {}", movieId, request);
         return movieService.updateMovie(movieId, request);
 

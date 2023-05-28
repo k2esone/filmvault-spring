@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.tvseries.dto.CreateTvSeriesRequest;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesResponse;
+import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesRequest;
 import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesResponse;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
@@ -40,7 +41,7 @@ public class TvSeriesController {
     }
 
     @PatchMapping("/{tvSeriesId}")
-    public UpdateTvSeriesResponse updateTvSeries (@PathVariable UUID tvSeriesId, @RequestBody CreateTvSeriesRequest request) {
+    public UpdateTvSeriesResponse updateTvSeries (@PathVariable UUID tvSeriesId, @RequestBody UpdateTvSeriesRequest request) {
         log.info("tvSeries update with id - {} has been triggered, data: {}", tvSeriesId, request);
         return tvService.updateTvSeries(tvSeriesId, request);
 

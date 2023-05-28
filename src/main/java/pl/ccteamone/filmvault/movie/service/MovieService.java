@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.CreateMovieRequest;
 import pl.ccteamone.filmvault.movie.dto.MovieResponse;
+import pl.ccteamone.filmvault.movie.dto.UpdateMovieRequest;
 import pl.ccteamone.filmvault.movie.dto.UpdateMovieResponse;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
@@ -62,7 +63,7 @@ public class MovieService {
     }
 
 
-    public UpdateMovieResponse updateMovie(UUID movieId, CreateMovieRequest request) {
+    public UpdateMovieResponse updateMovie(UUID movieId, UpdateMovieRequest request) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found, id: " + movieId));
         movie.setTitle(request.getTitleR());

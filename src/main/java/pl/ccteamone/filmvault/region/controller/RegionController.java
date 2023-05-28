@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.region.dto.CreateRegionRequest;
 import pl.ccteamone.filmvault.region.dto.RegionResponse;
+import pl.ccteamone.filmvault.region.dto.UpdateRegionRequest;
 import pl.ccteamone.filmvault.region.dto.UpdateRegionResponse;
 import pl.ccteamone.filmvault.region.service.RegionService;
 
@@ -40,7 +41,7 @@ public class RegionController {
     }
 
     @PatchMapping("/{regionId}")
-    public UpdateRegionResponse updateLocation (@PathVariable UUID regionId, @RequestBody CreateRegionRequest request) {
+    public UpdateRegionResponse updateLocation (@PathVariable UUID regionId, @RequestBody UpdateRegionRequest request) {
         log.info("location update with id - {} has been triggered, data: {}", regionId, request);
         return regionService.updateLocation(regionId, request);
     }

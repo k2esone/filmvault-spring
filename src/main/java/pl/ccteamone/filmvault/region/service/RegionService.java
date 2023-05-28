@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.region.dto.CreateRegionRequest;
 import pl.ccteamone.filmvault.region.dto.RegionResponse;
+import pl.ccteamone.filmvault.region.dto.UpdateRegionRequest;
 import pl.ccteamone.filmvault.region.dto.UpdateRegionResponse;
 import pl.ccteamone.filmvault.region.mapper.RegionMapper;
 import pl.ccteamone.filmvault.region.repository.RegionRepository;
@@ -48,7 +49,7 @@ public class RegionService {
                 .orElseThrow(() -> new EntityNotFoundException("Location not found, id: " + regionId));
     }
 
-    public UpdateRegionResponse updateLocation(UUID regionId, CreateRegionRequest request) {
+    public UpdateRegionResponse updateLocation(UUID regionId, UpdateRegionRequest request) {
         Region region = regionRepository.findById(regionId)
                 .orElseThrow(() -> new EntityNotFoundException("Location not found, id:" + regionId));
         region.setCity(request.getCityR());

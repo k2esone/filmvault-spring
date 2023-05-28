@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.user.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
+import pl.ccteamone.filmvault.user.dto.UpdateUserRequest;
 import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
 import pl.ccteamone.filmvault.user.dto.UserResponse;
 import pl.ccteamone.filmvault.user.service.UserService;
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public UpdateUserResponse updateUser (@PathVariable UUID userId, @RequestBody CreateUserRequest request) {
+    public UpdateUserResponse updateUser (@PathVariable UUID userId, @RequestBody UpdateUserRequest request) {
         log.info("user update with id - {} has been triggered, data: {}", userId, request);
         return userService.updateUser(userId, request);
 

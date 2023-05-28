@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.user.MyUser;
 import pl.ccteamone.filmvault.user.dto.CreateUserRequest;
+import pl.ccteamone.filmvault.user.dto.UpdateUserRequest;
 import pl.ccteamone.filmvault.user.dto.UpdateUserResponse;
 import pl.ccteamone.filmvault.user.dto.UserResponse;
 import pl.ccteamone.filmvault.user.mapper.UserMapper;
@@ -77,7 +78,7 @@ public class UserService {
 
 
 
-    public UpdateUserResponse updateUser(UUID userId, CreateUserRequest request) {
+    public UpdateUserResponse updateUser(UUID userId, UpdateUserRequest request) {
         MyUser myUser = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("MyUser not found, id: " + userId));
         myUser.setEmail(request.getEmailR());

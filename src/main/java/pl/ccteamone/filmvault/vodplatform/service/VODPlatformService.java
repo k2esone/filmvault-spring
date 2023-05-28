@@ -10,6 +10,7 @@ import pl.ccteamone.filmvault.movie.dto.UpdateMovieResponse;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 import pl.ccteamone.filmvault.vodplatform.dto.CreateVODPlatformRequest;
+import pl.ccteamone.filmvault.vodplatform.dto.UpdateVODPlatformRequest;
 import pl.ccteamone.filmvault.vodplatform.dto.UpdateVODPlatformResponse;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformResponse;
 import pl.ccteamone.filmvault.vodplatform.mapper.VODPlatformMapper;
@@ -60,7 +61,7 @@ public class VODPlatformService {
     }
 
 
-    public UpdateVODPlatformResponse updateVODPlatform(UUID vodPlatformId, CreateVODPlatformRequest request) {
+    public UpdateVODPlatformResponse updateVODPlatform(UUID vodPlatformId, UpdateVODPlatformRequest request) {
         VODPlatform vodPlatform = platformRepository.findById(vodPlatformId)
                 .orElseThrow(() -> new EntityNotFoundException("vodPlatform not found, id: " + vodPlatformId));
 vodPlatform.setName(request.getNameR());

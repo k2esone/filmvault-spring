@@ -11,6 +11,7 @@ import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.tvseries.dto.CreateTvSeriesRequest;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesResponse;
+import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesRequest;
 import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesResponse;
 import pl.ccteamone.filmvault.tvseries.mapper.TvSeriesMapper;
 import pl.ccteamone.filmvault.tvseries.repository.TvSeriesRepository;
@@ -65,7 +66,7 @@ public class TvSeriesService {
     }
 
 
-    public UpdateTvSeriesResponse updateTvSeries(UUID tvSeriesId, CreateTvSeriesRequest request) {
+    public UpdateTvSeriesResponse updateTvSeries(UUID tvSeriesId, UpdateTvSeriesRequest request) {
         TvSeries tvSeries = tvRepository.findById(tvSeriesId)
                 .orElseThrow(() -> new EntityNotFoundException("tvSeries not found, id: " + tvSeriesId));
         tvSeries.setName(request.getNameR());
