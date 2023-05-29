@@ -3,17 +3,17 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "username": "stefan123",
-  "password": "12sadasd3",
-  "email": "emasdasail@test.com"
+  "username": "tomekw2",
+  "password": "s4bgbbssw!",
+  "email": "tomekw.waw@gmail.com"
 }
 ###
 PATCH http://localhost:8080/users/2
 Content-Type: application/json
 
 {
-  "name": "costam",
-  "surname": "ACDC",
+  "name": "Adrian",
+  "surname": "Zwierz",
   "movies": [{
     "id": 3
   }],
@@ -27,6 +27,7 @@ Content-Type: application/json
     "id": 2
   }
 }
+
 
 ###
 GET http://localhost:8080/users
@@ -46,8 +47,8 @@ POST http://localhost:8080/movies/add
 Content-Type: application/json
 
 {
-  "title": "filmABC",
-  "overview": "askljdhlaskhd",
+  "title": "Szybcy i Wściekli",
+  "overview": "Brum brum!",
   "releaseDate": "23/01/2020"
 }
 
@@ -62,8 +63,13 @@ PATCH http://localhost:8080/movies/2
 Content-Type: application/json
 
 {
-  "title": "ASDFG",
-  "runtime": "2H"
+  "runtime": "2H",
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 1
+  }
 }
 
 ###
@@ -77,8 +83,8 @@ POST http://localhost:8080/regions/add
 Content-Type: application/json
 
 {
-  "city": "Paris",
-  "country": "FR"
+  "city": "London",
+  "country": "UK"
 }
 
 ###
@@ -108,8 +114,8 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "serie123",
-  "description": "akdjslhaads",
+  "name": "Muminki",
+  "description": "Bukaaaa",
   "adult": true
 }
 
@@ -124,7 +130,13 @@ PATCH http://localhost:8080/tvseries/3
 Content-Type: application/json
 
 {
-  "name": "ZZZZZZZZZZ"
+  "name": "ZZZZZZZZZZ",
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 2
+  }
 }
 
 ###
@@ -143,9 +155,9 @@ POST http://localhost:8080/vodplatforms/add
 Content-Type: application/json
 
 {
-  "name": "VOD123",
-  "logoPath": "THISISLOGO",
-  "vodURL": "URL",
+  "name": "VOD",
+  "logoPath": "VODLogo",
+  "vodURL": "www.vod.pl",
   "active": false
 }
 

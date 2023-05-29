@@ -17,7 +17,6 @@ import java.util.Set;
 public class VODPlatform {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Setter(AccessLevel.PRIVATE)
     private Long id;
     private String name;
     private String logoPath;
@@ -37,7 +36,7 @@ public class VODPlatform {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "platforms")
+    @ManyToMany(mappedBy = "vodPlatforms")
     private Set<TvSeries> tvSeries;
 
 }

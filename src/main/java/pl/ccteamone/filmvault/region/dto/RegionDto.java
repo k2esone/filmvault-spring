@@ -4,7 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 import pl.ccteamone.filmvault.movie.Movie;
+import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 
 import java.util.Set;
 
@@ -16,6 +18,6 @@ public class RegionDto {
     private String country;
     private String flag;
     private Set<AppUserDto> appUsers;
-    private Set<TvSeries> tvSeries;
-    private Set<Movie> movies;
+    private Set<TvSeriesDto> tvSeries;
+    private Set<MovieDto> movies;
 }

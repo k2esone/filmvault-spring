@@ -86,8 +86,8 @@ public class TvSeriesService {
         if(series.getRegion() != null) {
             tvSeries.setRegion(series.getRegion());
         }
-        if(series.getPlatforms() != null) {
-            tvSeries.setPlatforms(series.getPlatforms());
+        if(series.getVodPlatforms() != null) {
+            tvSeries.setVodPlatforms(series.getVodPlatforms());
         }
         if(series.getAppUsers() != null) {
             tvSeries.setAppUsers(series.getAppUsers());
