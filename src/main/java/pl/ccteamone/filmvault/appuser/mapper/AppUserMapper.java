@@ -2,7 +2,6 @@ package pl.ccteamone.filmvault.appuser.mapper;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.appuser.AppUser;
 import pl.ccteamone.filmvault.appuser.dto.AppUserCreationDto;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;

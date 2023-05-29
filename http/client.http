@@ -3,7 +3,7 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "username": "stefan",
+  "username": "stefan123",
   "password": "12sadasd3",
   "email": "emasdasail@test.com"
 }
@@ -16,7 +16,16 @@ Content-Type: application/json
   "surname": "ACDC",
   "movies": [{
     "id": 3
-  }]
+  }],
+  "tvSeries": [{
+    "id": 3
+  }],
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 2
+  }
 }
 
 ###
@@ -37,7 +46,7 @@ POST http://localhost:8080/movies/add
 Content-Type: application/json
 
 {
-  "title": "filmC",
+  "title": "filmABC",
   "overview": "askljdhlaskhd",
   "releaseDate": "23/01/2020"
 }
@@ -68,8 +77,8 @@ POST http://localhost:8080/regions/add
 Content-Type: application/json
 
 {
-  "city": "awqsdqwda",
-  "country": "aasdfasda"
+  "city": "Paris",
+  "country": "FR"
 }
 
 ###
@@ -99,7 +108,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "kAasdasdad",
+  "name": "serie123",
   "description": "akdjslhaads",
   "adult": true
 }
@@ -134,10 +143,10 @@ POST http://localhost:8080/vodplatforms/add
 Content-Type: application/json
 
 {
-  "name": "zzzzzzzzzz NAME",
+  "name": "VOD123",
   "logoPath": "THISISLOGO",
   "vodURL": "URL",
-  "active": true
+  "active": false
 }
 
 ###

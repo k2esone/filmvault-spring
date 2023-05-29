@@ -89,6 +89,12 @@ public class AppUserService {
         if(appUser.getMovies() != null) {
             user.setMovies(appUser.getMovies());
         }
+        if (appUser.getVodPlatforms() != null) {
+            user.setVodPlatforms(appUser.getVodPlatforms());
+        }
+        if (appUser.getTvSeries() != null) {
+            user.setTvSeries(appUser.getTvSeries());
+        }
         return appUserMapper.mapToAppUserDto(appUserRepository.save(user));
     }
 
