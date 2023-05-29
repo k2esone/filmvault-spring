@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class VODPlatform {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String logoPath;

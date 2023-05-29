@@ -3,10 +3,14 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "username": "tomekw2",
+  "username": "basia",
   "password": "s4bgbbssw!",
   "email": "tomekw.waw@gmail.com"
 }
+
+###
+POST http://localhost:8080/users/jan/add-movie?movieTitle=film3
+
 ###
 PATCH http://localhost:8080/users/2
 Content-Type: application/json
@@ -33,7 +37,7 @@ Content-Type: application/json
 GET http://localhost:8080/users
 
 ###
-GET http://localhost:8080/users/1
+GET http://localhost:8080/users/4
 
 ###
 DELETE http://localhost:8080/users/2
@@ -47,7 +51,7 @@ POST http://localhost:8080/movies/add
 Content-Type: application/json
 
 {
-  "title": "Szybcy i Wściekli",
+  "title": "film3",
   "overview": "Brum brum!",
   "releaseDate": "23/01/2020"
 }

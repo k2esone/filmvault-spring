@@ -9,7 +9,9 @@ import pl.ccteamone.filmvault.appuser.dto.AppUserCreationDto;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 import pl.ccteamone.filmvault.appuser.mapper.AppUserMapper;
 import pl.ccteamone.filmvault.appuser.repository.AppUserRepository;
+import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
+import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final AppUserMapper appUserMapper;
+    private final MovieRepository movieRepository;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -41,6 +44,16 @@ public class AppUserService {
 
         appUserRepository.save(appUser);
         return appUserMapper.mapToAppUserCreationDto(appUser);
+    }
+
+    public AppUserDto addMovieByTitle(String username, String movieTitle) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
+        Movie movie = movieRepository.findByTitle(movieTitle)
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found, title: " + movieTitle));
+        appUser.getMovies().add(movie);
+        appUserRepository.save(appUser);
+        return appUserMapper.mapToAppUserDto(appUser);
     }
 
     public List<AppUserDto> getUsersList() {
@@ -105,5 +118,4 @@ public class AppUserService {
             throw new EntityNotFoundException("AppUser not found, id: " + userId);
         }
     }
-
 }
