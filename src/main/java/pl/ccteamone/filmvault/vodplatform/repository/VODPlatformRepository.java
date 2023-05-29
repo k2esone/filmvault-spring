@@ -1,13 +1,12 @@
 package pl.ccteamone.filmvault.vodplatform.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface VODPlatformRepository extends CrudRepository<VODPlatform, Long> {
+public interface VODPlatformRepository extends JpaRepository<VODPlatform, Long> {
 
-    Optional<VODPlatform> findByApiID(String apiID);
+//    Optional<VODPlatform> findByApiID(String apiID);
 
 }

@@ -10,7 +10,6 @@ import pl.ccteamone.filmvault.tvseries.repository.TvSeriesRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -41,13 +40,9 @@ public class TvSeriesService {
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }
 
-    public TvSeriesDto saveFromDto (TvSeriesDto tvSeriesDto) {
-        TvSeries tvSeries = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
-        return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
-    }
-
     public List<TvSeriesDto> getTvSeriesDtoList() {
-        return StreamSupport.stream(tvRepository.findAll().spliterator(), false).map(tvSeriesMapper::mapToTvSeriesDto).collect(Collectors.toList());
+        return StreamSupport.stream(tvRepository.findAll().spliterator(), false)
+                .map(tvSeriesMapper::mapToTvSeriesDto).collect(Collectors.toList());
     }
 
     public TvSeriesDto getTvSeriesDtoById(Long id) {

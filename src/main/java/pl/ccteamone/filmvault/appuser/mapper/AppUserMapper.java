@@ -10,9 +10,6 @@ import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 @Mapper(componentModel = "spring")
 public interface AppUserMapper {
 
-    @Mapping(source = "movies", target = "movies")
-    @Mapping(source = "tvSeries", target = "tvSeries")
-    @Mapping(source = "vodPlatforms", target = "vodPlatforms")
     AppUserDto mapToAppUserDto(AppUser appUser);
 
 

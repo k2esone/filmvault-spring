@@ -120,3 +120,41 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/tvseries/3
+
+
+
+
+
+
+
+
+
+###
+POST http://localhost:8080/vodplatforms/add
+Content-Type: application/json
+
+{
+  "name": "zzzzzzzzzz NAME",
+  "logoPath": "THISISLOGO",
+  "vodURL": "URL",
+  "active": true
+}
+
+###
+GET http://localhost:8080/vodplatforms
+
+###
+GET http://localhost:8080/vodplatforms/2
+
+###
+PATCH http://localhost:8080/vodplatforms/2
+Content-Type: application/json
+
+{
+  "name": "NOOOOOOOOOOOOOOO",
+  "vodURL": "TOJESTURL",
+  "active": true
+}
+
+###
+DELETE http://localhost:8080/vodplatforms/2

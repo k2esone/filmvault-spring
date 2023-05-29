@@ -22,7 +22,7 @@ public class VODPlatform {
     private String name;
     private String logoPath;
     private String vodURL;
-    private boolean isAvailable;
+    private boolean active;
     private String apiID;
 
     @ManyToMany(mappedBy = "vodPlatforms")
