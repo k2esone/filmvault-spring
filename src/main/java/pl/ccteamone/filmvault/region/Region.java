@@ -6,7 +6,8 @@ import pl.ccteamone.filmvault.appuser.AppUser;
 
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor

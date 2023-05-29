@@ -10,7 +10,6 @@ import pl.ccteamone.filmvault.region.mapper.RegionMapper;
 import pl.ccteamone.filmvault.region.repository.RegionRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class RegionService {
     private final RegionRepository regionRepository;
     private final RegionMapper regionMapper;
 
-    public RegionDto createLocation(RegionDto request) {
+    public RegionDto createRegion(RegionDto request) {
         Region region = Region.builder()
                 .city(request.getCity())
                 .country(request.getCountry())
@@ -29,35 +28,39 @@ public class RegionService {
         return regionMapper.mapToRegionDto(region);
     }
 
-    public List<RegionDto> getLocationsList() {
+    public List<RegionDto> getRegionList() {
         return regionRepository.findAll()
                 .stream().map(regionMapper::mapToRegionDto)
                 .toList();
     }
 
-    public RegionDto getLocationById(Long region) {
+    public RegionDto getRegionById(Long region) {
         return regionRepository.findById(region)
                 .stream().map(regionMapper::mapToRegionDto)
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("Location not found, id: " + region));
+                .orElseThrow(() -> new EntityNotFoundException("Region not found, id: " + region));
     }
 
-    public RegionDto updateLocation(Long regionId, RegionDto request) {
+    public RegionDto updateRegion(Long regionId, RegionDto request) {
         Region region = regionRepository.findById(regionId)
-                .orElseThrow(() -> new EntityNotFoundException("Location not found, id:" + regionId));
-        region.setCity(request.getCity());
-        region.setCountry(request.getCountry());
-        region.setFlag(request.getFlag());
-        region = regionRepository.save(region);
-
-        return regionMapper.mapToRegionDto(region);
+                .orElseThrow(() -> new EntityNotFoundException("Region not found, id:" + regionId));
+        if(request.getCity() != null) {
+            region.setCity(request.getCity());
+        }
+        if(request.getCountry() != null) {
+            region.setCountry(request.getCountry());
+        }
+        if(request.getFlag() != null) {
+            region.setFlag(request.getFlag());
+        }
+        return regionMapper.mapToRegionDto(regionRepository.save(region));
     }
 
-    public void deleteLocationById(Long regionId) {
+    public void deleteRegionById(Long regionId) {
         try {
             regionRepository.deleteById(regionId);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("Location not found, id: " + regionId);
+            throw new EntityNotFoundException("Region not found, id: " + regionId);
         }
 
     }
