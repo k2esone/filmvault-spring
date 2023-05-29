@@ -17,9 +17,7 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Column
-
     private Long id;
     private String title;
     private String posterPath;

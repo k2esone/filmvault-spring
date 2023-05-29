@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -37,12 +38,8 @@ public class AppUser {
     private String name;
     private String surname;
     private LocalDate birthDate;
+    @Enumerated(value = EnumType.STRING)
     private Gender gender;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToOne
-    private Region region;
 
     private String profilePic;
     private String role;
@@ -52,6 +49,12 @@ public class AppUser {
     private LocalDateTime createdAt;
 
     private LocalDateTime lastActivity;
+
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
+    private Region region;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

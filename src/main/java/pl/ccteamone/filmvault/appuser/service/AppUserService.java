@@ -9,6 +9,7 @@ import pl.ccteamone.filmvault.appuser.dto.AppUserCreationDto;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 import pl.ccteamone.filmvault.appuser.mapper.AppUserMapper;
 import pl.ccteamone.filmvault.appuser.repository.AppUserRepository;
+import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final AppUserMapper appUserMapper;
+    private final MovieMapper movieMapper;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -31,10 +33,7 @@ public class AppUserService {
 
 
     public AppUserCreationDto createAppUser(AppUserCreationDto appUserCreationDto) {
-//        Optional<AppUser> appUsers = userRepository.findByUserName(appUserCreationDto.getUsernameR());
-//        if (appUsers.isPresent()) {
-//            return null;
-//        }
+
         AppUser appUser = AppUser.builder()
                 .email(appUserCreationDto.getEmail())
                 .password(appUserCreationDto.getPassword())
@@ -42,7 +41,6 @@ public class AppUserService {
                 .build();
 
         appUserRepository.save(appUser);
-
         return appUserMapper.mapToAppUserCreationDto(appUser);
     }
 
@@ -61,9 +59,38 @@ public class AppUserService {
 
 
 
-    public AppUserDto updateUser(Long userId, AppUserDto request) {
-        AppUser appUser = appUserMapper.mapToAppUser(request);
-        return appUserMapper.mapToAppUserDto(appUserRepository.save(appUser));
+    public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
+        AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
+
+        AppUser appUser = appUserMapper.mapToAppUser(appUserDto);
+        if(appUser.getEmail() != null){
+            user.setEmail(appUser.getEmail());
+        }
+        if(appUser.getName() != null) {
+            user.setName(appUser.getName());
+        }
+        if(appUser.getPassword() != null) {
+            user.setPassword(appUser.getPassword());
+        }
+        if(appUser.getSurname() != null) {
+            user.setSurname(appUser.getSurname());
+        }
+        if(appUser.getBirthDate() != null) {
+            user.setBirthDate(appUser.getBirthDate());
+        }
+        if(appUser.getGender() != null) {
+            user.setGender(appUser.getGender());
+        }
+        if(appUser.getProfilePic() != null) {
+            user.setProfilePic(appUser.getProfilePic());
+        }
+        if(appUser.getRegion() != null) {
+            user.setRegion(appUser.getRegion());
+        }
+        if(appUser.getMovies() != null) {
+            user.setMovies(appUser.getMovies());
+        }
+        return appUserMapper.mapToAppUserDto(appUserRepository.save(user));
     }
 
     public void deleteUserById(Long userId) {
