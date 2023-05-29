@@ -12,9 +12,8 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/movies")
+@RequestMapping("/movies")
 public class MovieController {
-
     private final MovieService movieService;
 
     @PostMapping("/add")
@@ -23,25 +22,26 @@ public class MovieController {
         return movieService.createMovie(create);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public List<MovieDto> getMovieList() {
         log.info("request for movies list");
         return movieService.getMovieList();
     }
 
-    @GetMapping("/{Id}")
+    @GetMapping("/{movieId}")
     public MovieDto getMovieById(@PathVariable Long movieId) {
         log.info("request for movie id - {}", movieId);
         return movieService.getMovieById(movieId);
     }
-    @PatchMapping("/{Id}")
-    public void updateMovie (@PathVariable Long movieId, @RequestBody MovieDto update) {
+
+    @PatchMapping("/{movieId}")
+    public MovieDto updateMovie(@PathVariable Long movieId, @RequestBody MovieDto update) {
         log.info("update movie with id - {}, data: {}", movieId, update);
-       movieService.updateMovie(movieId, update);
+        return movieService.updateMovie(movieId, update);
     }
 
-    @DeleteMapping("/{Id}")
-    public void deleteMovieById(Long movieId) {
+    @DeleteMapping("/{movieId}")
+    public void deleteMovieById(@PathVariable Long movieId) {
         log.info("delete movie with id - {}", movieId);
         movieService.deleteMovieById(movieId);
     }

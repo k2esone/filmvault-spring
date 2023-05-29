@@ -21,10 +21,12 @@ public class Movie {
     private Long id;
     private String title;
     private String posterPath;
-    private String overview;
+    private String overview; //opis do filmu
     private String releaseDate;
-    private String runtime;
-    private String credits;
+    private String runtime; //czas trwania filmu
+    private String credits; //moze byc kolekcją - aktorzy
+
+    //TODO: create rating implementation logic
     private double rating;
 
 

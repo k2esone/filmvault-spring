@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-    Optional<Movie> findByTitle(String apiID);
+    //Optional<Movie> findByTitle(String title);
 }

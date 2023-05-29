@@ -19,7 +19,6 @@ import java.util.List;
 public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final AppUserMapper appUserMapper;
-    private final MovieMapper movieMapper;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

@@ -25,7 +25,6 @@ public class MovieService {
 
 
     public MovieDto createMovie(MovieDto create) {
-
         Movie movie = Movie.builder()
                 .title(create.getTitle())
                 .posterPath(create.getPosterPath())
@@ -44,25 +43,38 @@ public class MovieService {
     }
 
     public MovieDto getMovieById(Long movieId) {
-        Optional<Movie> movie = movieRepository.findById(movieId);
-        return movieMapper.mapToMovieDto(movie.orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
+        return movieMapper.mapToMovieDto(movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
     }
 
 
-    public void updateMovie(Long movieId, MovieDto update) {
+    public MovieDto updateMovie(Long movieId, MovieDto update) {
 
-        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
+        if(update.getTitle() != null) {
+            movie.setTitle(update.getTitle());
+        }
+        if(update.getPosterPath() != null) {
+            movie.setPosterPath(update.getPosterPath());
+        }
+        if(update.getOverview() != null) {
+            movie.setOverview(update.getOverview());
+        }
+        if(update.getReleaseDate() != null) {
+            movie.setReleaseDate(update.getReleaseDate());
+        }
+        if(update.getRuntime() != null) {
+            movie.setRuntime(update.getRuntime());
+        }
+        if(update.getCredits() != null) {
+            movie.setCredits(update.getCredits());
+        }
+        if(update.getRating() != 0) {
+            movie.setRating(update.getRating());
+        }
 
-        movie.setTitle(update.getTitle());
-        movie.setPosterPath(update.getPosterPath());
-        movie.setOverview(update.getOverview());
-        movie.setReleaseDate(update.getReleaseDate());
-        movie.setRuntime(update.getRuntime());
-        movie.setCredits(update.getCredits());
-        movie.setRating(update.getRating());
-
-        movieRepository.save(movie);
-//      return MovieMapper.toMovieDto(movie);
+        return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
 
     public void deleteMovieById(Long movieId) {
