@@ -1,3 +1,157 @@
+GET http://localhost:8080/tvseries
+
+<> 2023-05-29T144505.200.json
+
+###
+
+DELETE http://localhost:8080/tvseries/3
+
+###
+
+GET http://localhost:8080/tvseries/3
+
+<> 2023-05-29T144455.200.json
+
+###
+
+PATCH http://localhost:8080/tvseries/3
+Content-Type: application/json
+
+{
+  "name": "ZZZZZZZZZZ"
+}
+
+<> 2023-05-29T144452.200.json
+
+###
+
+GET http://localhost:8080/tvseries/3
+
+<> 2023-05-29T144405.200.json
+
+###
+
+GET http://localhost:8080/tvseries/3
+
+<> 2023-05-29T144401.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-05-29T144356.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kAasdasdad",
+  "description": "akdjslhaads",
+  "adult": true
+}
+
+<> 2023-05-29T144353.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kAasdasdad",
+  "description": "akdjslhaikhsdha",
+  "adult": true
+}
+
+<> 2023-05-29T144319.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kAAAAdad",
+  "description": "akdjslhaikhsdha",
+  "adult": true
+}
+
+<> 2023-05-29T144313.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kAAAAdad",
+  "description": "akdjslhaikhsdha",
+  "adult": false
+}
+
+<> 2023-05-29T144255.200.json
+
+###
+
+GET http://localhost:8080/tvseries/3
+
+<> 2023-05-29T144155.500.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-05-29T144142.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kAAAAdad",
+  "description": "akdjslhaikhsdha",
+  "adult": false
+}
+
+<> 2023-05-29T144140.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-05-29T144111.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "ksadsdad",
+  "description": "akdjslhaikhsdha",
+  "adult": false
+}
+
+<> 2023-05-29T144108.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kjahgsd",
+  "description": "akdjslhaikhsdha",
+  "adult": true
+}
+
+<> 2023-05-29T144052.200.json
+
+###
+
 GET http://localhost:8080/regions
 
 <> 2023-05-29T133705.200.json
@@ -268,161 +422,6 @@ Content-Type: application/json
 GET http://localhost:8080/movies
 
 <> 2023-05-29T131414.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmC",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131411.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmA",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131406.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmb",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131402.200.json
-
-###
-
-GET http://localhost:8080/movies/2
-
-<> 2023-05-29T131155.500.json
-
-###
-
-PATCH http://localhost:8080/movies/2
-Content-Type: application/json
-
-{
-  "title": "ASDFG",
-  "runtime": "2H"
-}
-
-<> 2023-05-29T131152.500.json
-
-###
-
-GET http://localhost:8080/movies
-
-<> 2023-05-29T131137.200.json
-
-###
-
-GET http://localhost:8080/movies
-
-<> 2023-05-29T131135.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmb",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131130.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmb",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131127.200.json
-
-###
-
-GET http://localhost:8080/movies
-
-<> 2023-05-29T131117.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmA",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131111.200.json
-
-###
-
-GET http://localhost:8080/users
-
-<> 2023-05-29T122536.200.json
-
-###
-
-DELETE http://localhost:8080/users/2
-
-###
-
-GET http://localhost:8080/users
-
-<> 2023-05-29T122523.200.json
-
-###
-
-DELETE http://localhost:8080/users/4
-
-###
-
-GET http://localhost:8080/users
-
-<> 2023-05-29T122506.200.json
-
-###
-
-PATCH http://localhost:8080/users/2
-Content-Type: application/json
-
-{
-  "name": "costam",
-  "surname": "ACDC",
-  "movies": [{
-    "id": 1
-  }]
-}
-
-<> 2023-05-29T122452.200.json
 
 ###
 

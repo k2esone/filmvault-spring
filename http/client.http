@@ -1,0 +1,122 @@
+###
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "stefan",
+  "password": "12sadasd3",
+  "email": "emasdasail@test.com"
+}
+###
+PATCH http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+  "name": "costam",
+  "surname": "ACDC",
+  "movies": [{
+    "id": 3
+  }]
+}
+
+###
+GET http://localhost:8080/users
+
+###
+GET http://localhost:8080/users/1
+
+###
+DELETE http://localhost:8080/users/2
+
+
+
+
+
+###
+POST http://localhost:8080/movies/add
+Content-Type: application/json
+
+{
+  "title": "filmC",
+  "overview": "askljdhlaskhd",
+  "releaseDate": "23/01/2020"
+}
+
+###
+GET http://localhost:8080/movies
+
+###
+GET http://localhost:8080/movies/2
+
+###
+PATCH http://localhost:8080/movies/2
+Content-Type: application/json
+
+{
+  "title": "ASDFG",
+  "runtime": "2H"
+}
+
+###
+DELETE http://localhost:8080/movies/2
+
+
+
+
+###
+POST http://localhost:8080/regions/add
+Content-Type: application/json
+
+{
+  "city": "awqsdqwda",
+  "country": "aasdfasda"
+}
+
+###
+GET http://localhost:8080/regions
+
+###
+GET http://localhost:8080/regions/3
+
+###
+PATCH http://localhost:8080/regions/3
+Content-Type: application/json
+
+{
+  "city": "AAAAA",
+  "flag": "Flag"
+}
+
+###
+DELETE http://localhost:8080/regions/3
+
+
+
+
+
+###
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "kAasdasdad",
+  "description": "akdjslhaads",
+  "adult": true
+}
+
+###
+GET http://localhost:8080/tvseries
+
+###
+GET http://localhost:8080/tvseries/3
+
+###
+PATCH http://localhost:8080/tvseries/3
+Content-Type: application/json
+
+{
+  "name": "ZZZZZZZZZZ"
+}
+
+###
+DELETE http://localhost:8080/tvseries/3

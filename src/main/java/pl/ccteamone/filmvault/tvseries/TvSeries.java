@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.tvseries;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.ccteamone.filmvault.appuser.AppUser;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
@@ -31,11 +32,13 @@ public class TvSeries {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     private LocalDate lastAirDate;
     private int seasons;
+    private Long apiID;
 
     @ManyToMany
     private Set<Region> regions;
     @ManyToMany
     private Set<VODPlatform> platforms;
+    @ManyToMany
+    private Set<AppUser> appUsers;
 
-    private Long apiID;
 }

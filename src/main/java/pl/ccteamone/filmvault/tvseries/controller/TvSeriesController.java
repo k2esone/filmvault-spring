@@ -1,10 +1,7 @@
 package pl.ccteamone.filmvault.tvseries.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
@@ -13,19 +10,35 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/tvseries")
+@RequestMapping("/tvseries")
 public class TvSeriesController {
 
     private final TvSeriesService tvService;
 
-    @GetMapping("/list")
+
+    @PostMapping("/add")
+    public TvSeriesDto createTvSeries(@RequestBody TvSeriesDto tvSeriesDto) {
+        return tvService.createTvSeries(tvSeriesDto);
+    }
+
+    @GetMapping
     public List<TvSeriesDto> getTvSeriesList() {
         return tvService.getTvSeriesDtoList();
     }
 
     @GetMapping("/{id}")
-    public TvSeriesDto getTvSeries(@PathVariable("id") Long id) {
+    public TvSeriesDto getTvSeries(@PathVariable Long id) {
         return tvService.getTvSeriesDtoById(id);
+    }
+
+    @PatchMapping("/{tvseriesId}")
+    public TvSeriesDto updateTvSeries(@PathVariable Long tvseriesId, @RequestBody TvSeriesDto tvSeriesDto) {
+        return tvService.updateTvSeries(tvseriesId, tvSeriesDto);
+    }
+
+    @DeleteMapping("/{tvseriesId}")
+    public void deleteTvSeries(@PathVariable Long tvseriesId) {
+        tvService.deleteTvSeries(tvseriesId);
     }
 
 
