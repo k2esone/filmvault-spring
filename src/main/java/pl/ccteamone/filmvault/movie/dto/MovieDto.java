@@ -4,6 +4,7 @@ package pl.ccteamone.filmvault.movie.dto;
 import lombok.Builder;
 import lombok.Data;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
+import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
 import java.util.Set;
@@ -21,4 +22,5 @@ public class MovieDto {
     private double rating;
     private Set<AppUserDto> appUsers;
     private Set<VODPlatformDto> vodPlatforms;
+    private Region region;
 }

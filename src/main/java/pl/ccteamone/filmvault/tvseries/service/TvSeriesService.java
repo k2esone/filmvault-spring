@@ -83,8 +83,8 @@ public class TvSeriesService {
         if(series.getSeasons() != 0) {
             tvSeries.setSeasons(series.getSeasons());
         }
-        if(series.getRegions() != null) {
-            tvSeries.setRegions(series.getRegions());
+        if(series.getRegion() != null) {
+            tvSeries.setRegion(series.getRegion());
         }
         if(series.getPlatforms() != null) {
             tvSeries.setPlatforms(series.getPlatforms());
@@ -94,6 +94,9 @@ public class TvSeriesService {
         }
         if(series.getApiID() != null) {
             tvSeries.setApiID(series.getApiID());
+        }
+        if (series.getRegion() != null) {
+            tvSeries.setRegion(series.getRegion());
         }
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }

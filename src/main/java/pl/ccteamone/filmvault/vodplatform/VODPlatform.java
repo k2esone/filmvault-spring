@@ -25,10 +25,18 @@ public class VODPlatform {
     private boolean active;
     private String apiID;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<AppUser> appUsers;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "vodPlatforms")
     private Set<Movie> movies;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "platforms")
     private Set<TvSeries> tvSeries;
 

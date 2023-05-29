@@ -11,8 +11,6 @@ import java.util.Set;
 public interface TvSeriesMapper {
 
 
-    @Mapping(source = "regions", target = "regions")
-    @Mapping(source = "platforms", target = "platforms")
     TvSeriesDto mapToTvSeriesDto(TvSeries tvSeries);
 
     @InheritInverseConfiguration(name = "mapToTvSeriesDto")

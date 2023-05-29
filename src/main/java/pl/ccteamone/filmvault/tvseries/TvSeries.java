@@ -34,11 +34,20 @@ public class TvSeries {
     private int seasons;
     private Long apiID;
 
-    @ManyToMany
-    private Set<Region> regions;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
+    private Region region;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> platforms;
-    @ManyToMany
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "tvSeries")
     private Set<AppUser> appUsers;
+
 
 }

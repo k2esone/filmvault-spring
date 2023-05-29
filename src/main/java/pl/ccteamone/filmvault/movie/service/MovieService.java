@@ -52,26 +52,38 @@ public class MovieService {
 
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
-        if(update.getTitle() != null) {
-            movie.setTitle(update.getTitle());
+
+        Movie movie1 = movieMapper.mapToMovie(update);
+
+        if(movie1.getTitle() != null) {
+            movie.setTitle(movie1.getTitle());
         }
-        if(update.getPosterPath() != null) {
-            movie.setPosterPath(update.getPosterPath());
+        if(movie1.getPosterPath() != null) {
+            movie.setPosterPath(movie1.getPosterPath());
         }
-        if(update.getOverview() != null) {
-            movie.setOverview(update.getOverview());
+        if(movie1.getOverview() != null) {
+            movie.setOverview(movie1.getOverview());
         }
-        if(update.getReleaseDate() != null) {
-            movie.setReleaseDate(update.getReleaseDate());
+        if(movie1.getReleaseDate() != null) {
+            movie.setReleaseDate(movie1.getReleaseDate());
         }
-        if(update.getRuntime() != null) {
-            movie.setRuntime(update.getRuntime());
+        if(movie1.getRuntime() != null) {
+            movie.setRuntime(movie1.getRuntime());
         }
-        if(update.getCredits() != null) {
-            movie.setCredits(update.getCredits());
+        if(movie1.getCredits() != null) {
+            movie.setCredits(movie1.getCredits());
         }
-        if(update.getRating() != 0) {
-            movie.setRating(update.getRating());
+        if(movie1.getRating() != 0) {
+            movie.setRating(movie1.getRating());
+        }
+        if (movie1.getAppUsers() != null) {
+            movie.setAppUsers(movie1.getAppUsers());
+        }
+        if (movie1.getVodPlatforms() != null) {
+            movie.setVodPlatforms(movie1.getVodPlatforms());
+        }
+        if (movie1.getRegion() != null) {
+            movie.setRegion(movie1.getRegion());
         }
 
         return movieMapper.mapToMovieDto(movieRepository.save(movie));

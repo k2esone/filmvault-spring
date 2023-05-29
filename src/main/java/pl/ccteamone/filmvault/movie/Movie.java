@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.movie;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ccteamone.filmvault.appuser.AppUser;
+import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.util.Set;
@@ -32,13 +33,18 @@ public class Movie {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "movies")
     private Set<AppUser> appUsers;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
+    private Region region;
 
 }
 

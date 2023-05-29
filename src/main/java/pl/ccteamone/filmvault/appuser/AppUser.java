@@ -59,17 +59,17 @@ public class AppUser {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<Movie> movies = new HashSet<>();
+    private Set<Movie> movies;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<TvSeries> tvSeries = new HashSet<>();
+    private Set<TvSeries> tvSeries;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<VODPlatform> vodPlatforms = new HashSet<>();
+    private Set<VODPlatform> vodPlatforms;
 
 }
 
