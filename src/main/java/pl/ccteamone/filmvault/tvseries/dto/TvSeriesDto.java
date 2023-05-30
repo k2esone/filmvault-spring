@@ -27,7 +27,7 @@ public class TvSeriesDto {
 
     private Region region;
     private Set<VODPlatformDto> vodPlatforms;
-    private Set<AppUserDto> appUser;
+    private Set<AppUserDto> appUsers;
 
     private Long apiID;
 }
