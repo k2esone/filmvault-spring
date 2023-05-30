@@ -9,6 +9,7 @@ import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -47,12 +48,12 @@ public class TvSeries {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<VODPlatform> vodPlatforms;
+    private Set<VODPlatform> vodPlatforms = new HashSet<>();
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "tvSeries")
-    private Set<AppUser> appUsers;
+    private Set<AppUser> appUsers = new HashSet<>();
 
 
 }

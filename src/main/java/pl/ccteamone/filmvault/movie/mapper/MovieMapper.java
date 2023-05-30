@@ -2,6 +2,7 @@ package pl.ccteamone.filmvault.movie.mapper;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 
@@ -15,6 +16,8 @@ public interface MovieMapper {
     @InheritInverseConfiguration(name = "mapToMovieDto")
     Movie mapToMovie(MovieDto movieDto);
 
+    @Mapping(target = "vodPlatforms", ignore = true)
+    @Mapping(target = "appUsers", ignore = true)
     Set<MovieDto> mapToMovieDtoSet(Set<Movie> movies);
 
     @InheritInverseConfiguration(name = "mapToMovieDtoSet")
