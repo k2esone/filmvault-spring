@@ -48,12 +48,12 @@ public class TvSeries {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    private Set<VODPlatform> vodPlatforms = new HashSet<>();
+    private Set<VODPlatform> vodPlatforms;
 
-    @ToString.Exclude
+   /* @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "tvSeries")
-    private Set<AppUser> appUsers = new HashSet<>();
+    private Set<AppUser> appUsers;*/
 
 
 }

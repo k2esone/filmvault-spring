@@ -76,9 +76,9 @@ public class MovieService {
         if(movie1.getRating() != null) {
             movie.setRating(movie1.getRating());
         }
-        if (movie1.getAppUsers() != null) {
+/*        if (movie1.getAppUsers() != null) {
             movie.setAppUsers(movie1.getAppUsers());
-        }
+        }*/
         if (movie1.getVodPlatforms() != null) {
             movie.setVodPlatforms(movie1.getVodPlatforms());
         }

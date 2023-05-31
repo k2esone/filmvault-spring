@@ -18,7 +18,7 @@ public class VODPlatformDto {
     private boolean active;
     private String apiID;
 
-    private Set<AppUserDto> appUsers;
+/*    private Set<AppUserDto> appUsers;
     private Set<MovieDto> movies;
-    private Set<TvSeriesDto> tvSeries;
+    private Set<TvSeriesDto> tvSeries;*/
 }

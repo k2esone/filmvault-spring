@@ -89,9 +89,9 @@ public class TvSeriesService {
         if(series.getVodPlatforms() != null) {
             tvSeries.setVodPlatforms(series.getVodPlatforms());
         }
-        if(series.getAppUsers() != null) {
+/*        if(series.getAppUsers() != null) {
             tvSeries.setAppUsers(series.getAppUsers());
-        }
+        }*/
         if(series.getApiID() != null) {
             tvSeries.setApiID(series.getApiID());
         }

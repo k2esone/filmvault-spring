@@ -3,13 +3,13 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "username": "janekk",
+  "username": "basia",
   "password": "s4bgbbssw!",
   "email": "tomekw.waw@gmail.com"
 }
 
 ###
-POST http://localhost:8080/users/jan/add-movie?movieTitle=film1
+POST http://localhost:8080/users/Bob/add-movie?movieTitle=Martix
 
 ###
 PATCH http://localhost:8080/users/2
@@ -53,8 +53,7 @@ Content-Type: application/json
 {
   "title": "film3",
   "overview": "Brum brum!",
-  "releaseDate": "23/01/2020",
-  "posterPath": "asdsadsa.jpg"
+  "releaseDate": "23/01/2020"
 }
 
 ###
@@ -184,6 +183,3 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/vodplatforms/2
-
-###
-GET http://localhost:8080/api/movie/22
