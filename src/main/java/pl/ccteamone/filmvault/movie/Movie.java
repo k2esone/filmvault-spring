@@ -31,10 +31,10 @@ public class Movie {
     private double rating;
 
 
-    @ToString.Exclude
+/*    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "movies")
-    private Set<AppUser> appUsers;
+    private Set<AppUser> appUsers;*/
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

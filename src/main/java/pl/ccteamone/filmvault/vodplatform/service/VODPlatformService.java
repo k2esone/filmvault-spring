@@ -71,7 +71,7 @@ public class VODPlatformService {
         if (vodPlatform.getApiID() != null) {
             platform.setApiID(vodPlatform.getApiID());
         }
-        if (vodPlatform.getAppUsers() != null) {
+/*        if (vodPlatform.getAppUsers() != null) {
             platform.setAppUsers(vodPlatform.getAppUsers());
         }
         if (vodPlatform.getMovies() != null) {
@@ -79,7 +79,7 @@ public class VODPlatformService {
         }
         if (vodPlatform.getTvSeries() != null) {
             platform.setTvSeries(vodPlatform.getTvSeries());
-        }
+        }*/
 
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }

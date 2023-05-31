@@ -26,13 +26,13 @@ public interface AppUserMapper {
 
     @InheritInverseConfiguration(name = "mapToAppUserDto")
     AppUser mapToAppUser(AppUserDto appUserDto);
-
-    @Mapping(target = "movies", ignore = true)
+ 
+/*    @Mapping(target = "movies", ignore = true)
     @Mapping(target = "tvSeries", ignore = true)
-    @Mapping(target = "vodPlatforms", ignore = true)
+    @Mapping(target = "vodPlatforms", ignore = true)*/
     Set<AppUserDto> mapToAppUserDtoSet(Set<AppUser> appUserSet);
 
- /*   @InheritInverseConfiguration(name = "mapToAppUserDtoSet")
-    Set<AppUser> mapToAppUserSet(Set<AppUserDto> appUserDtoSet);*/
+    @InheritInverseConfiguration(name = "mapToAppUserDtoSet")
+    Set<AppUser> mapToAppUserSet(Set<AppUserDto> appUserDtoSet);
 
 }

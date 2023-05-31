@@ -24,7 +24,7 @@ public class Region {
     private String country;
     private String flag;
 
-    @ToString.Exclude
+/*    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "region")
     private Set<AppUser> appUsers;
@@ -37,6 +37,6 @@ public class Region {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "region")
-    private Set<Movie> movies;
+    private Set<Movie> movies;*/
 }
 

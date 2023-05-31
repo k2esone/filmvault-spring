@@ -16,11 +16,11 @@ public interface MovieMapper {
     @InheritInverseConfiguration(name = "mapToMovieDto")
     Movie mapToMovie(MovieDto movieDto);
 
-    @Mapping(target = "vodPlatforms", ignore = true)
-    @Mapping(target = "appUsers", ignore = true)
-    Set<MovieDto> mapToMovieDtoSet(Set<Movie> movies);
+/*    @Mapping(target = "vodPlatforms", ignore = true)
+    @Mapping(target = "appUsers", ignore = true)*/
+    Set<MovieDto> mapToMovieDtoSet(Set<Movie> movieSet);
 
     @InheritInverseConfiguration(name = "mapToMovieDtoSet")
-    Set<Movie> mapToMovieSet(Set<MovieDto> movieDtos);
+    Set<Movie> mapToMovieSet(Set<MovieDto> movieDtoSet);
 
 }

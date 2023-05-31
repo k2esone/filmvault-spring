@@ -1,3 +1,39 @@
+GET http://localhost:8080/users
+
+<> 2023-05-31T090045.200.json
+
+###
+
+PATCH http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+  "name": "Jason",
+  "surname": "Domofon",
+  "movies": [{
+    "id": 1
+  }],
+  "tvSeries": [{
+    "id": 3
+  }],
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 2
+  }
+}
+
+<> 2023-05-31T090037.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-05-31T090001.200.json
+
+###
+
 PATCH http://localhost:8080/tvseries/3
 Content-Type: application/json
 
@@ -12,103 +48,7 @@ Content-Type: application/json
   ]
 }
 
-<> 2023-05-30T165444.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-05-30T165405.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-05-30T165403.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-30T165310.200.json
-
-###
-
-PATCH http://localhost:8080/tvseries/3
-Content-Type: application/json
-
-{
-  "vodPlatforms": [
-    {
-      "id": 2
-    }
-  ]
-}
-
-<> 2023-05-30T165158.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-30T165140.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "House MD",
-  "description": "hhhhhh",
-  "adult": false
-}
-
-<> 2023-05-30T165135.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "Arcane",
-  "description": "zxcvv",
-  "adult": false
-}
-
-<> 2023-05-30T165133.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "Lucifer",
-  "description": "afjhd",
-  "adult": false
-}
-
-<> 2023-05-30T165132.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-30T165128.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-30T165124.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-05-30T165113.200.json
+<> 2023-05-31T085951.200.json
 
 ###
 
@@ -122,7 +62,7 @@ Content-Type: application/json
   "active": true
 }
 
-<> 2023-05-30T164716.200.json
+<> 2023-05-31T085946.200.json
 
 ###
 
@@ -136,7 +76,7 @@ Content-Type: application/json
   "active": false
 }
 
-<> 2023-05-30T164715.200.json
+<> 2023-05-31T085943.200.json
 
 ###
 
@@ -150,109 +90,13 @@ Content-Type: application/json
   "active": true
 }
 
-<> 2023-05-30T164714.200.json
-
-###
-
-PATCH http://localhost:8080/tvseries/3
-Content-Type: application/json
-
-{
-  "vodPlatforms": [
-    {
-      "id": 2
-    }
-  ]
-}
-
-<> 2023-05-30T155036.500.json
+<> 2023-05-31T085942.200.json
 
 ###
 
 GET http://localhost:8080/vodplatforms
 
-<> 2023-05-30T155016.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Netflix",
-  "logoPath": "nooo",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T155014.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "HBO",
-  "logoPath": "oOoooOoo",
-  "vodURL": "URL",
-  "active": false
-}
-
-<> 2023-05-30T155012.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Disney",
-  "logoPath": "dis dis",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T155010.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "House MD",
-  "description": "hhhhhh",
-  "adult": false
-}
-
-<> 2023-05-30T155006.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "Arcane",
-  "description": "zxcvv",
-  "adult": false
-}
-
-<> 2023-05-30T155004.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "Lucifer",
-  "description": "afjhd",
-  "adult": false
-}
-
-<> 2023-05-30T154959.200.json
+<> 2023-05-31T085936.200.json
 
 ###
 
@@ -263,203 +107,44 @@ Content-Type: application/json
   "vodPlatforms": [
     {
       "id": 2
+    },
+    {
+      "id": 1
     }
   ]
 }
 
-<> 2023-05-30T154029.500.json
+<> 2023-05-31T085554.500.json
 
 ###
 
 GET http://localhost:8080/tvseries
 
-<> 2023-05-30T154022.200.json
+<> 2023-05-31T085544.200.json
 
 ###
 
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
+GET http://localhost:8080/tvseries
 
-{
-  "name": "House MD",
-  "description": "hhhhhh",
-  "adult": false
-}
-
-<> 2023-05-30T154018.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "Arcane",
-  "description": "zxcvv",
-  "adult": false
-}
-
-<> 2023-05-30T154016.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "Lucifer",
-  "description": "afjhd",
-  "adult": false
-}
-
-<> 2023-05-30T154015.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-05-30T153958.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Netflix",
-  "logoPath": "nooo",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T153954.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "HBO",
-  "logoPath": "oOoooOoo",
-  "vodURL": "URL",
-  "active": false
-}
-
-<> 2023-05-30T153952.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Disney",
-  "logoPath": "dis dis",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T153950.200.json
+<> 2023-05-31T085543.200.json
 
 ###
 
 GET http://localhost:8080/tvseries/3
 
-<> 2023-05-30T152715.500.json
+<> 2023-05-31T085540.200.json
 
 ###
 
 GET http://localhost:8080/tvseries/3
 
-<> 2023-05-30T152713.500.json
+<> 2023-05-31T085537.200.json
 
 ###
 
-PATCH http://localhost:8080/tvseries/3
-Content-Type: application/json
+GET http://localhost:8080/tvseries
 
-{
-  "vodPlatforms": [
-    {
-      "id": 2
-    }
-  ]
-}
-
-<> 2023-05-30T152706.500.json
-
-###
-
-PATCH http://localhost:8080/users/2
-Content-Type: application/json
-
-{
-  "name": "Jason",
-  "surname": "Domofon",
-  "movies": [{
-    "id": 3
-  }],
-  "tvSeries": [{
-    "id": 3
-  }],
-  "vodPlatforms": [{
-    "id": 1
-  }],
-  "region": {
-    "id": 2
-  }
-}
-
-<> 2023-05-30T152554.500.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-05-30T152530.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Netflix",
-  "logoPath": "nooo",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T152525.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "HBO",
-  "logoPath": "oOoooOoo",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T152524.200.json
-
-###
-
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Disney",
-  "logoPath": "dis dis",
-  "vodURL": "URL",
-  "active": true
-}
-
-<> 2023-05-30T152522.200.json
+<> 2023-05-31T085523.200.json
 
 ###
 
@@ -472,7 +157,7 @@ Content-Type: application/json
   "adult": false
 }
 
-<> 2023-05-30T152518.200.json
+<> 2023-05-31T085521.200.json
 
 ###
 
@@ -485,7 +170,7 @@ Content-Type: application/json
   "adult": false
 }
 
-<> 2023-05-30T152516.200.json
+<> 2023-05-31T085519.200.json
 
 ###
 
@@ -498,13 +183,13 @@ Content-Type: application/json
   "adult": false
 }
 
-<> 2023-05-30T152514.200.json
+<> 2023-05-31T085518.200.json
 
 ###
 
 GET http://localhost:8080/regions
 
-<> 2023-05-30T152509.200.json
+<> 2023-05-31T085508.200.json
 
 ###
 
@@ -516,7 +201,7 @@ Content-Type: application/json
   "country": "US"
 }
 
-<> 2023-05-30T152503.200.json
+<> 2023-05-31T085506.200.json
 
 ###
 
@@ -528,7 +213,7 @@ Content-Type: application/json
   "country": "GB"
 }
 
-<> 2023-05-30T152501.200.json
+<> 2023-05-31T085505.200.json
 
 ###
 
@@ -540,7 +225,37 @@ Content-Type: application/json
   "country": "FR"
 }
 
-<> 2023-05-30T152459.200.json
+<> 2023-05-31T085503.200.json
+
+###
+
+GET http://localhost:8080/movies
+
+<> 2023-05-31T085450.200.json
+
+###
+
+GET http://localhost:8080/movies
+
+<> 2023-05-31T085448.200.json
+
+###
+
+PATCH http://localhost:8080/movies/3
+Content-Type: application/json
+
+{
+  "title": "Matrix",
+  "runtime": "2H"
+}
+
+<> 2023-05-31T085440.200.json
+
+###
+
+GET http://localhost:8080/movies
+
+<> 2023-05-31T085427.200.json
 
 ###
 
@@ -553,7 +268,7 @@ Content-Type: application/json
   "releaseDate": "23/01/2020"
 }
 
-<> 2023-05-30T152444.200.json
+<> 2023-05-31T085423.200.json
 
 ###
 
@@ -566,7 +281,7 @@ Content-Type: application/json
   "releaseDate": "23/01/2020"
 }
 
-<> 2023-05-30T152443.200.json
+<> 2023-05-31T085419.200.json
 
 ###
 
@@ -579,7 +294,220 @@ Content-Type: application/json
   "releaseDate": "23/01/2020"
 }
 
-<> 2023-05-30T152441.200.json
+<> 2023-05-31T085417.200.json
+
+###
+
+GET http://localhost:8080/users
+
+<> 2023-05-31T085407.200.json
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "Uma",
+  "password": "qwerty",
+  "email": "furman@mail.com"
+}
+
+<> 2023-05-31T085401.200.json
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "Jason",
+  "password": "qwerty",
+  "email": "domofon@mail.com"
+}
+
+<> 2023-05-31T085400.200.json
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "Bob",
+  "password": "qwerty",
+  "email": "dywan@mail.com"
+}
+
+<> 2023-05-31T085358.200.json
+
+###
+
+POST http://localhost:8080/users/Bob/add-movie?movieTitle=Martix
+
+<> 2023-05-30T185115.500.json
+
+###
+
+GET http://localhost:8080/movies
+
+<> 2023-05-30T184952.200.json
+
+###
+
+GET http://localhost:8080/movies
+
+<> 2023-05-30T184949.200.json
+
+###
+
+POST http://localhost:8080/movies/add
+Content-Type: application/json
+
+{
+  "title": "Martix",
+  "overview": "kjhgf",
+  "releaseDate": "23/01/2020"
+}
+
+<> 2023-05-30T184947.200.json
+
+###
+
+POST http://localhost:8080/movies/add
+Content-Type: application/json
+
+{
+  "title": "No Title",
+  "overview": "Just no title",
+  "releaseDate": "23/01/2020"
+}
+
+<> 2023-05-30T184946.200.json
+
+###
+
+POST http://localhost:8080/movies/add
+Content-Type: application/json
+
+{
+  "title": "Gone with a windmills",
+  "overview": "Some windmills",
+  "releaseDate": "23/01/2020"
+}
+
+<> 2023-05-30T184943.200.json
+
+###
+
+GET http://localhost:8080/users
+
+<> 2023-05-30T184909.200.json
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "Uma",
+  "password": "qwerty",
+  "email": "furman@mail.com"
+}
+
+<> 2023-05-30T184855.200.json
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "Jason",
+  "password": "qwerty",
+  "email": "domofon@mail.com"
+}
+
+<> 2023-05-30T184852.200.json
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "Bob",
+  "password": "qwerty",
+  "email": "dywan@mail.com"
+}
+
+<> 2023-05-30T184851.200.json
+
+###
+
+GET http://localhost:8080/users/2
+
+<> 2023-05-30T180315.500.json
+
+###
+
+GET http://localhost:8080/users/2
+
+<> 2023-05-30T180313.500.json
+
+###
+
+GET http://localhost:8080/users/1
+
+<> 2023-05-30T180304.200.json
+
+###
+
+GET http://localhost:8080/users/1
+
+<> 2023-05-30T180302.200.json
+
+###
+
+GET http://localhost:8080/users
+
+<> 2023-05-30T180257.500.json
+
+###
+
+GET http://localhost:8080/users
+
+<> 2023-05-30T180254.500.json
+
+###
+
+PATCH http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+  "name": "Jason",
+  "surname": "Domofon",
+  "movies": [{
+    "id": 1
+  }],
+  "tvSeries": [{
+    "id": 3
+  }],
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 2
+  }
+}
+
+<> 2023-05-30T180248.500.json
+
+###
+
+GET http://localhost:8080/users
+
+<> 2023-05-30T180233.200.json
 
 ###
 
