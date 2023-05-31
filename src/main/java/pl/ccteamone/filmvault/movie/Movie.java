@@ -1,5 +1,6 @@
 package pl.ccteamone.filmvault.movie;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ccteamone.filmvault.appuser.AppUser;
@@ -21,8 +22,11 @@ public class Movie {
     @Column
     private Long id;
     private String title;
+    @JsonProperty("poster_path")
     private String posterPath;
+    @Column(length = 512)
     private String overview; //opis do filmu
+    @JsonProperty("release_date")
     private String releaseDate;
     private String runtime; //czas trwania filmu
     private String credits; //moze byc kolekcją - aktorzy
