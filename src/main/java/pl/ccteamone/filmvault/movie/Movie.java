@@ -32,8 +32,8 @@ public class Movie {
     private String credits; //moze byc kolekcją - aktorzy
 
     //TODO: create rating implementation logic
-    @JsonProperty("vote_averange")
-    private double rating; // zmienic na FLOAT <----
+    @JsonProperty("vote_average")
+    private Double rating;
 
 
     @ToString.Exclude

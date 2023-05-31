@@ -73,7 +73,7 @@ public class MovieService {
         if(movie1.getCredits() != null) {
             movie.setCredits(movie1.getCredits());
         }
-        if(movie1.getRating() != 0) {
+        if(movie1.getRating() != null) {
             movie.setRating(movie1.getRating());
         }
         if (movie1.getAppUsers() != null) {

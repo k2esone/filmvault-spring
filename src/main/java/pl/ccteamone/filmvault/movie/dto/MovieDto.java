@@ -19,7 +19,7 @@ public class MovieDto {
     private String releaseDate;
     private String runtime;
     private String credits;
-    private double rating;
+    private Double rating;
     private Set<AppUserDto> appUsers;
     private Set<VODPlatformDto> vodPlatforms;
     private Region region;
