@@ -16,10 +16,10 @@ public class ApiMovieClient {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public Movie getApiMovieForMovieId(int id) {
+    public Movie getApiMovieForMovieId(Long id) {
         Movie movie = callGetMethod("{movie_id}?api_key={apiKey}", Movie.class, id, API_KEY);
         return Movie.builder()
-                .id((long)id)
+                .id(id)
                 .title(movie.getTitle())
                 .posterPath(movie.getPosterPath())
                 .overview(movie.getOverview())

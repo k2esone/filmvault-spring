@@ -15,8 +15,8 @@ public class MovieApiService {
     private final ApiMovieClient apiMovieClient;
 
 
-    public Movie getApiMovie() {
-        return apiMovieClient.getApiMovieForMovieId(21);
+    public Movie getApiMovie(Long movId) {
+        return apiMovieClient.getApiMovieForMovieId(movId);
     }
 
 

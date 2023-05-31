@@ -184,3 +184,6 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/vodplatforms/2
+
+###
+GET http://localhost:8080/api/movie/22
