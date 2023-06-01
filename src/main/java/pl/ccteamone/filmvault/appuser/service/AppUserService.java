@@ -23,17 +23,6 @@ public class AppUserService {
     private final AppUserMapper appUserMapper;
     private final MovieRepository movieRepository;
 
-//    @Override
-//    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-//        Optional<AppUser> user = userRepository.findByUserName(userName);
-//
-//        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + userName));
-//
-//        return user.map(MyUserDetails::new).get();
-//    }
-
-
-
     public AppUserCreationDto createAppUser(AppUserCreationDto appUserCreationDto) {
 
         AppUser appUser = AppUser.builder()

@@ -7,6 +7,7 @@ Content-Type: application/json
   "password": "qwerty",
   "email": "dywan@mail.com"
 }
+
 ###
 POST http://localhost:8080/users/register
 Content-Type: application/json
@@ -16,6 +17,7 @@ Content-Type: application/json
   "password": "qwerty",
   "email": "domofon@mail.com"
 }
+
 ###
 POST http://localhost:8080/users/register
 Content-Type: application/json
@@ -34,15 +36,21 @@ Content-Type: application/json
 {
   "name": "Jason",
   "surname": "Domofon",
-  "movies": [{
-    "id": 1
-  }],
-  "tvSeries": [{
-    "id": 3
-  }],
-  "vodPlatforms": [{
-    "id": 1
-  }],
+  "movies": [
+    {
+      "id": 1
+    }
+  ],
+  "tvSeries": [
+    {
+      "id": 3
+    }
+  ],
+  "vodPlatforms": [
+    {
+      "id": 1
+    }
+  ],
   "region": {
     "id": 2
   }
@@ -153,6 +161,14 @@ Content-Type: application/json
   "city": "New York",
   "flag": "Flag"
 }
+###
+PATCH http://localhost:8080/regions/1
+Content-Type: application/json
+
+{
+  "city": "Ris",
+  "flag": "Flag"
+}
 
 ###
 DELETE http://localhost:8080/regions/3
@@ -189,6 +205,34 @@ Content-Type: application/json
   "name": "House MD",
   "description": "hhhhhh",
   "adult": false
+}
+
+###
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "Terminal List",
+  "description": "CAUTION, creation adds vodPlatforms 1 and 2 AND region 1",
+  "adult": false,
+  "genre": "action",
+  "poster": "poster.png",
+  "origin": "data file",
+  "firstAirDate": "2022-01-22",
+  "lastAirDate": "2022-01-23",
+  "seasons": 1,
+  "vodPlatforms": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    }
+  ],
+  "apiID": "019283",
+  "region": {
+    "id": 1
+  }
 }
 
 ###

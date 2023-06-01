@@ -44,10 +44,6 @@ public class TvSeries {
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
 
-   /* @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "tvSeries")
-    private Set<AppUser> appUsers;*/
 
 
 }

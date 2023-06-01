@@ -45,11 +45,6 @@ public class VODPlatformService {
         return vodPlatformMapper.mapToVODPlatformDto(platform.orElseThrow(() -> new RuntimeException("VOD Platform id=" + id + " not found")));
     }
 
-//    public VODPlatformDto getVODPlatformDtoByApiID(String id) {
-//        Optional<VODPlatform> platform = platformRepository.findByApiID(id);
-//        return vodPlatformMapper.mapToVODPlatformDto(platform.orElseThrow(() -> new RuntimeException("VOD Platform apiID=" + id + " not found")));
-//    }
-
     public VODPlatformDto updateVODPlatform(Long id, VODPlatformDto platformDto) {
         VODPlatform platform = platformRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("VOD Platform apiID=" + id + " not found"));
@@ -71,16 +66,6 @@ public class VODPlatformService {
         if (vodPlatform.getApiID() != null) {
             platform.setApiID(vodPlatform.getApiID());
         }
-/*        if (vodPlatform.getAppUsers() != null) {
-            platform.setAppUsers(vodPlatform.getAppUsers());
-        }
-        if (vodPlatform.getMovies() != null) {
-            platform.setMovies(vodPlatform.getMovies());
-        }
-        if (vodPlatform.getTvSeries() != null) {
-            platform.setTvSeries(vodPlatform.getTvSeries());
-        }*/
-
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }
 

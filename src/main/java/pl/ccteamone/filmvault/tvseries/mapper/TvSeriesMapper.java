@@ -11,15 +11,10 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface TvSeriesMapper {
 
-    /*@Mapping(target = "appUsers", source = "appUsers", ignore = true)
-    @Mapping(target = "vodPlatforms", source = "appUsers", ignore = true)*/
     TvSeriesDto mapToTvSeriesDto(TvSeries tvSeries);
 
-    //@InheritInverseConfiguration(name = "mapToTvSeriesDto")
     TvSeries mapToTvSeries(TvSeriesDto tvSeriesDto);
 
-    //@Mapping(target = "vodPlatforms", ignore = true)
-   // @Mapping(target = "appUsers", ignore = true)
     Set<TvSeriesDto> mapToTvSeriesDtoSet(Set<TvSeries> tvSeriesSet);
 
     @InheritInverseConfiguration

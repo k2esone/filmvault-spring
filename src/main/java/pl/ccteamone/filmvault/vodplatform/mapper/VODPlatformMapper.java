@@ -12,16 +12,8 @@ import java.util.Set;
 public interface VODPlatformMapper {
 
     VODPlatformDto mapToVODPlatformDto(VODPlatform platform);
-    @InheritInverseConfiguration(name = "mapToVODPlatformDto")
-    VODPlatform mapToVODPlatform(VODPlatformDto platformDto);
-/*
-    @Mapping(target = "tvSeries", ignore = true)
-    @Mapping(target = "movies", ignore = true)
-    @Mapping(target = "appUsers", ignore = true)
-    Set<VODPlatformDto> mapToVODPlatformDtoSet(Set<VODPlatform> vodPlatforms);
 
-    @InheritInverseConfiguration(name = "mapToVODPlatformDtoSet")
-    Set<VODPlatform> mapToVODPlatformSet(Set<VODPlatformDto> vodPlatformDtos);*/
+    VODPlatform mapToVODPlatform(VODPlatformDto platformDto);
 
     Set<VODPlatform> mapToVODPlatformSet(Set<VODPlatformDto> vodPlatformDtoSet);
     Set<VODPlatformDto> mapToVODPlatformDtoSet(Set<VODPlatform> vodPlatformSet);
