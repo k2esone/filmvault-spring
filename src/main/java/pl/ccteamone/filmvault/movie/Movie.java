@@ -35,12 +35,6 @@ public class Movie {
     @JsonProperty("vote_average")
     private Double rating;
 
-
-/*    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "movies")
-    private Set<AppUser> appUsers;*/
-
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany

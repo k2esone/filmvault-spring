@@ -24,10 +24,9 @@ public class TvSeriesDto {
     private LocalDate firstAirDate;
     private LocalDate lastAirDate;
     private int seasons;
+    private Long apiID;
 
     private Region region;
     private Set<VODPlatformDto> vodPlatforms;
-    //private Set<AppUserDto> appUsers;
 
-    private Long apiID;
 }

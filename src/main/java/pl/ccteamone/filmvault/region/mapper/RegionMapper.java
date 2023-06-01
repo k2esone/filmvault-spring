@@ -11,19 +11,11 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface RegionMapper {
 
-/*    @Mapping(target = "tvSeries", ignore = true)
-    @Mapping(target = "movies", ignore = true)
-    @Mapping(target = "appUsers", ignore = true)*/
     RegionDto mapToRegionDto(Region region);
 
     @InheritInverseConfiguration(name = "mapToRegionDto")
     Region mapToRegion(RegionDto regionDto);
-/*    @Mapping(target = "tvSeries", ignore = true)
-    @Mapping(target = "movies", ignore = true)
-    @Mapping(target = "appUsers", ignore = true)*/
     Set<RegionDto> mapToRegionDtoSet(Set<Region> regionSet);
-
-    //@InheritInverseConfiguration(name = "mapToRegionDtoSet")
     Set<Region> mapToRegionSet(Set<RegionDto> regionDtoSet);
 
 }

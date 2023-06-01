@@ -19,24 +19,8 @@ public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String city;
     private String country;
     private String flag;
-
-/*    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "region")
-    private Set<AppUser> appUsers;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "region")
-    private Set<TvSeries> tvSeries;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "region")
-    private Set<Movie> movies;*/
 }
 

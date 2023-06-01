@@ -17,7 +17,4 @@ public class RegionDto {
     private String city;
     private String country;
     private String flag;
-/*    private Set<AppUserDto> appUsers;
-    private Set<TvSeriesDto> tvSeries;
-    private Set<MovieDto> movies;*/
 }

@@ -6,7 +6,6 @@ import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 import java.util.Optional;
 
 public interface VODPlatformRepository extends JpaRepository<VODPlatform, Long> {
-
-//    Optional<VODPlatform> findByApiID(String apiID);
+    Optional<VODPlatform> findByApiID(String apiID);
 
 }
