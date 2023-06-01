@@ -35,6 +35,8 @@ public class Movie {
     @JsonProperty("vote_average")
     private Double rating;
 
+    private Long apiID;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany

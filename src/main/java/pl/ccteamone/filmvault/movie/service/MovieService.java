@@ -34,6 +34,7 @@ public class MovieService {
                 .runtime(movieFromDto.getRuntime())
                 .credits(movieFromDto.getCredits())
                 .rating(movieFromDto.getRating())
+                .apiID(movieFromDto.getApiID())
                 .vodPlatforms(movieFromDto.getVodPlatforms())
                 .region(movieFromDto.getRegion())
                 .build();
@@ -79,13 +80,15 @@ public class MovieService {
         if(movieUpdateFromDto.getRating() != null) {
             movie.setRating(movieUpdateFromDto.getRating());
         }
+        if(movieUpdateFromDto.getApiID() != null) {
+            movie.setApiID(movieUpdateFromDto.getApiID());
+        }
         if (movieUpdateFromDto.getVodPlatforms() != null) {
             movie.setVodPlatforms(movieUpdateFromDto.getVodPlatforms());
         }
         if (movieUpdateFromDto.getRegion() != null) {
             movie.setRegion(movieUpdateFromDto.getRegion());
         }
-
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
 

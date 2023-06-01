@@ -3,10 +3,7 @@ package pl.ccteamone.filmvault.tvseries.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import pl.ccteamone.filmvault.appuser.AppUser;
-import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 import pl.ccteamone.filmvault.region.Region;
-import pl.ccteamone.filmvault.region.dto.RegionDto;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 import java.time.LocalDate;
 import java.util.Set;
@@ -19,11 +16,12 @@ public class TvSeriesDto {
     private String overview;
     private String posterPath;
     private String genres;
-//  private boolean adult;
+    private boolean adult;
     private String origin;
     private LocalDate firstAirDate;
     private LocalDate lastAirDate;
     private int seasons;
+    private int episodes;
     private Long apiID;
 
     private Region region;

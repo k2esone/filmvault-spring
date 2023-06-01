@@ -118,7 +118,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Muminki",
+  "title": "Muminki",
   "description": "Bukaaaa",
   "adult": true
 }
@@ -134,7 +134,7 @@ PATCH http://localhost:8080/tvseries/3
 Content-Type: application/json
 
 {
-  "name": "ZZZZZZZZZZ",
+  "title": "ZZZZZZZZZZ",
   "vodPlatforms": [{
     "id": 1
   }],
