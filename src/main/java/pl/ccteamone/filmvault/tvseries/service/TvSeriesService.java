@@ -27,16 +27,17 @@ public class TvSeriesService {
     public TvSeriesDto createTvSeries(TvSeriesDto tvSeriesDto) {
         TvSeries tvSeriesFromDto = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
         TvSeries tvSeries = TvSeries.builder()
-                .name(tvSeriesFromDto.getName())
+                .title(tvSeriesFromDto.getTitle())
                 .description(tvSeriesFromDto.getDescription())
                 .genre(tvSeriesFromDto.getGenre())
-                .poster(tvSeriesFromDto.getPoster())
+                .posterPath(tvSeriesFromDto.getPosterPath())
                 .adult(tvSeriesFromDto.isAdult())
-                .origin(tvSeriesFromDto.getOrigin())
+                .originCountry(tvSeriesFromDto.getOriginCountry())
                 .firstAirDate(tvSeriesFromDto.getFirstAirDate())
                 .lastAirDate(tvSeriesFromDto.getLastAirDate())
                 .region(tvSeriesFromDto.getRegion())
                 .seasons(tvSeriesFromDto.getSeasons())
+                .episodes(tvSeriesFromDto.getEpisodes())
                 .vodPlatforms(tvSeriesFromDto.getVodPlatforms())
                 .apiID(tvSeriesFromDto.getApiID())
                 .build();
@@ -59,8 +60,8 @@ public class TvSeriesService {
 
         TvSeries series = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
 
-        if(series.getName() != null) {
-            tvSeries.setName(series.getName());
+        if(series.getTitle() != null) {
+            tvSeries.setTitle(series.getTitle());
         }
         if(series.getDescription() != null) {
             tvSeries.setDescription(series.getDescription());
@@ -68,14 +69,14 @@ public class TvSeriesService {
         if(series.getGenre() != null) {
             tvSeries.setGenre(series.getGenre());
         }
-        if(series.getPoster() != null) {
-            tvSeries.setPoster(series.getPoster());
+        if(series.getPosterPath() != null) {
+            tvSeries.setPosterPath(series.getPosterPath());
         }
         if(!series.isAdult()) {
             tvSeries.setAdult(series.isAdult());
         }
-        if(series.getOrigin() != null) {
-            tvSeries.setOrigin(series.getOrigin());
+        if(series.getOriginCountry() != null) {
+            tvSeries.setOriginCountry(series.getOriginCountry());
         }
         if(series.getFirstAirDate() != null) {
             tvSeries.setFirstAirDate(series.getFirstAirDate());
@@ -86,6 +87,9 @@ public class TvSeriesService {
         if(series.getSeasons() != 0) {
             tvSeries.setSeasons(series.getSeasons());
         }
+        if(series.getEpisodes() != 0) {
+            tvSeries.setEpisodes(series.getEpisodes());
+        }
         if(series.getRegion() != null) {
             tvSeries.setRegion(series.getRegion());
         }
@@ -94,9 +98,6 @@ public class TvSeriesService {
         }
         if(series.getApiID() != null) {
             tvSeries.setApiID(series.getApiID());
-        }
-        if (series.getRegion() != null) {
-            tvSeries.setRegion(series.getRegion());
         }
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }

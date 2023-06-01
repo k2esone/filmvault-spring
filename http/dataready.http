@@ -166,8 +166,8 @@ PATCH http://localhost:8080/regions/1
 Content-Type: application/json
 
 {
-  "city": "Ris",
-  "flag": "Flag"
+  "city": "Paris",
+  "flag": "WhiteFlag"
 }
 
 ###
@@ -182,7 +182,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Lucifer",
+  "title": "Lucifer",
   "description": "afjhd",
   "adult": false
 }
@@ -192,7 +192,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Arcane",
+  "title": "Arcane",
   "description": "zxcvv",
   "adult": false
 }
@@ -202,7 +202,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "House MD",
+  "title": "House MD",
   "description": "hhhhhh",
   "adult": false
 }
@@ -212,7 +212,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Terminal List",
+  "title": "Terminal List",
   "description": "CAUTION, creation adds vodPlatforms 1 and 2 AND region 1",
   "adult": false,
   "genre": "action",
@@ -221,6 +221,7 @@ Content-Type: application/json
   "firstAirDate": "2022-01-22",
   "lastAirDate": "2022-01-23",
   "seasons": 1,
+  "episodes": 7,
   "vodPlatforms": [
     {
       "id": 1
@@ -229,7 +230,7 @@ Content-Type: application/json
       "id": 2
     }
   ],
-  "apiID": "019283",
+  "apiID": 19283,
   "region": {
     "id": 1
   }

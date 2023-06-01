@@ -29,6 +29,7 @@ public class Movie {
 
     //TODO: create rating implementation logic
     private double rating;
+    private Long apiID;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

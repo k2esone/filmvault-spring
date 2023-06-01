@@ -1,18 +1,42 @@
-GET http://localhost:8080/tvseries/4
+GET http://localhost:8080/users
 
-<> 2023-06-01T103528.200.json
-
-###
-
-GET http://localhost:8080/tvseries/4
-
-<> 2023-06-01T103526.200.json
+<> 2023-06-01T184701.200.json
 
 ###
 
-GET http://localhost:8080/regions
+PATCH http://localhost:8080/users/2
+Content-Type: application/json
 
-<> 2023-06-01T103510.200.json
+{
+  "name": "Jason",
+  "surname": "Domofon",
+  "movies": [
+    {
+      "id": 1
+    }
+  ],
+  "tvSeries": [
+    {
+      "id": 3
+    }
+  ],
+  "vodPlatforms": [
+    {
+      "id": 1
+    }
+  ],
+  "region": {
+    "id": 2
+  }
+}
+
+<> 2023-06-01T184618.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-06-01T184546.200.json
 
 ###
 
@@ -20,17 +44,17 @@ PATCH http://localhost:8080/regions/1
 Content-Type: application/json
 
 {
-  "city": "Ris",
-  "flag": "Flag"
+  "city": "Paris",
+  "flag": "WhiteFlag"
 }
 
-<> 2023-06-01T103505.200.json
+<> 2023-06-01T184536.200.json
 
 ###
 
 GET http://localhost:8080/tvseries
 
-<> 2023-06-01T103318.200.json
+<> 2023-06-01T184444.200.json
 
 ###
 
@@ -38,7 +62,7 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Terminal List",
+  "title": "Terminal List",
   "description": "CAUTION, creation adds vodPlatforms 1 and 2 AND region 1",
   "adult": false,
   "genre": "action",
@@ -47,6 +71,7 @@ Content-Type: application/json
   "firstAirDate": "2022-01-22",
   "lastAirDate": "2022-01-23",
   "seasons": 1,
+  "episodes": 7,
   "vodPlatforms": [
     {
       "id": 1
@@ -55,19 +80,25 @@ Content-Type: application/json
       "id": 2
     }
   ],
-  "apiID": "019283",
+  "apiID": 19283,
   "region": {
     "id": 1
   }
 }
 
-<> 2023-06-01T103312.200.json
+<> 2023-06-01T184436.200.json
 
 ###
 
 GET http://localhost:8080/tvseries
 
-<> 2023-06-01T103234.200.json
+<> 2023-06-01T184355.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-06-01T184352.200.json
 
 ###
 
@@ -85,7 +116,13 @@ Content-Type: application/json
   ]
 }
 
-<> 2023-06-01T103230.200.json
+<> 2023-06-01T184350.200.json
+
+###
+
+GET http://localhost:8080/vodplatforms
+
+<> 2023-06-01T184335.200.json
 
 ###
 
@@ -97,13 +134,7 @@ Content-Type: application/json
   "active": false
 }
 
-<> 2023-06-01T103222.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-06-01T103210.200.json
+<> 2023-06-01T184332.200.json
 
 ###
 
@@ -117,7 +148,7 @@ Content-Type: application/json
   "active": true
 }
 
-<> 2023-06-01T103207.200.json
+<> 2023-06-01T184329.200.json
 
 ###
 
@@ -131,7 +162,7 @@ Content-Type: application/json
   "active": false
 }
 
-<> 2023-06-01T103205.200.json
+<> 2023-06-01T184327.200.json
 
 ###
 
@@ -145,31 +176,7 @@ Content-Type: application/json
   "active": true
 }
 
-<> 2023-06-01T103204.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-06-01T103157-1.200.json
-
-###
-
-GET http://localhost:8080/vodplatforms
-
-<> 2023-06-01T103157.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-06-01T103139.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-06-01T103137.200.json
+<> 2023-06-01T184325.200.json
 
 ###
 
@@ -177,12 +184,12 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "House MD",
+  "title": "House MD",
   "description": "hhhhhh",
   "adult": false
 }
 
-<> 2023-06-01T103128.200.json
+<> 2023-06-01T184319.200.json
 
 ###
 
@@ -190,12 +197,12 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Arcane",
+  "title": "Arcane",
   "description": "zxcvv",
   "adult": false
 }
 
-<> 2023-06-01T103126.200.json
+<> 2023-06-01T184317.200.json
 
 ###
 
@@ -203,12 +210,30 @@ POST http://localhost:8080/tvseries/add
 Content-Type: application/json
 
 {
-  "name": "Lucifer",
+  "title": "Lucifer",
   "description": "afjhd",
   "adult": false
 }
 
-<> 2023-06-01T103123.200.json
+<> 2023-06-01T184314.200.json
+
+###
+
+GET http://localhost:8080/regions
+
+<> 2023-06-01T184225.200.json
+
+###
+
+PATCH http://localhost:8080/regions/3
+Content-Type: application/json
+
+{
+  "city": "New York",
+  "flag": "Flag"
+}
+
+<> 2023-06-01T184221.200.json
 
 ###
 
@@ -220,7 +245,7 @@ Content-Type: application/json
   "country": "US"
 }
 
-<> 2023-06-01T103117.200.json
+<> 2023-06-01T184207.200.json
 
 ###
 
@@ -232,7 +257,7 @@ Content-Type: application/json
   "country": "GB"
 }
 
-<> 2023-06-01T103116.200.json
+<> 2023-06-01T184205.200.json
 
 ###
 
@@ -244,19 +269,19 @@ Content-Type: application/json
   "country": "FR"
 }
 
-<> 2023-06-01T103113.200.json
+<> 2023-06-01T184204.200.json
 
 ###
 
-GET http://localhost:8080/movies
+PATCH http://localhost:8080/movies/3
+Content-Type: application/json
 
-<> 2023-06-01T103046.200.json
+{
+  "title": "Matrix",
+  "runtime": "2H"
+}
 
-###
-
-GET http://localhost:8080/movies
-
-<> 2023-06-01T103045.200.json
+<> 2023-06-01T184154.200.json
 
 ###
 
@@ -269,7 +294,7 @@ Content-Type: application/json
   "releaseDate": "23/01/2020"
 }
 
-<> 2023-06-01T103042.200.json
+<> 2023-06-01T184143.200.json
 
 ###
 
@@ -282,7 +307,7 @@ Content-Type: application/json
   "releaseDate": "23/01/2020"
 }
 
-<> 2023-06-01T103040.200.json
+<> 2023-06-01T184141.200.json
 
 ###
 
@@ -295,13 +320,13 @@ Content-Type: application/json
   "releaseDate": "23/01/2020"
 }
 
-<> 2023-06-01T103038.200.json
+<> 2023-06-01T184133.200.json
 
 ###
 
 GET http://localhost:8080/users
 
-<> 2023-06-01T102937.200.json
+<> 2023-06-01T184128.200.json
 
 ###
 
@@ -314,7 +339,7 @@ Content-Type: application/json
   "email": "furman@mail.com"
 }
 
-<> 2023-06-01T102921.200.json
+<> 2023-06-01T184122.200.json
 
 ###
 
@@ -327,7 +352,7 @@ Content-Type: application/json
   "email": "domofon@mail.com"
 }
 
-<> 2023-06-01T102919.200.json
+<> 2023-06-01T184120.200.json
 
 ###
 
@@ -340,13 +365,13 @@ Content-Type: application/json
   "email": "dywan@mail.com"
 }
 
-<> 2023-06-01T102916.200.json
+<> 2023-06-01T184118.200.json
 
 ###
 
 GET http://localhost:8080/tvseries
 
-<> 2023-06-01T101654.200.json
+<> 2023-06-01T183826.200.json
 
 ###
 
@@ -371,56 +396,67 @@ Content-Type: application/json
       "id": 2
     }
   ],
-  "apiID": "019283",
+  "apiID": 19283,
   "region": {
     "id": 1
   }
 }
 
-<> 2023-06-01T101528.200.json
+<> 2023-06-01T183817.200.json
 
 ###
 
-POST http://localhost:8080/tvseries/add
+PATCH http://localhost:8080/tvseries/3
 Content-Type: application/json
 
 {
-  "name": "Terminal List",
-  "description": "CAUTION, creation adds vodPlatforms 1 and 2 AND region 1",
-  "adult": false,
-  "genre": "action",
-  "poster": "poster.png",
-  "origin": "data file",
-  "firstAirDate": "22/01/2022",
-  "lastAirDate": "23/01/2022",
-  "seasons": 1,
   "vodPlatforms": [
     {
-      "id": 1
+      "id": 2
     },
     {
-      "id": 2
+      "id": 1
     }
-  ],
-  "apiID": "019283",
-  "region": {
-    "id": 1
-  }
+  ]
 }
 
-<> 2023-06-01T095855.400.json
+<> 2023-06-01T183746.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-06-01T183738.200.json
+
+###
+
+GET http://localhost:8080/tvseries
+
+<> 2023-06-01T183737.200.json
 
 ###
 
 GET http://localhost:8080/vodplatforms
 
-<> 2023-06-01T095842.200.json
+<> 2023-06-01T183709.200.json
+
+###
+
+PATCH http://localhost:8080/vodplatforms/2
+Content-Type: application/json
+
+{
+  "vodURL": "TOJESTURL",
+  "active": false
+}
+
+<> 2023-06-01T183707.200.json
 
 ###
 
 GET http://localhost:8080/vodplatforms
 
-<> 2023-06-01T095840.200.json
+<> 2023-06-01T183656.200.json
 
 ###
 
@@ -434,7 +470,7 @@ Content-Type: application/json
   "active": true
 }
 
-<> 2023-06-01T095835.200.json
+<> 2023-06-01T183653.200.json
 
 ###
 
@@ -448,7 +484,7 @@ Content-Type: application/json
   "active": false
 }
 
-<> 2023-06-01T095833.200.json
+<> 2023-06-01T183650.200.json
 
 ###
 
@@ -462,19 +498,76 @@ Content-Type: application/json
   "active": true
 }
 
-<> 2023-06-01T095832.200.json
+<> 2023-06-01T183646.200.json
 
 ###
 
-GET http://localhost:8080/vodplatforms
+GET http://localhost:8080/tvseries
 
-<> 2023-06-01T095827.200.json
+<> 2023-06-01T183600.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "House MD",
+  "description": "hhhhhh",
+  "adult": false
+}
+
+<> 2023-06-01T183555.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "Arcane",
+  "description": "zxcvv",
+  "adult": false
+}
+
+<> 2023-06-01T183552.200.json
+
+###
+
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "name": "Lucifer",
+  "description": "afjhd",
+  "adult": false
+}
+
+<> 2023-06-01T183550.200.json
 
 ###
 
 GET http://localhost:8080/regions
 
-<> 2023-06-01T095809.200.json
+<> 2023-06-01T183543.200.json
+
+###
+
+PATCH http://localhost:8080/regions/3
+Content-Type: application/json
+
+{
+  "city": "New York",
+  "flag": "Flag"
+}
+
+<> 2023-06-01T183538.200.json
+
+###
+
+GET http://localhost:8080/regions
+
+<> 2023-06-01T183511.200.json
 
 ###
 
@@ -486,7 +579,7 @@ Content-Type: application/json
   "country": "US"
 }
 
-<> 2023-06-01T095804.200.json
+<> 2023-06-01T183508.200.json
 
 ###
 
@@ -498,49 +591,7 @@ Content-Type: application/json
   "country": "GB"
 }
 
-<> 2023-06-01T095803.200.json
-
-###
-
-POST http://localhost:8080/regions/add
-Content-Type: application/json
-
-{
-  "city": "Paris",
-  "country": "FR"
-}
-
-<> 2023-06-01T095801.200.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-06-01T095756.200.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-06-01T095751.200.json
-
-###
-
-GET http://localhost:8080/tvseries/3
-
-<> 2023-06-01T094935.200.json
-
-###
-
-GET http://localhost:8080/tvseries/3
-
-<> 2023-06-01T094932.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-06-01T094915.200.json
+<> 2023-06-01T183506.200.json
 
 ###
 
