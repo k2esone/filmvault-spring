@@ -1,4 +1,4 @@
-package pl.ccteamone.filmvault.movieApi.controller;
+package pl.ccteamone.filmvault.movie.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +8,7 @@ import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
-import pl.ccteamone.filmvault.movieApi.service.MovieApiService;
+import pl.ccteamone.filmvault.movie.service.MovieApiService;
 
 @RestController
 @RequiredArgsConstructor

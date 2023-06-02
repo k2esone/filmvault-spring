@@ -1,4 +1,4 @@
-package pl.ccteamone.filmvault.movieApi.webclient.apiMovie;
+package pl.ccteamone.filmvault.movie.webclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
