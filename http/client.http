@@ -3,7 +3,7 @@ POST http://localhost:8080/users/register
 Content-Type: application/json
 
 {
-  "username": "janekk",
+  "username": "testuser",
   "password": "s4bgbbssw!",
   "email": "tomekw.waw@gmail.com"
 }
