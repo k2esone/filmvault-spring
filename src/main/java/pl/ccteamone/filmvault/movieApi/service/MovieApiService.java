@@ -1,10 +1,10 @@
-package pl.ccteamone.filmvault.movie.service;
+package pl.ccteamone.filmvault.movieApi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.Movie;
-import pl.ccteamone.filmvault.movie.webclient.ApiMovieClient;
+import pl.ccteamone.filmvault.movieApi.webclient.apiMovie.ApiMovieClient;
 
 @Slf4j
 @Service
