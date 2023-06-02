@@ -30,16 +30,17 @@ public class Movie {
     private String releaseDate;
     private String runtime; //czas trwania filmu
     private String credits; //moze byc kolekcją - aktorzy
-
-    //TODO: create rating implementation logic
     @JsonProperty("vote_average")
     private Double rating;
 
+    //TODO: create rating implementation logic
+    private Long apiID;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "movies")
-    private Set<AppUser> appUsers;
+
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @ManyToMany(mappedBy = "movies")
+//    private Set<AppUser> appUsers;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

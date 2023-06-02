@@ -20,7 +20,10 @@ public class MovieDto {
     private String runtime;
     private String credits;
     private Double rating;
-    private Set<AppUserDto> appUsers;
+
+    private Long apiID;
+
+//    private Set<AppUserDto> appUsers;
     private Set<VODPlatformDto> vodPlatforms;
     private Region region;
 }
