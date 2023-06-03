@@ -16,7 +16,7 @@ public class ApiTvSeriesClient {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public TvSeries getApiTvSeriesForTvSeriesId(Long id) {
-        TvSeries tvSeries = callGetMethod("{movie_id}?api_key={apiKey}", TvSeries.class, id, API_KEY);
+        TvSeries tvSeries = callGetMethod("{series_id}?api_key={apiKey}", TvSeries.class, id, API_KEY);
         return TvSeries.builder()
                 .id(id)
                 .name(tvSeries.getName())
