@@ -25,7 +25,7 @@ public class TvSeries {
     private String overview;
     @JsonProperty("poster_path")
     private String posterPath;
-    private String genres;
+    private String genre;
     private boolean adult;
     @JsonProperty("origin_country")
     private String originCountry;
