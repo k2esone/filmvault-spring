@@ -75,7 +75,7 @@ public class MovieService {
         if(movieUpdateFromDto.getCredits() != null) {
             movie.setCredits(movieUpdateFromDto.getCredits());
         }
-        if(movieUpdateFromDto.getRating() != 0) {
+        if(movieUpdateFromDto.getRating() != null) {
             movie.setRating(movieUpdateFromDto.getRating());
         }
         if(movieUpdateFromDto.getApiID() != null) {
