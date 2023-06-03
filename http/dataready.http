@@ -38,7 +38,7 @@ Content-Type: application/json
   "surname": "Domofon",
   "movies": [
     {
-      "id": 1
+      "id": 3
     }
   ],
   "tvSeries": [
@@ -111,7 +111,10 @@ Content-Type: application/json
 
 {
   "title": "Matrix",
-  "runtime": "2H"
+  "runtime": "2H",
+  "region": {
+    "id": 3
+  }
 }
 
 ###
@@ -224,7 +227,7 @@ Content-Type: application/json
   "episodes": 7,
   "vodPlatforms": [
     {
-      "id": 1
+      "id": 3
     },
     {
       "id": 2
