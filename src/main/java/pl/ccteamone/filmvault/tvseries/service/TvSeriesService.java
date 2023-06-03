@@ -27,8 +27,8 @@ public class TvSeriesService {
     public TvSeriesDto createTvSeries(TvSeriesDto tvSeriesDto) {
         TvSeries tvSeriesFromDto = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
         TvSeries tvSeries = TvSeries.builder()
-                .title(tvSeriesFromDto.getTitle())
-                .description(tvSeriesFromDto.getDescription())
+                .name(tvSeriesFromDto.getName())
+                .overview(tvSeriesFromDto.getOverview())
                 .genre(tvSeriesFromDto.getGenre())
                 .posterPath(tvSeriesFromDto.getPosterPath())
                 .adult(tvSeriesFromDto.isAdult())
@@ -60,11 +60,11 @@ public class TvSeriesService {
 
         TvSeries series = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
 
-        if(series.getTitle() != null) {
-            tvSeries.setTitle(series.getTitle());
+        if(series.getName() != null) {
+            tvSeries.setName(series.getName());
         }
-        if(series.getDescription() != null) {
-            tvSeries.setDescription(series.getDescription());
+        if(series.getOverview() != null) {
+            tvSeries.setOverview(series.getOverview());
         }
         if(series.getGenre() != null) {
             tvSeries.setGenre(series.getGenre());

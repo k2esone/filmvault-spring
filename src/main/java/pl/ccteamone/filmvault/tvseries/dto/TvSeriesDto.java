@@ -12,10 +12,10 @@ import java.util.Set;
 @Builder
 public class TvSeriesDto {
     private Long id;
-    private String title;
-    private String description;
-    private String genre;
+    private String name;
+    private String overview;
     private String posterPath;
+    private String genre;
     private boolean adult;
     private String originCountry;
     private LocalDate firstAirDate;

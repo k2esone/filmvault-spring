@@ -3,7 +3,6 @@ package pl.ccteamone.filmvault.movie;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.appuser.AppUser;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
@@ -30,17 +29,11 @@ public class Movie {
     private String releaseDate;
     private String runtime; //czas trwania filmu
     private String credits; //moze byc kolekcją - aktorzy
-    @JsonProperty("vote_average")
-    private Double rating;
 
     //TODO: create rating implementation logic
+    @JsonProperty("vote_average")
+    private Double rating;
     private Long apiID;
-
-
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @ManyToMany(mappedBy = "movies")
-//    private Set<AppUser> appUsers;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

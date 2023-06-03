@@ -1,8 +1,6 @@
 package pl.ccteamone.filmvault.vodplatform.mapper;
 
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
