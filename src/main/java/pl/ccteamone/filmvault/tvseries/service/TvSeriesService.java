@@ -27,10 +27,10 @@ public class TvSeriesService {
     public TvSeriesDto createTvSeries(TvSeriesDto tvSeriesDto) {
         TvSeries tvSeries = TvSeries.builder()
                 .name(tvSeriesDto.getName())
-                .description(tvSeriesDto.getDescription())
-                .genre(tvSeriesDto.getGenre())
-                .poster(tvSeriesDto.getPoster())
-                .adult(tvSeriesDto.isAdult())
+                .overview(tvSeriesDto.getOverview())
+                .genres(tvSeriesDto.getGenres())
+                .posterPath(tvSeriesDto.getPosterPath())
+//                .adult(tvSeriesDto.isAdult())
                 .origin(tvSeriesDto.getOrigin())
                 .firstAirDate(tvSeriesDto.getFirstAirDate())
                 .lastAirDate(tvSeriesDto.getLastAirDate())
@@ -59,18 +59,18 @@ public class TvSeriesService {
         if(series.getName() != null) {
             tvSeries.setName(series.getName());
         }
-        if(series.getDescription() != null) {
-            tvSeries.setDescription(series.getDescription());
+        if(series.getOverview() != null) {
+            tvSeries.setOverview(series.getOverview());
         }
-        if(series.getGenre() != null) {
-            tvSeries.setGenre(series.getGenre());
+        if(series.getGenres() != null) {
+            tvSeries.setGenres(series.getGenres());
         }
-        if(series.getPoster() != null) {
-            tvSeries.setPoster(series.getPoster());
+        if(series.getPosterPath() != null) {
+            tvSeries.setPosterPath(series.getPosterPath());
         }
-        if(!series.isAdult()) {
-            tvSeries.setAdult(series.isAdult());
-        }
+//        if(!series.isAdult()) {
+//            tvSeries.setAdult(series.isAdult());
+//        }
         if(series.getOrigin() != null) {
             tvSeries.setOrigin(series.getOrigin());
         }

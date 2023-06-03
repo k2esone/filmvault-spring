@@ -16,10 +16,10 @@ import java.util.Set;
 public class TvSeriesDto {
     private Long id;
     private String name;
-    private String description;
-    private String genre;
-    private String poster;
-    private boolean adult;
+    private String overview;
+    private String posterPath;
+    private String genres;
+//  private boolean adult;
     private String origin;
     private LocalDate firstAirDate;
     private LocalDate lastAirDate;
