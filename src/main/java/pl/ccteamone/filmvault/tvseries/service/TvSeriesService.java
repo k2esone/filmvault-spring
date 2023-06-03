@@ -60,8 +60,8 @@ public class TvSeriesService {
 
         TvSeries series = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
 
-        if(series.getTitle() != null) {
-            tvSeries.setTitle(series.getTitle());
+        if(series.getName() != null) {
+            tvSeries.setName(series.getName());
         }
         if(series.getOverview() != null) {
             tvSeries.setOverview(series.getOverview());
