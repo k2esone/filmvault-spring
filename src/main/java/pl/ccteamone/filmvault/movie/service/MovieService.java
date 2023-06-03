@@ -11,8 +11,6 @@ import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -25,14 +23,18 @@ public class MovieService {
 
 
     public MovieDto createMovie(MovieDto create) {
+        Movie movieFromDto = movieMapper.mapToMovie(create);
         Movie movie = Movie.builder()
-                .title(create.getTitle())
-                .posterPath(create.getPosterPath())
-                .overview(create.getOverview())
-                .releaseDate(create.getReleaseDate())
-                .runtime(create.getRuntime())
-                .credits(create.getCredits())
-                .rating(create.getRating())
+                .title(movieFromDto.getTitle())
+                .posterPath(movieFromDto.getPosterPath())
+                .overview(movieFromDto.getOverview())
+                .releaseDate(movieFromDto.getReleaseDate())
+                .runtime(movieFromDto.getRuntime())
+                .credits(movieFromDto.getCredits())
+                .rating(movieFromDto.getRating())
+                .apiID(movieFromDto.getApiID())
+                .vodPlatforms(movieFromDto.getVodPlatforms())
+                .region(movieFromDto.getRegion())
                 .build();
         movieRepository.save(movie);
         return movieMapper.mapToMovieDto(movie);
@@ -53,37 +55,37 @@ public class MovieService {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
 
-        Movie movie1 = movieMapper.mapToMovie(update);
+        Movie movieUpdateFromDto = movieMapper.mapToMovie(update);
 
-        if(movie1.getTitle() != null) {
-            movie.setTitle(movie1.getTitle());
+        if(movieUpdateFromDto.getTitle() != null) {
+            movie.setTitle(movieUpdateFromDto.getTitle());
         }
-        if(movie1.getPosterPath() != null) {
-            movie.setPosterPath(movie1.getPosterPath());
+        if(movieUpdateFromDto.getPosterPath() != null) {
+            movie.setPosterPath(movieUpdateFromDto.getPosterPath());
         }
-        if(movie1.getOverview() != null) {
-            movie.setOverview(movie1.getOverview());
+        if(movieUpdateFromDto.getOverview() != null) {
+            movie.setOverview(movieUpdateFromDto.getOverview());
         }
-        if(movie1.getReleaseDate() != null) {
-            movie.setReleaseDate(movie1.getReleaseDate());
+        if(movieUpdateFromDto.getReleaseDate() != null) {
+            movie.setReleaseDate(movieUpdateFromDto.getReleaseDate());
         }
-        if(movie1.getRuntime() != null) {
-            movie.setRuntime(movie1.getRuntime());
+        if(movieUpdateFromDto.getRuntime() != null) {
+            movie.setRuntime(movieUpdateFromDto.getRuntime());
         }
-        if(movie1.getCredits() != null) {
-            movie.setCredits(movie1.getCredits());
+        if(movieUpdateFromDto.getCredits() != null) {
+            movie.setCredits(movieUpdateFromDto.getCredits());
         }
-        if(movie1.getRating() != null) {
-            movie.setRating(movie1.getRating());
+        if(movieUpdateFromDto.getRating() != 0) {
+            movie.setRating(movieUpdateFromDto.getRating());
         }
-        if (movie1.getAppUsers() != null) {
-            movie.setAppUsers(movie1.getAppUsers());
+        if(movieUpdateFromDto.getApiID() != null) {
+            movie.setApiID(movieUpdateFromDto.getApiID());
         }
-        if (movie1.getVodPlatforms() != null) {
-            movie.setVodPlatforms(movie1.getVodPlatforms());
+        if (movieUpdateFromDto.getVodPlatforms() != null) {
+            movie.setVodPlatforms(movieUpdateFromDto.getVodPlatforms());
         }
-        if (movie1.getRegion() != null) {
-            movie.setRegion(movie1.getRegion());
+        if (movieUpdateFromDto.getRegion() != null) {
+            movie.setRegion(movieUpdateFromDto.getRegion());
         }
 
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
