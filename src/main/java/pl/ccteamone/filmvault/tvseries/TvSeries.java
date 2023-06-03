@@ -28,7 +28,7 @@ public class TvSeries {
     private String genres;
     private boolean adult;
     @JsonProperty("origin_country")
-    private String origin;
+    private String originCountry;
     //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     @JsonProperty("first_air_date")
     private LocalDate firstAirDate;

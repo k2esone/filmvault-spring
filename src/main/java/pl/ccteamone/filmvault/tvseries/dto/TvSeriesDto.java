@@ -15,9 +15,9 @@ public class TvSeriesDto {
     private String name;
     private String overview;
     private String posterPath;
-    private String genres;
+    private String genre;
     private boolean adult;
-    private String origin;
+    private String originCountry;
     private LocalDate firstAirDate;
     private LocalDate lastAirDate;
     private int seasons;
