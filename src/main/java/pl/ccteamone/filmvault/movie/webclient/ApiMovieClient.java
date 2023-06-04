@@ -3,6 +3,8 @@ package pl.ccteamone.filmvault.movie.webclient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.ccteamone.filmvault.movie.Movie;
+import pl.ccteamone.filmvault.movie.dto.CreditDto;
+import pl.ccteamone.filmvault.movie.dto.MovieDto;
 
 @Component
 public class ApiMovieClient {
@@ -25,6 +27,13 @@ public class ApiMovieClient {
                 .overview(movie.getOverview())
                 .releaseDate(movie.getReleaseDate())
                 .runtime(movie.getRuntime())
+                .build();
+    }
+
+    public CreditDto getApiCreditsForMovieId(Long id) {
+        CreditDto creditDto = callGetMethod("{movie_id}/credits?api_key={apiKey}", CreditDto.class, id, API_KEY);
+        return CreditDto.builder()
+                .cast(creditDto.getCast())
                 .build();
     }
 //    public String getApiMovieForMovieInfo(int id) {

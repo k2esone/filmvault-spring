@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.Movie;
+import pl.ccteamone.filmvault.movie.dto.CreditDto;
 import pl.ccteamone.filmvault.movie.webclient.ApiMovieClient;
 
 @Slf4j
@@ -17,6 +18,10 @@ public class MovieApiService {
 
     public Movie getApiMovie(Long movId) {
         return apiMovieClient.getApiMovieForMovieId(movId);
+    }
+
+    public CreditDto getApiCreditsForMovie(Long movId) {
+        return apiMovieClient.getApiCreditsForMovieId(movId);
     }
 
 
