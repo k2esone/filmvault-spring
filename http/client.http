@@ -51,7 +51,7 @@ POST http://localhost:8080/movies/add
 Content-Type: application/json
 
 {
-  "title": "film3",
+  "title": "Karaiby",
   "overview": "Brum brum!",
   "releaseDate": "23/01/2020"
 }

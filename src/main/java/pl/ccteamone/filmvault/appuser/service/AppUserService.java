@@ -38,7 +38,8 @@ public class AppUserService {
     public AppUserDto addMovieByTitle(String username, String movieTitle) {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
-        Movie movie = movieRepository.findByTitle(movieTitle)
+        Movie movie = movieRepository.findByTitleContainingIgnoreCase(movieTitle)
+                .stream().findAny()
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found, title: " + movieTitle));
         appUser.getMovies().add(movie);
         appUserRepository.save(appUser);
