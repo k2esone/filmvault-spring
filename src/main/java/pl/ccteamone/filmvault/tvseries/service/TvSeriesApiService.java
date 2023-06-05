@@ -12,9 +12,9 @@ import pl.ccteamone.filmvault.tvseries.webclient.ApiTvSeriesClient;
 public class TvSeriesApiService {
 
     private final ApiTvSeriesClient apiTvSeriesClient;
-    private final TvSeriesService service;
+    private final TvSeriesService tvSeriesService;
     public TvSeriesDto getApiTvSeries(Long tvSeriesId) {
         TvSeriesDto tvSeries = apiTvSeriesClient.getApiTvSeriesForTvSeriesId(tvSeriesId);
-        return service.createTvSeries(tvSeries);
+        return tvSeriesService.createTvSeries(tvSeries);
     }
 }

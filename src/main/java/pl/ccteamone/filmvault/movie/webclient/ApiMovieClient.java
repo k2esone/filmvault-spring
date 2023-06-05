@@ -2,7 +2,7 @@ package pl.ccteamone.filmvault.movie.webclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import pl.ccteamone.filmvault.movie.Movie;
+import pl.ccteamone.filmvault.movie.dto.MovieDto;
 
 @Component
 public class ApiMovieClient {
@@ -16,15 +16,15 @@ public class ApiMovieClient {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public Movie getApiMovieForMovieId(Long id) {
-        Movie movie = callGetMethod("{movie_id}?api_key={apiKey}", Movie.class, id, API_KEY);
-        return Movie.builder()
-                .id(id)
-                .title(movie.getTitle())
-                .posterPath(movie.getPosterPath())
-                .overview(movie.getOverview())
-                .releaseDate(movie.getReleaseDate())
-                .runtime(movie.getRuntime())
+    public MovieDto getApiMovieForMovieId(Long id) {
+        MovieDto movieDto = callGetMethod("{movie_id}?api_key={apiKey}", MovieDto.class, id, API_KEY);
+        return MovieDto.builder()
+                .apiID(movieDto.getApiID())
+                .title(movieDto.getTitle())
+                .posterPath(movieDto.getPosterPath())
+                .overview(movieDto.getOverview())
+                .releaseDate(movieDto.getReleaseDate())
+                .runtime(movieDto.getRuntime())
                 .build();
     }
 //    public String getApiMovieForMovieInfo(int id) {
