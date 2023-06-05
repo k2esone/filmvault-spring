@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
-import pl.ccteamone.filmvault.tvseries.mapper.TvSeriesMapper;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
 
 @RestController
@@ -15,7 +14,6 @@ import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
 public class TvSeriesApiController {
 
     private final TvSeriesApiService tvSeriesApiService;
-    private final TvSeriesMapper tvSeriesMapper;
 
 
     @GetMapping("/{tvSeriesId}")
