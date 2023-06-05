@@ -2,6 +2,7 @@ package pl.ccteamone.filmvault.tvseries.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
@@ -40,6 +41,12 @@ public class TvSeriesController {
     public void deleteTvSeries(@PathVariable Long tvseriesId) {
         tvService.deleteTvSeries(tvseriesId);
     }
+
+    @GetMapping("/search")
+    public List<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
+        return tvService.searchTvSeries(query);
+    }
+
 
 
 

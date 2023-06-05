@@ -21,12 +21,12 @@ public class ApiMovieClient {
     public Movie getApiMovieForMovieId(Long id) {
         Movie movie = callGetMethod("{movie_id}?api_key={apiKey}", Movie.class, id, API_KEY);
         return Movie.builder()
-                .id(id)
                 .title(movie.getTitle())
                 .posterPath(movie.getPosterPath())
                 .overview(movie.getOverview())
                 .releaseDate(movie.getReleaseDate())
                 .runtime(movie.getRuntime())
+                .apiID(id)
                 .build();
     }
 

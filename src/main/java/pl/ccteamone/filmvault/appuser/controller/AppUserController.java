@@ -25,9 +25,14 @@ public class AppUserController {
     }
 
     @PostMapping("/{username}/add-movie")
-    public AppUserDto addMovieToUser(@PathVariable String username, @RequestParam String movieTitle) {
+    public AppUserDto addMovieByTitleToUser(@PathVariable String username, @RequestParam String movieTitle) {
         return appUserService.addMovieByTitle(username, movieTitle);
     }
+    @PostMapping("/{username}/add-movieid")
+    public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId) {
+        return appUserService.addMovieByApiId(username, movieApiId);
+    }
+
 
     //TODO: Set public fuction for searching users (public profile)
     @GetMapping()

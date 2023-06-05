@@ -46,6 +46,17 @@ public class AppUserService {
         return appUserMapper.mapToAppUserDto(appUser);
     }
 
+    public AppUserDto addMovieByApiId(String username, Long movieApiId) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
+        Movie movie = movieRepository.findByApiID(movieApiId)
+                .stream().findAny()
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found, title: " + movieApiId));
+        appUser.getMovies().add(movie);
+        appUserRepository.save(appUser);
+        return appUserMapper.mapToAppUserDto(appUser);
+    }
+
     public List<AppUserDto> getUsersList() {
         return appUserRepository.findAll()
                 .stream().map(appUserMapper::mapToAppUserDto)
