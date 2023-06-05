@@ -2,7 +2,6 @@ package pl.ccteamone.filmvault.tvseries.webclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 
 @Component
