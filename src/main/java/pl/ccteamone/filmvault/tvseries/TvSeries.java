@@ -27,14 +27,15 @@ public class TvSeries {
     private String posterPath;
     private String genre;
     private boolean adult;
-    @JsonProperty("origin_country")
+    @JsonProperty("original_language")
     private String originCountry;
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     @JsonProperty("first_air_date")
     private LocalDate firstAirDate;
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     @JsonProperty("last_air_date")
     private LocalDate lastAirDate;
+    @JsonProperty("number_of_seasons")
     private int seasons;
     private int episodes;
     private Long apiID;

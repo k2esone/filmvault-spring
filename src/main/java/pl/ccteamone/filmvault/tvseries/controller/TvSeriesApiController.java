@@ -17,13 +17,11 @@ import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
 public class TvSeriesApiController {
 
     private final TvSeriesApiService tvSeriesApiService;
-    private final TvSeriesRepository tvSeriesRepository;
     private final TvSeriesMapper tvSeriesMapper;
+
 
     @GetMapping("/{tvSeriesId}")
     public TvSeriesDto getApiTvSeries(@PathVariable Long tvSeriesId) {
-        TvSeries tvSeries = tvSeriesApiService.getApiTvSeries(tvSeriesId);
-        tvSeriesRepository.save(tvSeriesApiService.getApiTvSeries(tvSeriesId));
-        return tvSeriesMapper.mapToTvSeriesDto(tvSeries);
+        return tvSeriesApiService.getApiTvSeries(tvSeriesId);
     }
 }

@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.tvseries.webclient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 
 @Component
 public class ApiTvSeriesClient {
@@ -15,18 +16,18 @@ public class ApiTvSeriesClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public TvSeries getApiTvSeriesForTvSeriesId(Long id) {
-        TvSeries tvSeries = callGetMethod("{series_id}?api_key={apiKey}", TvSeries.class, id, API_KEY);
-        return TvSeries.builder()
-                .id(id)
-                .name(tvSeries.getName())
-                .overview(tvSeries.getOverview())
-                .posterPath(tvSeries.getPosterPath())
-                .genre(tvSeries.getGenre())
-                .originCountry(tvSeries.getOriginCountry())
-                .firstAirDate(tvSeries.getFirstAirDate())
-                .lastAirDate(tvSeries.getLastAirDate())
-                .seasons(tvSeries.getSeasons())
+    public TvSeriesDto getApiTvSeriesForTvSeriesId(Long id) {
+        TvSeriesDto tvSeriesDto = callGetMethod("{series_id}?api_key={apiKey}", TvSeriesDto.class, id, API_KEY);
+        return TvSeriesDto.builder()
+                .apiID (tvSeriesDto.getApiID())
+                .name(tvSeriesDto.getName())
+                .overview(tvSeriesDto.getOverview())
+                .posterPath(tvSeriesDto.getPosterPath())
+                .genre(tvSeriesDto.getGenre())
+                .originCountry(tvSeriesDto.getOriginCountry())
+                .firstAirDate(tvSeriesDto.getFirstAirDate())
+                .lastAirDate(tvSeriesDto.getLastAirDate())
+                .seasons(tvSeriesDto.getSeasons())
                 .build();
     }
 
