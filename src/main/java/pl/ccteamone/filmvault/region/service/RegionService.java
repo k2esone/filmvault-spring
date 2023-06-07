@@ -19,7 +19,7 @@ public class RegionService {
 
     public RegionDto createRegion(RegionDto request) {
         Region region = Region.builder()
-                .city(request.getCity())
+                .countryCode(request.getCountryCode())
                 .country(request.getCountry())
                 .flag(request.getFlag())
                 .build();
@@ -44,8 +44,8 @@ public class RegionService {
     public RegionDto updateRegion(Long regionId, RegionDto request) {
         Region region = regionRepository.findById(regionId)
                 .orElseThrow(() -> new EntityNotFoundException("Region not found, id:" + regionId));
-        if(request.getCity() != null) {
-            region.setCity(request.getCity());
+        if(request.getCountryCode() != null) {
+            region.setCountryCode(request.getCountryCode());
         }
         if(request.getCountry() != null) {
             region.setCountry(request.getCountry());
@@ -63,5 +63,9 @@ public class RegionService {
             throw new EntityNotFoundException("Region not found, id: " + regionId);
         }
 
+    }
+
+    public boolean doesRegionExistsByCountryCode(String countryCode) {
+        return regionRepository.existsByCountryCodeIgnoreCase(countryCode);
     }
 }
