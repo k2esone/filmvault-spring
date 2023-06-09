@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.service.MovieApiService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class MovieApiController {
@@ -18,4 +20,10 @@ public class MovieApiController {
     public MovieDto getApiMovie(@PathVariable Long movId) {
         return movieApiService.getApiMovie(movId);
     }
+
+    @GetMapping("api/movies")
+    public List<MovieDto> getApiMovies() {
+        return movieApiService.getMovieList();
+    }
+
 }

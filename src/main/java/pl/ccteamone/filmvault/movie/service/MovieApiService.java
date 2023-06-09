@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.webclient.ApiMovieClient;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -20,4 +22,10 @@ public class MovieApiService {
         MovieDto movie = apiMovieClient.getApiMovieForMovieId(movId);
         return movieService.createMovie(movie);
     }
+
+    public List<MovieDto> getMovieList() {
+        return apiMovieClient.getTopMovieListUpdate();
+    }
+
+
 }
