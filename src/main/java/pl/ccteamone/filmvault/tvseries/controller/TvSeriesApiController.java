@@ -1,12 +1,11 @@
 package pl.ccteamone.filmvault.tvseries.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +18,13 @@ public class TvSeriesApiController {
     @GetMapping("/{tvSeriesId}")
     public TvSeriesDto getApiTvSeries(@PathVariable Long tvSeriesId) {
         return tvSeriesApiService.getApiTvSeries(tvSeriesId);
+    }
+
+    @GetMapping("/discovery")
+    public List<TvSeriesDto> getApiTvSeriesDisvovery(@RequestParam("page") Integer page) {
+        if(page == null) {
+            return tvSeriesApiService.getTvSeriesDiscoveryList(1);
+        }
+        return tvSeriesApiService.getTvSeriesDiscoveryList(page);
     }
 }

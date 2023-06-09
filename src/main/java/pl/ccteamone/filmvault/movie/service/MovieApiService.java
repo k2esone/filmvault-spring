@@ -23,8 +23,8 @@ public class MovieApiService {
         return movieService.createMovie(movie);
     }
 
-    public List<MovieDto> getMovieList() {
-        return apiMovieClient.getTopMovieListUpdate();
+    public List<MovieDto> getMovieDiscoverList(Integer page) {
+        return apiMovieClient.getMovieDiscoverList(page);
     }
 
 

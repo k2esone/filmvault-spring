@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.webclient.ApiTvSeriesClient;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -16,5 +18,9 @@ public class TvSeriesApiService {
     public TvSeriesDto getApiTvSeries(Long tvSeriesId) {
         TvSeriesDto tvSeries = apiTvSeriesClient.getApiTvSeriesForTvSeriesId(tvSeriesId);
         return tvSeriesService.createTvSeries(tvSeries);
+    }
+
+    public List<TvSeriesDto> getTvSeriesDiscoveryList(Integer page) {
+        return apiTvSeriesClient.getTvSeriesDiscoverList(page);
     }
 }

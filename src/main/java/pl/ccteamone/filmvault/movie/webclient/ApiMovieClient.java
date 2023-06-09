@@ -5,7 +5,6 @@ import org.springframework.web.client.RestTemplate;
 import pl.ccteamone.filmvault.movie.dto.ApiMovieDtoList;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 
-import java.awt.*;
 import java.util.List;
 
 @Component
@@ -16,7 +15,7 @@ public class ApiMovieClient {
     https://api.themoviedb.org/3/movie/22?api_key=2cf008cfced14e2935757fdbc052768b
      */
     private static final String API_MOVIE_URL = "https://api.themoviedb.org/3/movie/";
-    private static final String API_DISCOVER_URL = "https://api.themoviedb.org/3/discover/";
+    private static final String API_DISCOVER_URL = "https://api.themoviedb.org/3/discover/movie";
     private static final String API_KEY = "2cf008cfced14e2935757fdbc052768b";
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -37,8 +36,8 @@ public class ApiMovieClient {
 //                String.class, id, API_KEY);
 //    }
 
-    public List<MovieDto> getTopMovieListUpdate() {
-        ApiMovieDtoList moviePackage = callGetMethodWithDiscover("movie?api_key={apiKey}&popular?language=en-US&page=1", ApiMovieDtoList.class, API_KEY);
+    public List<MovieDto> getMovieDiscoverList(Integer page) {
+        ApiMovieDtoList moviePackage = callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US&page={page}", ApiMovieDtoList.class, API_KEY, page);
         return moviePackage.getMovies();
     }
 
@@ -47,7 +46,7 @@ public class ApiMovieClient {
                 responseType, objects);
     }
 
-    private <U> U callGetMethodWithDiscover(String url, Class<U> responseType, Object... objects) {
+    private <T> T callGetMethodWithDiscover(String url, Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(API_DISCOVER_URL + url, responseType, objects);
     }
 

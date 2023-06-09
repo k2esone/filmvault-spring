@@ -2,7 +2,10 @@ package pl.ccteamone.filmvault.tvseries.webclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoList;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+
+import java.util.List;
 
 @Component
 public class ApiTvSeriesClient {
@@ -11,6 +14,7 @@ public class ApiTvSeriesClient {
      */
 
     private static final String API_TVSERIES_URL = "https://api.themoviedb.org/3/tv/";
+    private static final String API_DISCOVER_URL = "https://api.themoviedb.org/3/discover/tv";
     private static final String API_KEY = "2cf008cfced14e2935757fdbc052768b";
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -30,8 +34,18 @@ public class ApiTvSeriesClient {
                 .build();
     }
 
+    public List<TvSeriesDto> getTvSeriesDiscoverList(Integer page) {
+        ApiTvSeriesDtoList seriesPackage = callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US&page={page}", ApiTvSeriesDtoList.class, API_KEY,page);
+        return seriesPackage.getMovies();
+    }
+
+
     private <T> T callGetMethod(String url, Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(API_TVSERIES_URL + url,
                 responseType, objects);
+    }
+
+    private <T> T callGetMethodWithDiscover(String url, Class<T> respopnseType, Object... objects) {
+        return restTemplate.getForObject(API_DISCOVER_URL + url, respopnseType, objects);
     }
 }
