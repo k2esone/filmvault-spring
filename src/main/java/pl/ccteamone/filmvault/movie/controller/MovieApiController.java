@@ -27,6 +27,17 @@ public class MovieApiController {
         movieRepository.save(movieApiService.getApiMovie(movId));
         return movieMapper.mapToMovieDto(movie);
     }
+
+//    @GetMapping("/all")
+//    public void getAllApiMovie() {
+//        for (long i = 0; i < 10000 ; i++) {
+//            try {
+//                movieRepository.save(movieApiService.getApiMovie(i));
+//            } catch (Exception e) {
+//
+//            }
+//        }
+//    }
     @GetMapping("credits/{movId}")
     public CreditDto getApiCreditsForMovieId(@PathVariable Long movId) {
         return movieApiService.getApiCreditsForMovie(movId);
