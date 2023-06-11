@@ -19,10 +19,8 @@ import java.util.Set;
 public class MovieDto {
     private Long id;
     private String title;
-    @JsonProperty("poster_path")
     private String posterPath;
     private String overview;
-    @JsonProperty("release_date")
     private String releaseDate;
     private String runtime;
     private String credits;

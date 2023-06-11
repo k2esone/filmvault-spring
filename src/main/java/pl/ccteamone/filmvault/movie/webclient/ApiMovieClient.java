@@ -1,13 +1,13 @@
 package pl.ccteamone.filmvault.movie.webclient;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import pl.ccteamone.filmvault.movie.dto.ApiMovieDtoList;
-import pl.ccteamone.filmvault.movie.dto.MovieDto;
-
-import java.util.List;
+import pl.ccteamone.filmvault.movie.dto.ApiMovieDtoPage;
+import pl.ccteamone.filmvault.movie.dto.MovieApiDto;
 
 @Component
+@Slf4j
 public class ApiMovieClient {
 
 
@@ -20,30 +20,23 @@ public class ApiMovieClient {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public MovieDto getApiMovieForMovieId(Long id) {
-        MovieDto movieDto = callGetMethod("{movie_id}?api_key={apiKey}", MovieDto.class, id, API_KEY);
-        return MovieDto.builder()
-                .apiID(movieDto.getApiID())
-                .title(movieDto.getTitle())
-                .posterPath(movieDto.getPosterPath())
-                .overview(movieDto.getOverview())
-                .releaseDate(movieDto.getReleaseDate())
-                .runtime(movieDto.getRuntime())
-                .build();
+    public MovieApiDto getApiMovieByMovieId(Long id) {
+        return callGetMethod("{movie_id}?api_key={apiKey}", MovieApiDto.class, id, API_KEY);
     }
 //    public String getApiMovieForMovieInfo(int id) {
 //        return restTemplate.getForObject(API_MOVIE_URL + "{movie_id}?api_key={apiKey}",
 //                String.class, id, API_KEY);
 //    }
 
-    public List<MovieDto> getMovieDiscoverList(Integer page) {
-        ApiMovieDtoList moviePackage = callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US&page={page}", ApiMovieDtoList.class, API_KEY, page);
-        return moviePackage.getMovies();
+    public ApiMovieDtoPage getMoviesDiscoverPage(Integer page) {
+        if(page == null || page == 0) {
+            return callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US", ApiMovieDtoPage.class, API_KEY);
+        }
+        return callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US&page={page}", ApiMovieDtoPage.class, API_KEY, page);
     }
 
     private <T> T callGetMethod(String url, Class<T> responseType, Object... objects) {
-        return restTemplate.getForObject(API_MOVIE_URL + url,
-                responseType, objects);
+        return restTemplate.getForObject(API_MOVIE_URL + url, responseType, objects);
     }
 
     private <T> T callGetMethodWithDiscover(String url, Class<T> responseType, Object... objects) {

@@ -34,9 +34,11 @@ public class ApiTvSeriesClient {
                 .build();
     }
 
-    public List<TvSeriesDto> getTvSeriesDiscoverList(Integer page) {
-        ApiTvSeriesDtoList seriesPackage = callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US&page={page}", ApiTvSeriesDtoList.class, API_KEY,page);
-        return seriesPackage.getMovies();
+    public ApiTvSeriesDtoList getTvSeriesDiscoverList(Integer page) {
+        if(page == null) {
+            return callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US", ApiTvSeriesDtoList.class, API_KEY);
+        }
+        return callGetMethodWithDiscover("?api_key={apiKey}&popular?language=en-US&page={page}", ApiTvSeriesDtoList.class, API_KEY,page);
     }
 
 

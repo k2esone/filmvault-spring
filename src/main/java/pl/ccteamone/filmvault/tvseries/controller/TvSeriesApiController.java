@@ -23,8 +23,8 @@ public class TvSeriesApiController {
     @GetMapping("/discovery")
     public List<TvSeriesDto> getApiTvSeriesDisvovery(@RequestParam("page") Integer page) {
         if(page == null) {
-            return tvSeriesApiService.getTvSeriesDiscoveryList(1);
+            return tvSeriesApiService.getTvSeriesDiscoverList(1);
         }
-        return tvSeriesApiService.getTvSeriesDiscoveryList(page);
+        return tvSeriesApiService.getTvSeriesDiscoverList(page);
     }
 }

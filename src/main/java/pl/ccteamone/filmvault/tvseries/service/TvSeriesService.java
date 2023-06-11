@@ -110,4 +110,13 @@ public class TvSeriesService {
             throw new EntityNotFoundException("Tv Series id=" + tvseriesId + " not found");
         }
     }
+
+    public boolean existsByApiID(Long id) {
+        return tvRepository.existsByApiID(id);
+    }
+
+    public TvSeriesDto findTvSeriesByApiID(Long id) {
+        return tvSeriesMapper.mapToTvSeriesDto(tvRepository.findByApiID(id)
+                .orElseThrow(() -> new RuntimeException("Tv Series not found")));
+    }
 }

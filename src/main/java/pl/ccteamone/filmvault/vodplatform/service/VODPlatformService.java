@@ -29,7 +29,6 @@ public class VODPlatformService {
                 .logoPath(platformDto.getLogoPath())
                 .vodURL(platformDto.getVodURL())
                 .active(platformDto.isActive())
-                .apiID(platformDto.getApiID())
                 .build();
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }
@@ -62,9 +61,6 @@ public class VODPlatformService {
         }
         if (!vodPlatform.isActive()) {
             platform.setActive(vodPlatform.isActive());
-        }
-        if (vodPlatform.getApiID() != null) {
-            platform.setApiID(vodPlatform.getApiID());
         }
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }

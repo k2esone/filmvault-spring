@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.ccteamone.filmvault.movie.dto.MovieDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,5 +21,5 @@ public class ApiTvSeriesDtoList {
     @JsonProperty("total_results")
     private Long totalResults;
     @JsonProperty("results")
-    private List<TvSeriesDto> movies = new ArrayList<>();
+    private List<TvSeriesDto> tvSeries = new ArrayList<>();
 }

@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class MovieService {
-
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
 
@@ -96,5 +95,14 @@ public class MovieService {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("Movie not found with id: " + movieId);
         }
+    }
+
+    public boolean existsByApiID(Long id) {
+        return movieRepository.existsByApiID(id);
+    }
+
+    public MovieDto findMovieByApiID(Long id) {
+        return movieMapper.mapToMovieDto(movieRepository.findByApiID(id)
+                .orElseThrow(() -> new RuntimeException("Movie not found")));
     }
 }

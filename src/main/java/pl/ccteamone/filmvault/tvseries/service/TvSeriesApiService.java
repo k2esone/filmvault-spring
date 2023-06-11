@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.tvseries.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoList;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.webclient.ApiTvSeriesClient;
 
@@ -20,7 +21,13 @@ public class TvSeriesApiService {
         return tvSeriesService.createTvSeries(tvSeries);
     }
 
-    public List<TvSeriesDto> getTvSeriesDiscoveryList(Integer page) {
+    public List<TvSeriesDto> getTvSeriesDiscoverList(Integer page) {
+        ApiTvSeriesDtoList apiTvSeriesPage = apiTvSeriesClient.getTvSeriesDiscoverList(page);
+        return apiTvSeriesPage.getTvSeries();
+    }
+
+    public ApiTvSeriesDtoList getTvSeriesDiscoverPage(Integer page) {
         return apiTvSeriesClient.getTvSeriesDiscoverList(page);
     }
+
 }

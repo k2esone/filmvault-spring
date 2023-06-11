@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiMovieDtoList {
+public class ApiMovieDtoPage {
 
 
     private Long page;
@@ -22,5 +22,5 @@ public class ApiMovieDtoList {
     @JsonProperty("total_results")
     private Long totalResults;
     @JsonProperty("results")
-    private List<MovieDto> movies = new ArrayList<>();
+    private List<MovieApiDto> movies = new ArrayList<>();
 }

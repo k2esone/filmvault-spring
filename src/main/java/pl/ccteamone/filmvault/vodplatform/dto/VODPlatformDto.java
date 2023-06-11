@@ -11,6 +11,5 @@ public class VODPlatformDto {
     private String logoPath;
     private String vodURL;
     private boolean active;
-    private String apiID;
 
 }
