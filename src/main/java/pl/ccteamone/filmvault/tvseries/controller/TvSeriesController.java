@@ -7,7 +7,6 @@ import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor

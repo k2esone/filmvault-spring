@@ -9,7 +9,6 @@ import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.dto.MovieDtoPage;
 import pl.ccteamone.filmvault.movie.service.MovieApiService;
 import pl.ccteamone.filmvault.movie.service.MovieService;
-import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
