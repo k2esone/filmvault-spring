@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieApiDto {
+public class ApiMovieDto {
 
     private Long id;
     private boolean adult;

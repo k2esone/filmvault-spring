@@ -3,9 +3,10 @@ package pl.ccteamone.filmvault.util;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import pl.ccteamone.filmvault.movie.dto.ApiMovieDtoPage;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
+import pl.ccteamone.filmvault.movie.dto.MovieDtoPage;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.service.MovieApiService;
 import pl.ccteamone.filmvault.movie.service.MovieService;
@@ -24,8 +25,9 @@ public class DatabaseDataInitializer implements CommandLineRunner {
     private final TvSeriesService tvSeriesService;
     private final MovieApiService movieApiService;
     private final MovieService movieService;
-    private final MovieMapper movieMapper;
 
+
+    @Scheduled(cron = "0 0 0 * * 0")
     private void updateDatabaseRecords() {
         List<MovieDto> movieUpdate = supplyDiscoverMovieDtoList();
         List<TvSeriesDto> tvSeriesUpdate = supplyDiscoverTvSeriesDtoList();
@@ -33,7 +35,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
         if(!movieUpdate.isEmpty()) {
             for (int i = 0; i < movieUpdate.size(); i++) {
                 MovieDto movie = movieUpdate.get(i);
-                log.info("wywalam loopa " + movie.getTitle());
+
                 if(movie.getApiID() != null && !movieService.existsByApiID(movie.getApiID())) {
                     movie = movieApiService.getApiMovie(movie.getApiID());
                     movieService.createMovie(movie);
@@ -44,7 +46,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
         if(!tvSeriesUpdate.isEmpty()) {
             for (int i = 0; i < tvSeriesUpdate.size(); i++) {
                 TvSeriesDto tvSeries = tvSeriesUpdate.get(i);
-                log.info("wywalam loopa " + tvSeries.getName());
+
                 if(tvSeries.getId() != null && !tvSeriesService.existsByApiID(tvSeries.getId())) {
                     tvSeries = tvSeriesApiService.getApiTvSeries(tvSeries.getId());
                     tvSeriesService.createTvSeries(tvSeries);
@@ -57,7 +59,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
 
     private List<MovieDto> supplyDiscoverMovieDtoList() {
         List<MovieDto> movieUpdateList = new ArrayList<>();
-        ApiMovieDtoPage page;
+        MovieDtoPage page;
         for (int i = 1; i < 11; i++) {
             page = movieApiService.getMovieDiscoverPage(i);
             if(page == null) {
@@ -65,11 +67,11 @@ public class DatabaseDataInitializer implements CommandLineRunner {
             }
             log.info("" + page.getPage());
             log.info("" + page.getMovies().get(0).getTitle());
-            movieUpdateList.addAll(movieMapper.mapToMovieDtoList(page.getMovies()));
+            movieUpdateList.addAll(page.getMovies());
         }
         return movieUpdateList;
     }
-
+    //TODO: zrobić update po zmianach w API TvSeries
     private List<TvSeriesDto> supplyDiscoverTvSeriesDtoList() {
         List<TvSeriesDto> tvSeriesUpdateList = new ArrayList<>();
         ApiTvSeriesDtoList page;

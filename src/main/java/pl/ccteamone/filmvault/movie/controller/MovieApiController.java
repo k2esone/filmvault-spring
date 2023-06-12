@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.service.MovieApiService;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
 import java.util.List;
 
 @RestController
@@ -26,11 +24,13 @@ public class MovieApiController {
     }
 
     @GetMapping("/api/movies/discovery")
-    public List<MovieDto> getApiMovies(@RequestParam("page") Integer page) {
-        if(page == null) {
-            return movieApiService.getMovieDiscoverList(1);
-        }
+    public List<MovieDto> getApiMovieDiscovery(@RequestParam("page") Integer page) {
         return movieApiService.getMovieDiscoverList(page);
+    }
+
+    @GetMapping("/api/movies/search")
+    public List<MovieDto> getApiMovieSearch(@RequestParam("page") Integer page, @RequestParam("phrase") String phrase) {
+        return movieApiService.getMovieSearchList(page,phrase);
     }
 
 }

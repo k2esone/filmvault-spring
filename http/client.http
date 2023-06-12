@@ -183,3 +183,12 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/vodplatforms/2
+
+###
+GET http://localhost:8080/api/movies
+
+###
+GET http://localhost:8080/api/movies/discovery?page=1
+
+###
+GET http://localhost:8080/api/movies/search?page=1&phrase=pira
