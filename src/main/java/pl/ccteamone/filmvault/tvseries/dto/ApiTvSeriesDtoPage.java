@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiTvSeriesDtoList {
+public class ApiTvSeriesDtoPage {
 
     private Long page;
     @JsonProperty("total_pages")
@@ -21,5 +21,5 @@ public class ApiTvSeriesDtoList {
     @JsonProperty("total_results")
     private Long totalResults;
     @JsonProperty("results")
-    private List<TvSeriesDto> tvSeries = new ArrayList<>();
+    private List<ApiTvSeriesDto> tvSeries = new ArrayList<>();
 }

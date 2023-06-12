@@ -1,17 +1,17 @@
 package pl.ccteamone.filmvault.util;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.dto.MovieDtoPage;
-import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.service.MovieApiService;
 import pl.ccteamone.filmvault.movie.service.MovieService;
-import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoList;
+import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
@@ -74,7 +74,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
     //TODO: zrobić update po zmianach w API TvSeries
     private List<TvSeriesDto> supplyDiscoverTvSeriesDtoList() {
         List<TvSeriesDto> tvSeriesUpdateList = new ArrayList<>();
-        ApiTvSeriesDtoList page;
+        TvSeriesDtoPage page;
         for (int i = 1; i < 11; i++) {
             page = tvSeriesApiService.getTvSeriesDiscoverPage(i);
             if(page == null) {

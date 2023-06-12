@@ -20,12 +20,9 @@ public class TvSeriesService {
     private final TvSeriesMapper tvSeriesMapper;
 
 
-    public TvSeries save (TvSeries tvSeries) {
-        return tvRepository.save(tvSeries);
-    }
 
-    public TvSeriesDto createTvSeries(TvSeriesDto tvSeriesDto) {
-        TvSeries tvSeriesFromDto = tvSeriesMapper.mapToTvSeries(tvSeriesDto);
+    public TvSeriesDto createTvSeries(TvSeriesDto create) {
+        TvSeries tvSeriesFromDto = tvSeriesMapper.mapToTvSeries(create);
         TvSeries tvSeries = TvSeries.builder()
                 .name(tvSeriesFromDto.getName())
                 .overview(tvSeriesFromDto.getOverview())
@@ -44,12 +41,12 @@ public class TvSeriesService {
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }
 
-    public List<TvSeriesDto> getTvSeriesDtoList() {
+    public List<TvSeriesDto> getTvSeriesList() {
         return StreamSupport.stream(tvRepository.findAll().spliterator(), false)
                 .map(tvSeriesMapper::mapToTvSeriesDto).collect(Collectors.toList());
     }
 
-    public TvSeriesDto getTvSeriesDtoById(Long id) {
+    public TvSeriesDto getTvSeriesById(Long id) {
         Optional<TvSeries> tvSeries = tvRepository.findById(id);
         return tvSeriesMapper.mapToTvSeriesDto(tvSeries.orElseThrow(() -> new RuntimeException("Tv Series id=" + id + " not found")));
     }
@@ -102,7 +99,7 @@ public class TvSeriesService {
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }
 
-    public void deleteTvSeries(Long tvseriesId) {
+    public void deleteTvSeriesById(Long tvseriesId) {
         try {
             tvRepository.deleteById(tvseriesId);
 
