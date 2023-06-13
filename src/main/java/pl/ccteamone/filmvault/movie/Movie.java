@@ -23,9 +23,9 @@ public class Movie {
     private String title;
     private String posterPath;
     @Column(length = 512)
-    private String overview; //opis do filmu
+    private String overview;
     private String releaseDate;
-    private String runtime; //czas trwania filmu
+    private Integer runtime;
     private String credits; //moze byc kolekcją - aktorzy
     private Double rating;
     private Long apiID;

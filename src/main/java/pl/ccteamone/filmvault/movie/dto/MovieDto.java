@@ -21,7 +21,7 @@ public class MovieDto {
     private String posterPath;
     private String overview;
     private String releaseDate;
-    private String runtime;
+    private Integer runtime;
     private String credits;
     private Double rating;
     private Long apiID;

@@ -26,6 +26,7 @@ public class TvSeries {
     private String posterPath;
     private String genre;
     private boolean adult;
+    private String originLanguage;
     private String originCountry;
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     private LocalDate firstAirDate;
@@ -44,7 +45,6 @@ public class TvSeries {
     @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
-
 
 
 }

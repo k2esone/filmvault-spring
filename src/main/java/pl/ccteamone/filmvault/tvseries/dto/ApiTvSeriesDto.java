@@ -22,6 +22,7 @@ public class ApiTvSeriesDto {
     private String genre;
     private boolean adult;
     @JsonProperty("original_language")
+    private String originLanguage;
     private String originCountry;
     @JsonProperty("first_air_date")
     private LocalDate firstAirDate;

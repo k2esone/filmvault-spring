@@ -22,6 +22,7 @@ public class TvSeriesDto {
     private String posterPath;
     private String genre;
     private boolean adult;
+    private String originLanguage;
     private String originCountry;
     private LocalDate firstAirDate;
     private LocalDate lastAirDate;
