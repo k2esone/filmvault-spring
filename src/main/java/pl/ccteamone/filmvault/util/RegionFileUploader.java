@@ -6,8 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
+import pl.ccteamone.filmvault.region.dto.FileRegionDto;
 import pl.ccteamone.filmvault.region.dto.RegionDto;
+import pl.ccteamone.filmvault.region.mapper.RegionMapper;
 import pl.ccteamone.filmvault.region.service.RegionService;
 
 import java.io.*;
@@ -18,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RegionFileUploader implements CommandLineRunner {
     private final RegionService regionService;
-
+    private final RegionMapper regionMapper;
     private static final String CSV_FILE_PATH = "src/main/resources/imports/region_data.csv";
     private static final String JSON_FILE_PATH = "src/main/resources/imports/regions.json";
     private static final int COUNTRY_CODE_INDEX = 0;
@@ -65,8 +68,8 @@ public class RegionFileUploader implements CommandLineRunner {
         ObjectMapper mapper = new ObjectMapper();
         try {
             File regionJson = new File(JSON_FILE_PATH);
-            List<RegionDto> regions = mapper.readValue(regionJson, new TypeReference<List<RegionDto>>() {
-            });
+            List<RegionDto> regions = regionMapper.mapToRegionDtoList(mapper.readValue(regionJson, new TypeReference<List<FileRegionDto>>() {
+            }));
             for (RegionDto region : regions) {
                 if (!regionService.doesRegionExistsByCountryCode(region.getCountryCode())) {
                     if(region.getFlag() == null) {

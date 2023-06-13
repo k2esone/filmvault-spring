@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegionDto {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class FileRegionDto {
     private Long id;
+    @JsonProperty("iso_3166_1")
     private String countryCode;
+    @JsonProperty("english_name")
     private String country;
     private String flag;
 }

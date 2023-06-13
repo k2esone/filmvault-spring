@@ -71,6 +71,10 @@ public class VODPlatformService {
         } catch (Exception e) {
             throw  new EntityNotFoundException("VODPlatform id =" + vodPlatformId + " not found");
         }
-
     }
+
+    public boolean existsPlatformByName(String name) {
+        return platformRepository.existsByNameIgnoreCase(name);
+    }
+
 }
