@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 

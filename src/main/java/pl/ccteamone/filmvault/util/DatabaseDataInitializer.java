@@ -52,8 +52,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
                 }
             }
         }
-
-        log.info("Auto Update Method: finished");
+        log.info("Auto Update Method: done");
     }
 
     private List<MovieDto> supplyDiscoverMovieDtoList() {
@@ -64,13 +63,11 @@ public class DatabaseDataInitializer implements CommandLineRunner {
             if(page == null) {
                 break;
             }
-            log.info("" + page.getPage());
-            log.info("" + page.getMovies().get(0).getTitle());
             movieUpdateList.addAll(page.getMovies());
         }
         return movieUpdateList;
     }
-    //TODO: zrobić update po zmianach w API TvSeries
+
     private List<TvSeriesDto> supplyDiscoverTvSeriesDtoList() {
         List<TvSeriesDto> tvSeriesUpdateList = new ArrayList<>();
         TvSeriesDtoPage page;
@@ -85,11 +82,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
 
 
     }
-
-
-
-
-
+    //TODO: uncomment to fill the DB -  commented to spare API usage
     @Override
     public void run(String... args) throws Exception {
         //updateDatabaseRecords();

@@ -21,17 +21,12 @@ public class Movie {
     @Column
     private Long id;
     private String title;
-    @JsonProperty("poster_path")
     private String posterPath;
     @Column(length = 512)
     private String overview; //opis do filmu
-    @JsonProperty("release_date")
     private String releaseDate;
     private String runtime; //czas trwania filmu
     private String credits; //moze byc kolekcją - aktorzy
-
-    //TODO: create rating implementation logic
-    @JsonProperty("vote_average")
     private Double rating;
     private Long apiID;
 
