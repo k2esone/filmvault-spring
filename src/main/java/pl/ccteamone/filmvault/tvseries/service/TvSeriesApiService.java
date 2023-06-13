@@ -18,12 +18,10 @@ import java.util.List;
 public class TvSeriesApiService {
 
     private final ApiTvSeriesClient apiTvSeriesClient;
-    private final TvSeriesService tvSeriesService;
     private final TvSeriesMapper tvSeriesMapper;
 
     public TvSeriesDto getApiTvSeries(Long tvSeriesId) {
-        ApiTvSeriesDto tvSeries = apiTvSeriesClient.getApiTvSeriesByTvSeriesId(tvSeriesId);
-        return tvSeriesService.createTvSeries(tvSeriesMapper.mapToTvSeriesDto(tvSeries));
+        return tvSeriesMapper.mapToTvSeriesDto(apiTvSeriesClient.getApiTvSeriesByTvSeriesId(tvSeriesId));
     }
 
     public List<TvSeriesDto> getTvSeriesDiscoverList(Integer page) {

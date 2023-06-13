@@ -19,13 +19,11 @@ public class MovieApiService {
 
 
     private final ApiMovieClient apiMovieClient;
-    private final MovieService movieService;
     private final MovieMapper movieMapper;
 
 
     public MovieDto getApiMovie(Long movId) {
-        ApiMovieDto movie = apiMovieClient.getApiMovieByMovieId(movId);
-        return movieService.createMovie(movieMapper.mapToMovieDto(movie));
+        return movieMapper.mapToMovieDto(apiMovieClient.getApiMovieByMovieId(movId));
     }
 
     public List<MovieDto> getMovieDiscoverList(Integer page) {
