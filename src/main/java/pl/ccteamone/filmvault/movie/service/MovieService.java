@@ -53,7 +53,6 @@ public class MovieService {
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
     }
 
-
     public MovieDto updateMovie(Long movieId, MovieDto update) {
 
         Movie movie = movieRepository.findById(movieId)

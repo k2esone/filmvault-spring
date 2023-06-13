@@ -50,7 +50,6 @@ public class AppUserService {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
         Movie movie = movieRepository.findByApiID(movieApiId)
-                .stream().findAny()
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found, title: " + movieApiId));
         appUser.getMovies().add(movie);
         appUserRepository.save(appUser);
