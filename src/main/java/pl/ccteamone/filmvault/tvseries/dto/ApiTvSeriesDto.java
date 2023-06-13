@@ -29,5 +29,6 @@ public class ApiTvSeriesDto {
     private LocalDate lastAirDate;
     @JsonProperty("number_of_seasons")
     private int seasons;
+    @JsonProperty("number_of_episodes")
     private int episodes;
 }
