@@ -55,7 +55,7 @@ public class MovieController {
         return movieService.searchMovies(query);
     }
 
-    @GetMapping("/discovery")
+    @GetMapping("/discover")
     public List<MovieDto> getDiscoverMovieList(@RequestParam(required = false) Integer page) {
         return movieService.getDiscoverMovieList(page);
     }
