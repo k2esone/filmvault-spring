@@ -130,9 +130,11 @@ public class MovieService {
             int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
-                Movie movie1 = new Movie();
-                movie1.setTitle(movie.getTitle());
-                similarMovies.add(movieMapper.mapToMovieDto(movie1));
+                similarMovies.add(movies.stream()
+                        .filter(match -> match.getTitle().equalsIgnoreCase(movie.getTitle()))
+                        .findFirst()
+                        .map(movieMapper::mapToMovieDto)
+                        .orElseThrow(() -> new RuntimeException("Unable to match movie by title")));
             }
 
             if (similarMovies.size() == 5) {
@@ -172,7 +174,7 @@ public class MovieService {
     private void persistApiMovieBatchBySearch(String phrase) {
         // default 5 pages
         List<MovieDto> movieBatch = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             movieBatch.addAll(movieApiService.getMovieSearchList(i,phrase));
             log.info("" + movieBatch.size());
         }
