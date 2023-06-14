@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/vodplatforms")
+@RequestMapping("/api/v1/providers")
 public class VODPlatformController {
 
     private final VODPlatformService platformService;
@@ -19,13 +19,18 @@ public class VODPlatformController {
         return platformService.createVODPlatform(vodPlatformDto);
     }
     @GetMapping()
-    public List<VODPlatformDto> getPlatformList() {
-        return platformService.getVODPlatformDtoList();
+    public List<VODPlatformDto> getActivePlatformList() {
+        return platformService.getVODPlatformActiveList();
     }
 
     @GetMapping("/{id}")
     public VODPlatformDto getPlatform(@PathVariable Long id) {
         return platformService.getVODPlatformDtoById(id);
+    }
+
+    @GetMapping("/full")
+    public List<VODPlatformDto> getFullPlatformList(){
+        return platformService.getVODPlatformDtoFullList();
     }
 
     @PatchMapping("/{id}")

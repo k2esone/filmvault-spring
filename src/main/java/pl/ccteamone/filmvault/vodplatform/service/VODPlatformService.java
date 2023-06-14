@@ -33,9 +33,14 @@ public class VODPlatformService {
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }
 
-    public List<VODPlatformDto> getVODPlatformDtoList() {
+    public List<VODPlatformDto> getVODPlatformDtoFullList() {
         return StreamSupport.stream(platformRepository.findAll().spliterator(), false)
                 .map(vodPlatformMapper::mapToVODPlatformDto).collect(Collectors.toList());
+    }
+
+    public List<VODPlatformDto> getVODPlatformActiveList() {
+        return vodPlatformMapper.mapToVODPlatformDtoSet(platformRepository.findAll().stream()
+                .filter(vodPlatform -> vodPlatform.isActive()).collect(Collectors.toSet())).stream().toList();
     }
     //TODO: create custom exception for handling missing VOD Platform
 
@@ -69,7 +74,7 @@ public class VODPlatformService {
         try {
             platformRepository.deleteById(vodPlatformId);
         } catch (Exception e) {
-            throw  new EntityNotFoundException("VODPlatform id =" + vodPlatformId + " not found");
+            throw new EntityNotFoundException("VODPlatform id =" + vodPlatformId + " not found");
         }
     }
 

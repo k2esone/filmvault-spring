@@ -74,7 +74,8 @@
     "display_priority": 2,
     "logo_path": "/peURlLlr8jggOwK53fJ5wdQl05y.jpg",
     "provider_name": "Apple TV",
-    "provider_id": 2
+    "provider_id": 2,
+    "active": true
   },
   {
     "display_priorities": {
@@ -153,7 +154,8 @@
     "display_priority": 1,
     "logo_path": "/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg",
     "provider_name": "Google Play Movies",
-    "provider_id": 3
+    "provider_id": 3,
+    "active": true
   },
   {
     "display_priorities": {
@@ -301,7 +303,8 @@
     "display_priority": 5,
     "logo_path": "/t2yyOv40HZeVlLjYsCsPHnWLk4W.jpg",
     "provider_name": "Netflix",
-    "provider_id": 8
+    "provider_id": 8,
+    "active": true
   },
   {
     "display_priorities": {
@@ -314,7 +317,8 @@
     "display_priority": 1,
     "logo_path": "/emthp39XA2YScoYL1p0sdbAH2WA.jpg",
     "provider_name": "Amazon Prime Video",
-    "provider_id": 9
+    "provider_id": 9,
+    "active": true
   },
   {
     "display_priorities": {
@@ -882,7 +886,8 @@
     "display_priority": 52,
     "logo_path": "/shq88b09gTBYC4hA7K7MUL8Q4zP.jpg",
     "provider_name": "Microsoft Store",
-    "provider_id": 68
+    "provider_id": 68,
+    "active": true
   },
   {
     "display_priorities": {
@@ -1167,7 +1172,8 @@
     "display_priority": 36,
     "logo_path": "/fWqVPYArdFwBc6vYqoyQB6XUl85.jpg",
     "provider_name": "HBO",
-    "provider_id": 118
+    "provider_id": 118,
+    "active": true
   },
   {
     "display_priorities": {
@@ -1674,7 +1680,8 @@
     "display_priority": 36,
     "logo_path": "/6IPjvnYl6WWkIwN158qBFXCr2Ne.jpg",
     "provider_name": "YouTube Premium",
-    "provider_id": 188
+    "provider_id": 188,
+    "active": true
   },
   {
     "display_priorities": {
@@ -3233,7 +3240,8 @@
     "display_priority": 1,
     "logo_path": "/7rwgEs15tFwyR9NPQ5vpzxTj19Q.jpg",
     "provider_name": "Disney Plus",
-    "provider_id": 337
+    "provider_id": 337,
+    "active": true
   },
   {
     "display_priorities": {
@@ -3584,7 +3592,8 @@
     "display_priority": 3,
     "logo_path": "/hGvUo8KZTRLDZWcfFJS3gA8aenB.jpg",
     "provider_name": "Canal+",
-    "provider_id": 381
+    "provider_id": 381,
+    "active": true
   },
   {
     "display_priorities": {

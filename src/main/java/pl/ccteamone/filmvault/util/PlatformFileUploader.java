@@ -33,6 +33,9 @@ public class PlatformFileUploader implements CommandLineRunner {
             }));
             for (VODPlatformDto platform : platforms) {
                 if (!platformService.existsPlatformByName(platform.getName())) {
+                    if(platform.getVodURL() == null || platform.getVodURL().isEmpty()) {
+                        platform.setVodURL("URL: None");
+                    }
                     platformService.createVODPlatform(platform);
                 }
             }
