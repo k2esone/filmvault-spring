@@ -1,5 +1,6 @@
 package pl.ccteamone.filmvault.movie.service;
 
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,7 +11,10 @@ import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -47,7 +51,6 @@ public class MovieService {
         return movieMapper.mapToMovieDto(movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
     }
-
 
     public MovieDto updateMovie(Long movieId, MovieDto update) {
 
@@ -105,4 +108,52 @@ public class MovieService {
         return movieMapper.mapToMovieDto(movieRepository.findByApiID(id)
                 .orElseThrow(() -> new RuntimeException("Movie not found")));
     }
+
+    public List<MovieDto> searchMovies(String query) {
+        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query.substring(0, 1));
+        List<MovieDto> similarMovies = new ArrayList<>();
+
+        for (Movie movie : movies) {
+            String title = movie.getTitle().toLowerCase();
+            String lowercaseQuery = query.toLowerCase();
+
+            List<String> titleNGrams = generateNGrams(title, 2); // licznik prawdopodobieństwa dla title
+            List<String> queryNGrams = generateNGrams(lowercaseQuery, 2);  // licznik prawdopodobieństwa dla query
+
+            int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
+
+            if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
+                Movie movie1 = new Movie();
+                movie1.setTitle(movie.getTitle());
+                similarMovies.add(movieMapper.mapToMovieDto(movie1));
+            }
+
+            if (similarMovies.size() == 5) {
+                break;
+            }
+        }
+
+        return similarMovies;
+    }
+
+    private List<String> generateNGrams(String input, int n) {
+        List<String> nGrams = new ArrayList<>();
+
+        for (int i = 0; i <= input.length() - n; i++) {
+            String nGram = input.substring(i, i + n);
+            nGrams.add(nGram);
+        }
+
+        return nGrams;
+    }
+
+    private int countCommonNGrams(List<String> nGrams1, List<String> nGrams2) {
+        Set<String> set1 = new HashSet<>(nGrams1);
+        Set<String> set2 = new HashSet<>(nGrams2);
+
+        set1.retainAll(set2);
+
+        return set1.size();
+    }
+
 }

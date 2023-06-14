@@ -3,13 +3,13 @@ package pl.ccteamone.filmvault.tvseries.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.mapper.TvSeriesMapper;
 import pl.ccteamone.filmvault.tvseries.repository.TvSeriesRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -20,6 +20,9 @@ public class TvSeriesService {
     private final TvSeriesMapper tvSeriesMapper;
 
 
+    public TvSeries save (TvSeries tvSeries) {
+        return tvRepository.save(tvSeries);
+    }
 
     public TvSeriesDto createTvSeries(TvSeriesDto create) {
         TvSeries tvSeriesFromDto = tvSeriesMapper.mapToTvSeries(create);
@@ -99,7 +102,7 @@ public class TvSeriesService {
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }
 
-    public void deleteTvSeriesById(Long tvseriesId) {
+    public void deleteTvSeries(Long tvseriesId) {
         try {
             tvRepository.deleteById(tvseriesId);
 
@@ -115,5 +118,52 @@ public class TvSeriesService {
     public TvSeriesDto findTvSeriesByApiID(Long id) {
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.findByApiID(id)
                 .orElseThrow(() -> new RuntimeException("Tv Series not found")));
+    }
+
+    public List<TvSeriesDto> searchTvSeries(String query) {
+        List<TvSeries> tvSeries = tvRepository.findByNameContainingIgnoreCase(query.substring(0, 1));
+        List<TvSeriesDto> similarTvSeries = new ArrayList<>();
+
+        for (TvSeries tvSerie : tvSeries) {
+            String name = tvSerie.getName().toLowerCase();
+            String lowercaseQuery = query.toLowerCase();
+
+            List<String> nameNGrams = generateNGrams(name, 2); // licznik prawdopodobieństwa dla title
+            List<String> queryNGrams = generateNGrams(lowercaseQuery, 2);  // licznik prawdopodobieństwa dla query
+
+            int commonNGrams = countCommonNGrams(nameNGrams, queryNGrams);
+
+            if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
+                TvSeries tvSeries1 = new TvSeries();
+                tvSeries1.setName(tvSerie.getName());
+                similarTvSeries.add(tvSeriesMapper.mapToTvSeriesDto(tvSeries1));
+            }
+
+            if (similarTvSeries.size() == 5) {
+                break;
+            }
+        }
+
+        return similarTvSeries;
+    }
+
+    private List<String> generateNGrams(String input, int n) {
+        List<String> nGrams = new ArrayList<>();
+
+        for (int i = 0; i <= input.length() - n; i++) {
+            String nGram = input.substring(i, i + n);
+            nGrams.add(nGram);
+        }
+
+        return nGrams;
+    }
+
+    private int countCommonNGrams(List<String> nGrams1, List<String> nGrams2) {
+        Set<String> set1 = new HashSet<>(nGrams1);
+        Set<String> set2 = new HashSet<>(nGrams2);
+
+        set1.retainAll(set2);
+
+        return set1.size();
     }
 }
