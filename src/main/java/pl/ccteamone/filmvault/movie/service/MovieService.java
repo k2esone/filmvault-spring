@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.movie.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.Movie;
@@ -19,9 +20,11 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MovieService {
     private final MovieRepository movieRepository;
+    private final MovieApiService movieApiService;
     private final MovieMapper movieMapper;
 
 
@@ -109,7 +112,11 @@ public class MovieService {
                 .orElseThrow(() -> new RuntimeException("Movie not found")));
     }
 
+    // SEARCH ->
+
     public List<MovieDto> searchMovies(String query) {
+        persistApiMovieBatchBySearch(query);
+
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query.substring(0, 1));
         List<MovieDto> similarMovies = new ArrayList<>();
 
@@ -154,6 +161,28 @@ public class MovieService {
         set1.retainAll(set2);
 
         return set1.size();
+    }
+
+    // <- SEARCH
+
+    public void getApiMoviePageBySearch(Long id, String phrase) {
+
+    }
+
+    private void persistApiMovieBatchBySearch(String phrase) {
+        // default 5 pages
+        List<MovieDto> movieBatch = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            movieBatch.addAll(movieApiService.getMovieSearchList(i,phrase));
+            log.info("" + movieBatch.size());
+        }
+        movieBatch = movieBatch.stream()
+                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
+                .toList();
+
+        for (MovieDto movie : movieBatch) {
+            createMovie(movie);
+        }
     }
 
 }

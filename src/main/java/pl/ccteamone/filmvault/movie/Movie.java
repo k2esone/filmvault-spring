@@ -22,7 +22,7 @@ public class Movie {
     private Long id;
     private String title;
     private String posterPath;
-    @Column(length = 512)
+    @Column(length = 2048)
     private String overview;
     private String releaseDate;
     private Integer runtime;

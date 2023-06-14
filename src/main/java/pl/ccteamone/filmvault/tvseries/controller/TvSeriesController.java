@@ -3,7 +3,6 @@ package pl.ccteamone.filmvault.tvseries.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
@@ -16,7 +15,6 @@ import java.util.List;
 public class TvSeriesController {
 
     private final TvSeriesService tvService;
-
 
     @PostMapping("/add")
     public TvSeriesDto createTvSeries(@RequestBody TvSeriesDto create) {
@@ -45,15 +43,12 @@ public class TvSeriesController {
     @DeleteMapping("/{tvseriesId}")
     public void deleteTvSeries(@PathVariable Long tvseriesId) {
         log.info("delete movie with id - {}", tvseriesId);
-        tvService.deleteTvSeriesById(tvseriesId);
+        tvService.deleteTvSeries(tvseriesId);
     }
 
     @GetMapping("/search")
     public List<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
         return tvService.searchTvSeries(query);
     }
-
-
-
 
 }
