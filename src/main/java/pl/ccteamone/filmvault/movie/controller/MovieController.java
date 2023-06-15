@@ -29,7 +29,7 @@ public class MovieController {
     @GetMapping
     public List<MovieDto> getMovieList() {
         log.info("request for movies list");
-        return movieService.getMovieList();
+        return movieService.getFullMovieList();
     }
 
     @GetMapping("/{movieId}")
@@ -52,11 +52,11 @@ public class MovieController {
 
     @GetMapping("/search")
     public List<MovieDto> searchMovies(@RequestParam("query") String query) {
-        return movieService.searchMovies(query);
+        return movieService.findMoviePredictions(query);
     }
 
     @GetMapping("/discover")
-    public List<MovieDto> getDiscoverMovieList(@RequestParam(required = false) Integer page) {
+    public List<MovieDto> getDiscoverMovieList(@RequestParam(defaultValue = "1", required = false) Integer page) {
         return movieService.getDiscoverMovieList(page);
     }
 

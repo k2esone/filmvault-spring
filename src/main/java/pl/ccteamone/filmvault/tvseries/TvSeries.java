@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.ccteamone.filmvault.genre.Genre;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
@@ -24,7 +25,6 @@ public class TvSeries {
     @Column(length = 512)
     private String overview;
     private String posterPath;
-    private String genre;
     private boolean adult;
     private String originLanguage;
     private String originCountry;
@@ -38,13 +38,16 @@ public class TvSeries {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
-    private Region region;
+    @ManyToMany
+    private Set<Region> regions;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
+
+    @ManyToMany
+    private Set<Genre> genres;
 
 
 }

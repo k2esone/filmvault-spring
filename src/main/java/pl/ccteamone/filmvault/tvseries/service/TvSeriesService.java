@@ -26,22 +26,7 @@ public class TvSeriesService {
 
     public TvSeriesDto createTvSeries(TvSeriesDto create) {
         TvSeries tvSeriesFromDto = tvSeriesMapper.mapToTvSeries(create);
-        TvSeries tvSeries = TvSeries.builder()
-                .name(tvSeriesFromDto.getName())
-                .overview(tvSeriesFromDto.getOverview())
-                .genre(tvSeriesFromDto.getGenre())
-                .posterPath(tvSeriesFromDto.getPosterPath())
-                .adult(tvSeriesFromDto.isAdult())
-                .originCountry(tvSeriesFromDto.getOriginCountry())
-                .firstAirDate(tvSeriesFromDto.getFirstAirDate())
-                .lastAirDate(tvSeriesFromDto.getLastAirDate())
-                .region(tvSeriesFromDto.getRegion())
-                .seasons(tvSeriesFromDto.getSeasons())
-                .episodes(tvSeriesFromDto.getEpisodes())
-                .vodPlatforms(tvSeriesFromDto.getVodPlatforms())
-                .apiID(tvSeriesFromDto.getApiID())
-                .build();
-        return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
+        return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeriesFromDto));
     }
 
     public List<TvSeriesDto> getTvSeriesList() {
@@ -66,8 +51,8 @@ public class TvSeriesService {
         if(series.getOverview() != null) {
             tvSeries.setOverview(series.getOverview());
         }
-        if(series.getGenre() != null) {
-            tvSeries.setGenre(series.getGenre());
+        if(series.getGenres() != null) {
+            tvSeries.setGenres(series.getGenres());
         }
         if(series.getPosterPath() != null) {
             tvSeries.setPosterPath(series.getPosterPath());
@@ -90,8 +75,8 @@ public class TvSeriesService {
         if(series.getEpisodes() != 0) {
             tvSeries.setEpisodes(series.getEpisodes());
         }
-        if(series.getRegion() != null) {
-            tvSeries.setRegion(series.getRegion());
+        if(series.getRegions() != null) {
+            tvSeries.setRegions(series.getRegions());
         }
         if(series.getVodPlatforms() != null) {
             tvSeries.setVodPlatforms(series.getVodPlatforms());

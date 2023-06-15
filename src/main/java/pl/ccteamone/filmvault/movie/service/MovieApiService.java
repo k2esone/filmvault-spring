@@ -1,11 +1,8 @@
 package pl.ccteamone.filmvault.movie.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.id.IncrementGenerator;
 import org.springframework.stereotype.Service;
-import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.*;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.webclient.ApiMovieClient;
@@ -58,7 +55,8 @@ public class MovieApiService {
         return movieMapper.mapToMovieDtoPage(apiMovieClient.getMoviesTitleSearchPage(page,phrase));
     }
 
-    /*    public List<Movie> getApiMovieByTitle(String title) throws JsonProcessingException {
+    /*
+        public List<Movie> getApiMovieByTitle(String title) throws JsonProcessingException {
         List<Movie> movies = apiMovieClient.getMoviesTitleSearchPage(title);
         for (Movie movie : movies) {
             if (movieRepository.findByApiID(movie.getApiID()).isEmpty()) {
@@ -66,6 +64,7 @@ public class MovieApiService {
             }
         }
         return movies;
-    }*/
+    }
+    */
 
 }

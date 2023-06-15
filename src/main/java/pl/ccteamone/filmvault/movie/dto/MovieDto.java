@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.ccteamone.filmvault.genre.dto.GenreDto;
 import pl.ccteamone.filmvault.region.Region;
+import pl.ccteamone.filmvault.region.dto.RegionDto;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
 import java.util.Set;
@@ -26,5 +28,6 @@ public class MovieDto {
     private Double rating;
     private Long apiID;
     private Set<VODPlatformDto> vodPlatforms;
-    private Region region;
+    private Set<RegionDto> regions;
+    private Set<GenreDto> genres;
 }

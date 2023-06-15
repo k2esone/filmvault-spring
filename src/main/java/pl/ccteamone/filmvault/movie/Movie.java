@@ -3,6 +3,7 @@ package pl.ccteamone.filmvault.movie;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import pl.ccteamone.filmvault.genre.Genre;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
@@ -37,8 +38,11 @@ public class Movie {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
-    private Region region;
+    @ManyToMany
+    private Set<Region> regions;
+
+    @ManyToMany
+    private Set<Genre> genres;
 
 }
 

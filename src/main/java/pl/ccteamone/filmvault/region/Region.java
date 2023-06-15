@@ -18,4 +18,3 @@ public class Region {
     private String country;
     private String flag;
 }
-

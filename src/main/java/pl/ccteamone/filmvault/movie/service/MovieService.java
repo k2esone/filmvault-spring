@@ -30,23 +30,10 @@ public class MovieService {
 
     public MovieDto createMovie(MovieDto create) {
         Movie movieFromDto = movieMapper.mapToMovie(create);
-        Movie movie = Movie.builder()
-                .title(movieFromDto.getTitle())
-                .posterPath(movieFromDto.getPosterPath())
-                .overview(movieFromDto.getOverview())
-                .releaseDate(movieFromDto.getReleaseDate())
-                .runtime(movieFromDto.getRuntime())
-                .credits(movieFromDto.getCredits())
-                .rating(movieFromDto.getRating())
-                .apiID(movieFromDto.getApiID())
-                .vodPlatforms(movieFromDto.getVodPlatforms())
-                .region(movieFromDto.getRegion())
-                .build();
-        movieRepository.save(movie);
-        return movieMapper.mapToMovieDto(movie);
+        return movieMapper.mapToMovieDto(movieRepository.save(movieFromDto));
     }
 
-    public List<MovieDto> getMovieList() {
+    public List<MovieDto> getFullMovieList() {
         return movieRepository.findAll().stream().map(movieMapper::mapToMovieDto).collect(Collectors.toList());
     }
 
@@ -89,8 +76,11 @@ public class MovieService {
         if (movieUpdateFromDto.getVodPlatforms() != null) {
             movie.setVodPlatforms(movieUpdateFromDto.getVodPlatforms());
         }
-        if (movieUpdateFromDto.getRegion() != null) {
-            movie.setRegion(movieUpdateFromDto.getRegion());
+        if (movieUpdateFromDto.getRegions() != null) {
+            movie.setRegions(movieUpdateFromDto.getRegions());
+        }
+        if(movieUpdateFromDto.getGenres() != null) {
+            movie.setGenres(movieUpdateFromDto.getGenres());
         }
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
@@ -114,8 +104,8 @@ public class MovieService {
 
     // SEARCH ->
 
-    public List<MovieDto> searchMovies(String query) {
-        getApiMovieBatchBySearch(query);
+    public List<MovieDto> findMoviePredictions(String query) {
+        getApiMovieBatchByPhrase(query);
 
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query.substring(0, 1));
         List<MovieDto> similarMovies = new ArrayList<>();
@@ -130,14 +120,12 @@ public class MovieService {
             int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
-                similarMovies.add(movies.stream()
-                        .filter(match -> match.getTitle().equalsIgnoreCase(movie.getTitle()))
-                        .findFirst()
-                        .map(movieMapper::mapToMovieDto)
-                        .orElseThrow(() -> new RuntimeException("Unable to match movie by title")));
+                Movie moviePrediction = new Movie();
+                moviePrediction.setTitle(movie.getTitle());
+                similarMovies.add(movieMapper.mapToMovieDto(moviePrediction));
             }
 
-            if (similarMovies.size() == 5) {
+            if (similarMovies.size() == 20) {
                 break;
             }
         }
@@ -167,19 +155,19 @@ public class MovieService {
 
     // <- SEARCH
 
-    public void getApiMoviePageBySearch(Long id, String phrase) {
+    public void getMovie(Integer page, Integer size, String phrase, String releaseDate, Integer runtime, Double rating) {
 
     }
 
     public List<MovieDto> getDiscoverMovieList(Integer page) {
-        if (page == null || page == 0) {
+/*        if (page == null || page == 0) {
             page = 1;
-        }
+        }*/
         List<MovieDto> movies = movieApiService.getMovieDiscoverList(page);
         return persistMovieDtoList(movies);
     }
 
-    private void getApiMovieBatchBySearch(String phrase) {
+    private void getApiMovieBatchByPhrase(String phrase) {
         // default 5 pages
         List<MovieDto> movieBatch = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
