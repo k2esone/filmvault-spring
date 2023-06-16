@@ -1,11 +1,11 @@
-package pl.ccteamone.filmvault.util;
+package pl.ccteamone.filmvault.util.initializers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import pl.ccteamone.filmvault.util.DataInitializer;
 import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 import pl.ccteamone.filmvault.vodplatform.mapper.VODPlatformMapper;
@@ -18,14 +18,14 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class PlatformFileUploader implements CommandLineRunner {
+public class PlatformFileUploader implements DataInitializer {
 
     private final VODPlatformService platformService;
     private final VODPlatformMapper platformMapper;
 
     private static final String JSON_FILE_PATH = "src/main/resources/imports/vodplatforms.json";
 
-    public void initializeVODPlatformsJsonFromFile() {
+    public void initializePlatformsJsonFile() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             File platformJson = new File(JSON_FILE_PATH);
@@ -47,8 +47,7 @@ public class PlatformFileUploader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        initializeVODPlatformsJsonFromFile();
-
+    public void initializeData() {
+        initializePlatformsJsonFile();
     }
 }

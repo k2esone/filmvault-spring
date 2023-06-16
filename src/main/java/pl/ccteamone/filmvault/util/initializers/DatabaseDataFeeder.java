@@ -1,8 +1,7 @@
-package pl.ccteamone.filmvault.util;
+package pl.ccteamone.filmvault.util.initializers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
@@ -13,13 +12,14 @@ import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
+import pl.ccteamone.filmvault.util.DataInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DatabaseDataInitializer implements CommandLineRunner {
+public class DatabaseDataFeeder {
     private final TvSeriesApiService tvSeriesApiService;
     private final TvSeriesService tvSeriesService;
     private final MovieApiService movieApiService;
@@ -46,8 +46,8 @@ public class DatabaseDataInitializer implements CommandLineRunner {
             for (int i = 0; i < tvSeriesUpdate.size(); i++) {
                 TvSeriesDto tvSeries = tvSeriesUpdate.get(i);
 
-                if(tvSeries.getId() != null && !tvSeriesService.existsByApiID(tvSeries.getId())) {
-                    tvSeries = tvSeriesApiService.getApiTvSeries(tvSeries.getId());
+                if(tvSeries.getApiID() != null && !tvSeriesService.existsByApiID(tvSeries.getApiID())) {
+                    tvSeries = tvSeriesApiService.getApiTvSeries(tvSeries.getApiID());
                     tvSeriesService.createTvSeries(tvSeries);
                 }
             }
@@ -58,7 +58,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
     private List<MovieDto> supplyDiscoverMovieDtoList() {
         List<MovieDto> movieUpdateList = new ArrayList<>();
         MovieDtoPage page;
-        for (int i = 1; i < 11; i++) {
+        for (int i = 1; i <= 10; i++) {
             page = movieApiService.getMovieDiscoverPage(i);
             if(page == null) {
                 break;
@@ -71,7 +71,7 @@ public class DatabaseDataInitializer implements CommandLineRunner {
     private List<TvSeriesDto> supplyDiscoverTvSeriesDtoList() {
         List<TvSeriesDto> tvSeriesUpdateList = new ArrayList<>();
         TvSeriesDtoPage page;
-        for (int i = 1; i < 11; i++) {
+        for (int i = 1; i <= 10; i++) {
             page = tvSeriesApiService.getTvSeriesDiscoverPage(i);
             if(page == null) {
                 break;
@@ -82,9 +82,6 @@ public class DatabaseDataInitializer implements CommandLineRunner {
 
 
     }
+
     //TODO: uncomment to fill the DB -  commented to spare API usage
-    @Override
-    public void run(String... args) throws Exception {
-        //updateDatabaseRecords();
-    }
 }
