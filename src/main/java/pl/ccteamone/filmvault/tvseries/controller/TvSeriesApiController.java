@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/tvseries")
+@RequestMapping("/demo/tvseries")
 public class TvSeriesApiController {
 
     private final TvSeriesApiService tvSeriesApiService;

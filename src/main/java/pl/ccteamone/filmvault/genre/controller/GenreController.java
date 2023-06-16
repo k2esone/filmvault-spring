@@ -8,7 +8,7 @@ import pl.ccteamone.filmvault.genre.service.GenreService;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/genre")
+@RequestMapping("/api/genres")
 @RequiredArgsConstructor
 public class GenreController {
     private final GenreService genreService;

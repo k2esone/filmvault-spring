@@ -2,6 +2,9 @@ package pl.ccteamone.filmvault.region;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.ccteamone.filmvault.vodplatform.VODPlatform;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,4 +20,6 @@ public class Region {
     private String countryCode;
     private String country;
     private String flag;
+    @ManyToMany
+    private Set<VODPlatform> vodPlatforms;
 }

@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,4 +19,5 @@ public class RegionDto {
     private String countryCode;
     private String country;
     private String flag;
+    private Set<VODPlatformDto> vodPlatforms;
 }

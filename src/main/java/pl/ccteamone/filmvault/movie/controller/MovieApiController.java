@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/ext/movie")
+@RequestMapping("/demo/movies")
 public class MovieApiController {
 
 

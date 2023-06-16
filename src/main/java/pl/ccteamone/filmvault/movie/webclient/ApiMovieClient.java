@@ -7,6 +7,9 @@ import pl.ccteamone.filmvault.movie.dto.CreditDto;
 
 import pl.ccteamone.filmvault.movie.dto.ApiMovieDtoPage;
 import pl.ccteamone.filmvault.movie.dto.ApiMovieDto;
+import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
+
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -15,6 +18,8 @@ public class ApiMovieClient {
     /*
     https://api.themoviedb.org/3/movie/22?api_key=2cf008cfced14e2935757fdbc052768b
     https://api.themoviedb.org/3/search/movie?api_key=2cf008cfced14e2935757fdbc052768b&query=
+    https://api.themoviedb.org/3/movie/22/watch/providers?api_key=2cf008cfced14e2935757fdbc052768b
+
      */
     private static final String API_MOVIE_URL = "https://api.themoviedb.org/3/movie/";
     private static final String API_DISCOVER_URL = "https://api.themoviedb.org/3/discover/movie";

@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/providers")
+@RequestMapping("/api/providers")
 public class VODPlatformController {
 
     private final VODPlatformService platformService;

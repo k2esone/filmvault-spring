@@ -11,7 +11,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/tvseries")
+@RequestMapping("/api/tvseries")
 public class TvSeriesController {
 
     private final TvSeriesService tvService;
