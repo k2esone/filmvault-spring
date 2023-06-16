@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.dto.*;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.webclient.ApiMovieClient;
+import pl.ccteamone.filmvault.vodplatform.VODPlatform;
+import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -46,13 +49,16 @@ public class MovieApiService {
         return apiMovieClient.getApiCreditsByMovieId(movId);
     }
 
-    //
     public MovieDtoPage getMovieDiscoverPage(Integer page) {
         return movieMapper.mapToMovieDtoPage(apiMovieClient.getMoviesDiscoverPage(page));
     }
 
     public MovieDtoPage getMovieTitleSearchPage(Integer page, String phrase) {
         return movieMapper.mapToMovieDtoPage(apiMovieClient.getMoviesTitleSearchPage(page,phrase));
+    }
+
+    public Map<String, List<FileVODPlatformDto>> getRegionPlatformMapByID(Long id) {
+        return apiMovieClient.getRegionsOfPlatformsByMovieApiID(id);
     }
 
     /*

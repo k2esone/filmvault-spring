@@ -28,6 +28,13 @@ public class MovieApiController {
         return movieApiService.getApiMovie(movId);
     }
 
+/*    //TYLKO DO TESTÓW
+    @GetMapping("/platform/{id}")
+    public String something(@PathVariable("id") Long id) {
+        movieApiService.getRegionPlatformMapByID(id);
+        return "OK";
+    }*/
+
     @GetMapping("/discovery")
     public List<MovieDto> getApiMovieDiscovery(@RequestParam("page") Integer page) {
         return movieApiService.getMovieDiscoverList(page);
