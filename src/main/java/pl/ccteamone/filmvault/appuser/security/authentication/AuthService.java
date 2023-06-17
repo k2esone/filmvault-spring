@@ -26,7 +26,7 @@ public class AuthService {
                 .username(request.getUsername())
                 .password(encoder.encode(request.getPassword()))
                 .email(request.getEmail())
-                .roleType(RoleType.ADMIN)
+//                .roleType(RoleType.ADMIN)
                 .build();
         appUserRepository.save(user);
 

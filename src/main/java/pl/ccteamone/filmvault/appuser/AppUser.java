@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @Setter
+@Getter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -82,15 +83,6 @@ public class AppUser implements UserDetails {
         return List.of(new SimpleGrantedAuthority(roleType.name()));
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -112,69 +104,6 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getProfilePic() {
-        return profilePic;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getLastActivity() {
-        return lastActivity;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    public Set<TvSeries> getTvSeries() {
-        return tvSeries;
-    }
-
-    public Set<VODPlatform> getVodPlatforms() {
-        return vodPlatforms;
-    }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
 }
 
 
