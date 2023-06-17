@@ -19,7 +19,7 @@ public class AppUserController {
     }
 
     @PostMapping("/register")
-    public AppUserCreationDto createUser(@RequestBody AppUserCreationDto request) {
+    public AppUserDto createUser(@RequestBody AppUserCreationDto request) {
         log.info("user addition has been triggered: {}", request);
         return appUserService.createAppUser(request);
     }
@@ -32,6 +32,16 @@ public class AppUserController {
     public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId) {
         return appUserService.addMovieByApiId(username, movieApiId);
     }
+
+    @PostMapping("/{userid}/add/movie")
+    public AppUserDto addMovieById(@PathVariable(value = "userid") Long userID, @RequestParam("movieid") Long movieID) {
+        return appUserService.addMovieByID(userID, movieID);
+    }
+
+/*    @GetMapping("/{userid}/movies")
+    public AppUserDto getUserMovies() {
+
+    }*/
 
 
     //TODO: Set public fuction for searching users (public profile)
