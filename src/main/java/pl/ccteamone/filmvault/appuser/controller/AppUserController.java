@@ -28,21 +28,21 @@ public class AppUserController {
     public AppUserDto addMovieByTitleToUser(@PathVariable String username, @RequestParam String movieTitle) {
         return appUserService.addMovieByTitle(username, movieTitle);
     }
+
     @PostMapping("/{username}/add-movieid")
     public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId) {
         return appUserService.addMovieByApiId(username, movieApiId);
     }
 
     @PostMapping("/{userid}/add/movie")
-    public AppUserDto addMovieById(@PathVariable(value = "userid") Long userID, @RequestParam("movieid") Long movieID) {
+    public AppUserDto addMovieByID(@PathVariable(value = "userid") Long userID, @RequestParam("movieid") Long movieID) {
         return appUserService.addMovieByID(userID, movieID);
     }
 
-/*    @GetMapping("/{userid}/movies")
-    public AppUserDto getUserMovies() {
-
-    }*/
-
+    @PostMapping("/userid/add/tvseries")
+    public AppUserDto addTvSeriesByID(@PathVariable(value = "userid") Long userID, @RequestParam("tvseriesid") Long tvseriesID) {
+        return appUserService.addTvSeriesByID(userID,tvseriesID);
+    }
 
     //TODO: Set public fuction for searching users (public profile)
     @GetMapping()

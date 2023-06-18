@@ -14,6 +14,8 @@ import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 import pl.ccteamone.filmvault.movie.service.MovieService;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +29,7 @@ public class AppUserService {
     private final AppUserMapper appUserMapper;
     private final MovieRepository movieRepository;
     private final MovieService movieService;
+    private final TvSeriesService tvSeriesService;
 
     public AppUserDto createAppUser(AppUserCreationDto appUserCreationDto) {
         AppUser appUser = AppUser.builder()
@@ -132,5 +135,20 @@ public class AppUserService {
             user.setMovies(userMovies);
         }
         return updateUser(userID, user);
+    }
+
+    public AppUserDto addTvSeriesByID(Long userID, Long tvseriesID) {
+        AppUserDto user = getUserById(userID);
+        TvSeriesDto tvSeries = tvSeriesService.getTvSeriesById(tvseriesID);
+        Set<TvSeriesDto> userSeries = user.getTvSeries();
+        if(userSeries != null) {
+            userSeries.add(tvSeries);
+        } else {
+            userSeries = new HashSet<>();
+            userSeries.add(tvSeries);
+            user.setTvSeries(userSeries);
+        }
+        return updateUser(userID,user);
+
     }
 }

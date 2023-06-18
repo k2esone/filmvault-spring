@@ -2,7 +2,6 @@ package pl.ccteamone.filmvault.region.mapper;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.region.dto.FileRegionDto;
 import pl.ccteamone.filmvault.region.dto.RegionDto;
