@@ -102,13 +102,14 @@ public class MovieService {
                 .orElseThrow(() -> new RuntimeException("Movie not found")));
     }
 
+
     // SEARCH ->
 
-    public List<MovieDto> findMoviePredictions(String query) {
+    public Set<MovieDto> findMoviePredictions(String query) {
         getApiMovieBatchByPhrase(query);
 
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query.substring(0, 1));
-        List<MovieDto> similarMovies = new ArrayList<>();
+        Set<MovieDto> similarMovies = new HashSet<>();
 
         for (Movie movie : movies) {
             String title = movie.getTitle().toLowerCase();
@@ -120,9 +121,14 @@ public class MovieService {
             int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
-                Movie moviePrediction = new Movie();
+
+                /*MovieDto moviePrediction = new MovieDto();
                 moviePrediction.setTitle(movie.getTitle());
-                similarMovies.add(movieMapper.mapToMovieDto(moviePrediction));
+                similarMovies.add(movieMapper.mapToMovieDto(moviePrediction));*/
+                similarMovies.addAll(movieRepository.findByTitleContainingIgnoreCase(movie.getTitle()).stream()
+                        .map(movieMapper::mapToMovieDto)
+                        .collect(Collectors.toSet()));
+
             }
 
             if (similarMovies.size() == 20) {

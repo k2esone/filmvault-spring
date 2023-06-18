@@ -115,5 +115,5 @@ POST http://localhost:8080/api/users/3/add/movie?movieid=9
 ###
 POST http://localhost:8080/api/users/3/add/movie?movieid=2
 
-### QUERY API FOR NEW MOVIES (100)
-GET http://localhost:8080/api/movies/search?query={{phrase}}
+### QUERY API FOR NEW MOVIES (100) RETURNS 20 ACCURATE
+GET http://localhost:8080/api/movies/search?query=speed

@@ -10,6 +10,7 @@ import pl.ccteamone.filmvault.movie.service.MovieService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -51,7 +52,7 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public List<MovieDto> searchMovies(@RequestParam("query") String query) {
+    public Set<MovieDto> searchMovies(@RequestParam("query") String query) {
         return movieService.findMoviePredictions(query);
     }
 
