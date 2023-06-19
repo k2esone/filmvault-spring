@@ -41,7 +41,6 @@ public class RegionFileUploader implements DataInitializer {
         } catch (IOException e) {
             log.warn("Unable to find json");
         }
-
     }
 
     @Override

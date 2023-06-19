@@ -11,7 +11,6 @@ import pl.ccteamone.filmvault.appuser.mapper.AppUserMapper;
 import pl.ccteamone.filmvault.appuser.repository.AppUserRepository;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
-import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 import pl.ccteamone.filmvault.movie.service.MovieService;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
@@ -73,7 +72,6 @@ public class AppUserService {
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
     }
-
 
     public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
         AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
@@ -149,6 +147,5 @@ public class AppUserService {
             user.setTvSeries(userSeries);
         }
         return updateUser(userID,user);
-
     }
 }

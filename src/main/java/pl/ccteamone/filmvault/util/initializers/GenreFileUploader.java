@@ -29,6 +29,7 @@ public class GenreFileUploader implements DataInitializer {
             File genresJson = new File(JSON_FILE_PATH);
             List<GenreDto> genres = mapper.readValue(genresJson, new TypeReference<List<GenreDto>>() {});
             for (GenreDto genre : genres) {
+                genre.setId(null);
                 if(!genreService.existsByGenreName(genre.getName())) {
                     genreService.createGenre(genre);
                 }

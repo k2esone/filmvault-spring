@@ -45,8 +45,8 @@ public class MovieApiService {
         return movieMapper.mapToMovieDtoList(apiMoviePage.getMovies());
     }
 
-    public CreditDto getApiCreditsForMovie(Long movId) {
-        return apiMovieClient.getApiCreditsByMovieId(movId);
+    public CreditDto getApiCreditsForMovie(Long apiID) {
+        return apiMovieClient.getApiCreditsByMovieId(apiID);
     }
 
     public MovieDtoPage getMovieDiscoverPage(Integer page) {
@@ -57,7 +57,7 @@ public class MovieApiService {
         return movieMapper.mapToMovieDtoPage(apiMovieClient.getMoviesTitleSearchPage(page,phrase));
     }
 
-    public Map<String, List<FileVODPlatformDto>> getRegionPlatformMapByID(Long id) {
+    public Map<String, List<FileVODPlatformDto>> getRegionPlatformMapByApiID(Long id) {
         return apiMovieClient.getRegionsOfPlatformsByMovieApiID(id);
     }
 

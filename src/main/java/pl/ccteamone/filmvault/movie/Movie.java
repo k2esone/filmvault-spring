@@ -7,6 +7,7 @@ import pl.ccteamone.filmvault.genre.Genre;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -25,10 +26,10 @@ public class Movie {
     private String posterPath;
     @Column(length = 2048)
     private String overview;
-    private String releaseDate;
+    private LocalDate releaseDate;
     private Integer runtime;
-    private String credits; //moze byc kolekcją - aktorzy
     private Double rating;
+    private LocalDate lastUpdate;
     private Long apiID;
 
     @ToString.Exclude

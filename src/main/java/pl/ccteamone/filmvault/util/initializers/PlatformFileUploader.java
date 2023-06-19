@@ -32,7 +32,7 @@ public class PlatformFileUploader implements DataInitializer {
             List<VODPlatformDto> platforms = platformMapper.mapToVODPlatformDtoList(mapper.readValue(platformJson, new TypeReference<List<FileVODPlatformDto>>() {
             }));
             for (VODPlatformDto platform : platforms) {
-                if (!platformService.existsPlatformByName(platform.getName())) {
+                if (!platformService.existsByPlatformName(platform.getName())) {
                     if(platform.getVodURL() == null || platform.getVodURL().isEmpty()) {
                         platform.setVodURL("URL: None");
                     }

@@ -10,6 +10,7 @@ import pl.ccteamone.filmvault.vodplatform.repository.VODPlatformRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -78,8 +79,20 @@ public class VODPlatformService {
         }
     }
 
-    public boolean existsPlatformByName(String name) {
+    public boolean existsByPlatformName(String name) {
         return platformRepository.existsByNameIgnoreCase(name);
+    }
+    public boolean existsByActivePlatformName(String name) {
+        return platformRepository.existsByNameIgnoreCaseAndActiveIsTrue(name);
+    }
+
+    public Set<VODPlatformDto> getActiveVODPlatform() {
+        return vodPlatformMapper.mapToVODPlatformDtoSet(platformRepository.findAllByActiveIsTrue());
+    }
+
+    public VODPlatformDto getActiveVODPlatformByName(String name) {
+        return vodPlatformMapper.mapToVODPlatformDto(platformRepository.findByNameAndActiveIsTrue(name)
+                .orElseThrow(() -> new RuntimeException("Platform not found or inactive")));
     }
 
 }

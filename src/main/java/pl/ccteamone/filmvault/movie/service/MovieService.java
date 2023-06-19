@@ -6,16 +6,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import pl.ccteamone.filmvault.genre.dto.GenreDto;
+import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.movie.Movie;
+import pl.ccteamone.filmvault.movie.dto.CreditDto;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
+import pl.ccteamone.filmvault.region.service.RegionService;
+import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
+import pl.ccteamone.filmvault.vodplatform.service.VODPlatformService;
 
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -27,61 +30,83 @@ public class MovieService {
     private final MovieApiService movieApiService;
     private final MovieMapper movieMapper;
 
+    private final GenreService genreService;
+    private final VODPlatformService vodPlatformService;
+    private final RegionService regionService;
+
+    private final Integer PAGES_FROM_API = 5;
+    private final Integer DAYS_BETWEEN_UPDATES = 7;
 
     public MovieDto createMovie(MovieDto create) {
+/*        if (create.getLastUpdate() == null || LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isAfter(create.getLastUpdate())) {
+            create = updateMovieDataFromApi(create);
+            create.setLastUpdate(LocalDate.now());
+        }*/
         Movie movieFromDto = movieMapper.mapToMovie(create);
         return movieMapper.mapToMovieDto(movieRepository.save(movieFromDto));
     }
 
-    public List<MovieDto> getFullMovieList() {
+    public List<MovieDto> getMovieList() {
         return movieRepository.findAll().stream().map(movieMapper::mapToMovieDto).collect(Collectors.toList());
     }
 
     public MovieDto getMovieById(Long movieId) {
-        return movieMapper.mapToMovieDto(movieRepository.findById(movieId)
+        MovieDto movie = movieMapper.mapToMovieDto(movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
+
+        if (movie.getLastUpdate() == null || LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isAfter(movie.getLastUpdate())) {
+            movie = updateMovie(movieId, movie);
+        }
+        return movie;
     }
 
     public MovieDto updateMovie(Long movieId, MovieDto update) {
-
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
 
-        Movie movieUpdateFromDto = movieMapper.mapToMovie(update);
+        //Movie movieUpdateFromDto = movieMapper.mapToMovie(update);
 
-        if (movieUpdateFromDto.getTitle() != null) {
-            movie.setTitle(movieUpdateFromDto.getTitle());
+        if (update.getTitle() != null) {
+            movie.setTitle(update.getTitle());
         }
-        if (movieUpdateFromDto.getPosterPath() != null) {
-            movie.setPosterPath(movieUpdateFromDto.getPosterPath());
+        if (update.getPosterPath() != null) {
+            movie.setPosterPath(update.getPosterPath());
         }
-        if (movieUpdateFromDto.getOverview() != null) {
-            movie.setOverview(movieUpdateFromDto.getOverview());
+        if (update.getOverview() != null) {
+            movie.setOverview(update.getOverview());
         }
-        if (movieUpdateFromDto.getReleaseDate() != null) {
-            movie.setReleaseDate(movieUpdateFromDto.getReleaseDate());
+        if (update.getReleaseDate() != null) {
+            movie.setReleaseDate(update.getReleaseDate());
         }
-        if (movieUpdateFromDto.getRuntime() != null) {
-            movie.setRuntime(movieUpdateFromDto.getRuntime());
+        if (update.getRuntime() != null) {
+            movie.setRuntime(update.getRuntime());
         }
-        if (movieUpdateFromDto.getCredits() != null) {
-            movie.setCredits(movieUpdateFromDto.getCredits());
+        if (update.getRating() != null) {
+            movie.setRating(update.getRating());
         }
-        if (movieUpdateFromDto.getRating() != null) {
-            movie.setRating(movieUpdateFromDto.getRating());
+        if (update.getApiID() != null) {
+            movie.setApiID(update.getApiID());
         }
-        if (movieUpdateFromDto.getApiID() != null) {
-            movie.setApiID(movieUpdateFromDto.getApiID());
+        if (update.getApiID() != null) {
+            movie.setApiID(update.getApiID());
+        } else {
+            update.setApiID(movie.getApiID());
         }
-        if (movieUpdateFromDto.getVodPlatforms() != null) {
+
+        Movie movieUpdate = movieMapper.mapToMovie(updateMovieDataFromApi(update));
+        movie.setRegions(movieUpdate.getRegions());
+        movie.setGenres(movieUpdate.getGenres());
+        movie.setVodPlatforms(movieUpdate.getVodPlatforms());
+/*        if (movieUpdateFromDto.getVodPlatforms() != null) {
             movie.setVodPlatforms(movieUpdateFromDto.getVodPlatforms());
         }
         if (movieUpdateFromDto.getRegions() != null) {
             movie.setRegions(movieUpdateFromDto.getRegions());
         }
-        if(movieUpdateFromDto.getGenres() != null) {
+        if (movieUpdateFromDto.getGenres() != null) {
             movie.setGenres(movieUpdateFromDto.getGenres());
-        }
+        }*/
+        movie.setLastUpdate(LocalDate.now());
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
 
@@ -97,17 +122,14 @@ public class MovieService {
         return movieRepository.existsByApiID(id);
     }
 
-    public MovieDto findMovieByApiID(Long id) {
-        return movieMapper.mapToMovieDto(movieRepository.findByApiID(id)
+    public MovieDto findMovieByApiID(Long apiID) {
+        return movieMapper.mapToMovieDto(movieRepository.findByApiID(apiID)
                 .orElseThrow(() -> new RuntimeException("Movie not found")));
     }
 
-
-    // SEARCH ->
-
-    public Set<MovieDto> findMoviePredictions(String query) {
-        getApiMovieBatchByPhrase(query);
-
+    // NGRAM SEARCH -> *** *** *** ***
+    public Set<MovieDto> findMovieByQuery(String query) {
+        feedDBWithNewMoviesByQuery(query);
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query.substring(0, 1));
         Set<MovieDto> similarMovies = new HashSet<>();
 
@@ -121,21 +143,16 @@ public class MovieService {
             int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
-
-                /*MovieDto moviePrediction = new MovieDto();
-                moviePrediction.setTitle(movie.getTitle());
-                similarMovies.add(movieMapper.mapToMovieDto(moviePrediction));*/
-                similarMovies.addAll(movieRepository.findByTitleContainingIgnoreCase(movie.getTitle()).stream()
+                similarMovies.add(movies.stream()
+                        .filter(match -> match.getTitle().equalsIgnoreCase(movie.getTitle()))
+                        .findFirst()
                         .map(movieMapper::mapToMovieDto)
-                        .collect(Collectors.toSet()));
-
+                        .orElseThrow(() -> new RuntimeException("Unable to match movie by title")));
             }
-
             if (similarMovies.size() == 20) {
                 break;
             }
         }
-
         return similarMovies;
     }
 
@@ -158,25 +175,16 @@ public class MovieService {
 
         return set1.size();
     }
+    // <- NGRAM SEARCH *** *** *** ***
 
-    // <- SEARCH
-
-    public void getMovie(Integer page, Integer size, String phrase, String releaseDate, Integer runtime, Double rating) {
-
-    }
-
-    public List<MovieDto> getDiscoverMovieList(Integer page) {
-/*        if (page == null || page == 0) {
-            page = 1;
-        }*/
+    public List<MovieDto> getNewestMovieList(Integer page) {
         List<MovieDto> movies = movieApiService.getMovieDiscoverList(page);
         return persistMovieDtoList(movies);
     }
 
-    private void getApiMovieBatchByPhrase(String phrase) {
-        // default 5 pages
+    private void feedDBWithNewMoviesByQuery(String phrase) {
         List<MovieDto> movieBatch = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= PAGES_FROM_API; i++) {
             movieBatch.addAll(movieApiService.getMovieSearchList(i, phrase));
         }
         persistMovieDtoList(movieBatch);
@@ -184,14 +192,71 @@ public class MovieService {
 
     private List<MovieDto> persistMovieDtoList(List<MovieDto> movies) {
         movies = movies.stream()
-                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
+                .filter(movieDto -> !existsByApiID(movieDto.getApiID()) || !isMovieUpToDate(movieDto))
                 .toList().stream()
                 .map(this::createMovie).toList();
-
-       /* for (MovieDto movie : movies) {
+/*        for (MovieDto movie : movies) {
             createMovie(movie);
         }*/
         return movies;
     }
+
+    private MovieDto updateMovieDataFromApi(MovieDto movie) {
+        //UPDATE REGION, VOD PLATFORMS, GENRES
+        MovieDto movieDto = movieApiService.getApiMovie(movie.getApiID());
+        Set<GenreDto> genres = movieDto.getGenres().stream()
+                .map(genreDto -> genreService.findByGenreName(genreDto.getName()))
+                .collect(Collectors.toSet());
+        movieDto.setGenres(genres);
+
+        Map<String, List<FileVODPlatformDto>> regionPlatformMap = movieApiService.getRegionPlatformMapByApiID(movieDto.getApiID());
+
+        movieDto.setVodPlatforms(regionPlatformMap.values().stream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet())
+                .stream()
+                .filter(platform -> vodPlatformService.existsByActivePlatformName(platform.getName()))
+                .map(platform -> vodPlatformService.getActiveVODPlatformByName(platform.getName()))
+                .collect(Collectors.toSet()));
+
+        movieDto.setRegions(regionPlatformMap.keySet().stream()
+                .filter(regionService::doesRegionExistsByCountryCode)
+                .map(regionService::getRegionByCountryCode)
+                .collect(Collectors.toSet()));
+        return movieDto;
+    }
+
+    private boolean isMovieUpToDate(MovieDto movie) {
+        return LocalDate.now().minusDays(7).isBefore(movie.getLastUpdate());
+    }
+
+
+    public CreditDto getCreditsByApiID(Long movieID) {
+        return movieApiService.getApiCreditsForMovie(getMovieById(movieID).getApiID());
+    }
+
+    public MovieDto getMovieByApiID(Long apiID) {
+        MovieDto movieDto = movieApiService.getApiMovie(apiID);
+        Set<GenreDto> genres = movieDto.getGenres().stream()
+                .map(genreDto -> genreService.findByGenreName(genreDto.getName()))
+                .collect(Collectors.toSet());
+        movieDto.setGenres(genres);
+
+        Map<String, List<FileVODPlatformDto>> regionPlatformMap = movieApiService.getRegionPlatformMapByApiID(apiID);
+
+        movieDto.setVodPlatforms(regionPlatformMap.values().stream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet())
+                .stream()
+                .filter(platform -> vodPlatformService.existsByActivePlatformName(platform.getName()))
+                .map(platform -> vodPlatformService.getActiveVODPlatformByName(platform.getName()))
+                .collect(Collectors.toSet()));
+
+        movieDto.setRegions(regionPlatformMap.keySet().stream()
+                .map(regionService::getRegionByCountryCode)
+                .collect(Collectors.toSet()));
+        return createMovie(movieDto);
+    }
+
 
 }

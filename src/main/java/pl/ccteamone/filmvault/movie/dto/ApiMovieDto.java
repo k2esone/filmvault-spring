@@ -2,6 +2,9 @@ package pl.ccteamone.filmvault.movie.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import pl.ccteamone.filmvault.genre.Genre;
+
+import java.time.LocalDate;
 
 @Builder
 @Data
@@ -13,13 +16,15 @@ public class ApiMovieDto {
     private boolean adult;
     private String title;
     private String overview;
+    @JsonProperty("genres")
+    private Genre[] genres;
     private Integer runtime;
     @JsonProperty("poster_path")
     private String posterPath;
     @JsonProperty("backdrop_path")
     private String backdropPath;
     @JsonProperty("release_date")
-    private String releaseDate;
+    private LocalDate releaseDate;
     @JsonProperty("original_language")
     private String originalLanguage;
     private String status;

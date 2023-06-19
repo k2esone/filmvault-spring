@@ -68,4 +68,8 @@ public class RegionService {
     public boolean doesRegionExistsByCountryCode(String countryCode) {
         return regionRepository.existsByCountryCodeIgnoreCase(countryCode);
     }
+
+    public RegionDto getRegionByCountryCode(String code) {
+        return regionMapper.mapToRegionDto(regionRepository.findByCountryCode(code).orElseThrow(() -> new RuntimeException("Region not found")));
+    }
 }
