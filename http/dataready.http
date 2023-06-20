@@ -116,7 +116,7 @@ POST http://localhost:8080/api/users/3/add/movie?movieid=9
 POST http://localhost:8080/api/users/3/add/movie?movieid=2
 
 ### QUERY API FOR NEW MOVIES (100) RETURNS 20 ACCURATE
-GET http://localhost:8080/api/movies/search?query=batman
+GET http://localhost:8080/api/movies/search?query=robin
 
 ### QUERY API FOR CREDITS BY MOVIE ID
 GET http://localhost:8080/api/movies/1/credits

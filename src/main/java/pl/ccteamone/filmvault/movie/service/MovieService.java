@@ -159,6 +159,10 @@ public class MovieService {
 
     public List<MovieDto> getNewestMovieList(Integer page) {
         List<MovieDto> movies = movieApiService.getMovieDiscoverList(page);
+
+
+
+
         return persistMovieDtoList(movies);
     }
 
@@ -172,9 +176,12 @@ public class MovieService {
 
     private List<MovieDto> persistMovieDtoList(List<MovieDto> movies) {
         movies = movies.stream()
-                .filter(movieDto -> !existsByApiID(movieDto.getApiID()) || !isMovieUpToDate(movieDto))
+                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
                 .toList().stream()
-                .map(this::createMovie).toList();
+                .map(this::createMovie)
+                .toList().stream()
+                .map(movieUpdate -> updateMovieDataFromApi(movieUpdate.getId(),movieUpdate))
+                .collect(Collectors.toList());
         return movies;
     }
 

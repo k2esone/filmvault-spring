@@ -182,9 +182,12 @@ public class TvSeriesService {
 
     private List<TvSeriesDto> persistTvSeriesDtoList(List<TvSeriesDto> tvSeries) {
         tvSeries = tvSeries.stream()
-                .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()) || !isTvSeriesUpToDate(tvSeriesDto))
+                .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
                 .toList().stream()
-                .map(this::createTvSeries).toList();
+                .map(this::createTvSeries)
+                .toList().stream()
+                .map(tvUpdate -> updateTvSeriesDataFromApi(tvUpdate.getId(),tvUpdate))
+                .collect(Collectors.toList());
         return tvSeries;
     }
 
