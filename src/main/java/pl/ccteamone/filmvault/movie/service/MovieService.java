@@ -197,7 +197,7 @@ public class MovieService {
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found with id: " + movieId));
 
         try {
-            if (1 <= rating && rating <= 5) {
+            if (1 <= rating && rating <= 10) {
                 if (movie.getRating() == 0.0 || movie.getVoteCount() == 0) {
                     movie.setRating((double) rating);
                     movie.setVoteCount(1);
