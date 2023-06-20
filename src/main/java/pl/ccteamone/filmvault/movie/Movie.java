@@ -1,6 +1,5 @@
 package pl.ccteamone.filmvault.movie;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ccteamone.filmvault.genre.Genre;
@@ -27,8 +26,8 @@ public class Movie {
     private String overview;
     private String releaseDate;
     private Integer runtime;
-    private String credits; //moze byc kolekcją - aktorzy
     private Double rating;
+    private Integer voteCount;
     private Long apiID;
 
     @ToString.Exclude

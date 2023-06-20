@@ -22,6 +22,10 @@ public class ApiMovieDto {
     private String releaseDate;
     @JsonProperty("original_language")
     private String originalLanguage;
+    @JsonProperty("vote_average")
+    private Double rating;
+    @JsonProperty("vote_count")
+    private Integer voteCount;
     private String status;
 
 

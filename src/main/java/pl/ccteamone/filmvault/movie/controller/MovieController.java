@@ -60,4 +60,9 @@ public class MovieController {
         return movieService.getDiscoverMovieList(page);
     }
 
+    @PatchMapping("/add/rating/{movieId}")
+    public MovieDto addRating (@PathVariable Long movieId, @RequestParam int rating) {
+        return movieService.addRating(movieId, rating);
+    }
+
 }

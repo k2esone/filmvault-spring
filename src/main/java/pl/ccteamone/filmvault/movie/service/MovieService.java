@@ -12,6 +12,7 @@ import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -64,11 +65,12 @@ public class MovieService {
         if (movieUpdateFromDto.getRuntime() != null) {
             movie.setRuntime(movieUpdateFromDto.getRuntime());
         }
-        if (movieUpdateFromDto.getCredits() != null) {
-            movie.setCredits(movieUpdateFromDto.getCredits());
-        }
+
         if (movieUpdateFromDto.getRating() != null) {
             movie.setRating(movieUpdateFromDto.getRating());
+        }
+        if (movieUpdateFromDto.getVoteCount() != null) {
+            movie.setVoteCount(movieUpdateFromDto.getVoteCount());
         }
         if (movieUpdateFromDto.getApiID() != null) {
             movie.setApiID(movieUpdateFromDto.getApiID());
@@ -79,7 +81,7 @@ public class MovieService {
         if (movieUpdateFromDto.getRegions() != null) {
             movie.setRegions(movieUpdateFromDto.getRegions());
         }
-        if(movieUpdateFromDto.getGenres() != null) {
+        if (movieUpdateFromDto.getGenres() != null) {
             movie.setGenres(movieUpdateFromDto.getGenres());
         }
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
@@ -120,9 +122,11 @@ public class MovieService {
             int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
-                Movie moviePrediction = new Movie();
-                moviePrediction.setTitle(movie.getTitle());
-                similarMovies.add(movieMapper.mapToMovieDto(moviePrediction));
+                similarMovies.add(movies.stream()
+                        .filter(match -> match.getTitle().equalsIgnoreCase(movie.getTitle()))
+                        .findFirst()
+                        .map(movieMapper::mapToMovieDto)
+                        .orElseThrow(() -> new RuntimeException("Unable to match movie by title")));
             }
 
             if (similarMovies.size() == 20) {
@@ -188,4 +192,31 @@ public class MovieService {
         return movies;
     }
 
+    public MovieDto addRating(Long movieId, int rating) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found with id: " + movieId));
+
+        try {
+            if (1 <= rating && rating <= 5) {
+                if (movie.getRating() == 0.0 || movie.getVoteCount() == 0) {
+                    movie.setRating((double) rating);
+                    movie.setVoteCount(1);
+                    return movieMapper.mapToMovieDto(movieRepository.save(movie));
+                }
+                DecimalFormat df = new DecimalFormat("#.##");
+                double v = movie.getRating() * movie.getVoteCount(); // sum of votes
+                double newRatingCount = v + rating;
+                int newVoteCount = movie.getVoteCount() + 1;
+                double newRating = newRatingCount / newVoteCount;
+                String formattedNumber = df.format(newRating);
+                movie.setRating(df.parse(formattedNumber).doubleValue());
+                movie.setVoteCount(newVoteCount);
+            } else {
+                throw new Exception("wrong rating given");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return movieMapper.mapToMovieDto(movieRepository.save(movie));
+    }
 }

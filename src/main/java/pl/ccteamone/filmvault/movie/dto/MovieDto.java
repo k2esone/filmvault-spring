@@ -24,8 +24,8 @@ public class MovieDto {
     private String overview;
     private String releaseDate;
     private Integer runtime;
-    private String credits;
     private Double rating;
+    private Integer voteCount;
     private Long apiID;
     private Set<VODPlatformDto> vodPlatforms;
     private Set<RegionDto> regions;
