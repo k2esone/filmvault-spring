@@ -7,6 +7,7 @@ import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -47,8 +48,13 @@ public class TvSeriesController {
     }
 
     @GetMapping("/search")
-    public List<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
-        return tvService.searchTvSeries(query);
+    public Set<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
+        return tvService.findTvSeriesByQuery(query);
+    }
+
+    @GetMapping("/discover")
+    public List<TvSeriesDto> getNewestTvSeriesList(@RequestParam(defaultValue = "1", required = false) Integer page) {
+        return tvService.getNewestTvSeriesList(page);
     }
 
 }

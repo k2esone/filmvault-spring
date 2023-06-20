@@ -22,7 +22,7 @@ public class TvSeries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(length = 512)
+    @Column(length = 2048)
     private String overview;
     private String posterPath;
     private boolean adult;
@@ -34,6 +34,7 @@ public class TvSeries {
     private LocalDate lastAirDate;
     private int seasons;
     private int episodes;
+    private LocalDate lastUpdate;
     private Long apiID;
 
     @ToString.Exclude

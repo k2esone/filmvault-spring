@@ -3,14 +3,15 @@ package pl.ccteamone.filmvault.tvseries.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.mapper.TvSeriesMapper;
 import pl.ccteamone.filmvault.tvseries.webclient.ApiTvSeriesClient;
+import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -20,8 +21,8 @@ public class TvSeriesApiService {
     private final ApiTvSeriesClient apiTvSeriesClient;
     private final TvSeriesMapper tvSeriesMapper;
 
-    public TvSeriesDto getApiTvSeries(Long tvSeriesId) {
-        return tvSeriesMapper.mapToTvSeriesDto(apiTvSeriesClient.getApiTvSeriesByTvSeriesId(tvSeriesId));
+    public TvSeriesDto getApiTvSeries(Long tvSeriesApiID) {
+        return tvSeriesMapper.mapToTvSeriesDto(apiTvSeriesClient.getApiTvSeriesByTvSeriesId(tvSeriesApiID));
     }
 
     public List<TvSeriesDto> getTvSeriesDiscoverList(Integer page) {
@@ -45,5 +46,13 @@ public class TvSeriesApiService {
 
     public TvSeriesDtoPage getTvSeriesDiscoverPage(Integer page) {
         return tvSeriesMapper.mapToTvSeriesDtoPage(apiTvSeriesClient.getTvSeriesDiscoverPage(page));
+    }
+
+    public TvSeriesDtoPage getTvSeriesTitleSearchPage(Integer page, String phrase) {
+        return tvSeriesMapper.mapToTvSeriesDtoPage(apiTvSeriesClient.getTvSeriesTitleSearchPage(page,phrase));
+    }
+
+    public Map<String, List<FileVODPlatformDto>> getRegionPlatformMapByApiID(Long id) {
+        return apiTvSeriesClient.getRegionsOfPlatformsByTvSeriesApiID(id);
     }
 }

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.ccteamone.filmvault.genre.dto.GenreDto;
-import pl.ccteamone.filmvault.region.Region;
+import pl.ccteamone.filmvault.region.dto.RegionDto;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
 import java.time.LocalDate;
@@ -28,10 +28,10 @@ public class TvSeriesDto {
     private LocalDate lastAirDate;
     private int seasons;
     private int episodes;
+    private LocalDate lastUpdate;
     private Long apiID;
-    private Set<Region> regions;
     private Set<VODPlatformDto> vodPlatforms;
-
+    private Set<RegionDto> regions;
     private Set<GenreDto> genres;
 
 }
