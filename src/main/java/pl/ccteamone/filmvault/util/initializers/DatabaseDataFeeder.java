@@ -12,7 +12,6 @@ import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesApiService;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
-import pl.ccteamone.filmvault.util.DataInitializer;
 
 import java.util.ArrayList;
 import java.util.List;

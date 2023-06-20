@@ -26,8 +26,8 @@ public class TvSeriesDto {
     private String originCountry;
     private LocalDate firstAirDate;
     private LocalDate lastAirDate;
-    private int seasons;
-    private int episodes;
+    private Integer seasons;
+    private Integer episodes;
     private LocalDate lastUpdate;
     private Long apiID;
     private Set<VODPlatformDto> vodPlatforms;

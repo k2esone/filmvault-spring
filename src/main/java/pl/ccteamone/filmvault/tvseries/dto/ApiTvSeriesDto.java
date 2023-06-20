@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.ccteamone.filmvault.genre.Genre;
 
 import java.time.LocalDate;
 
@@ -19,8 +20,9 @@ public class ApiTvSeriesDto {
     private String overview;
     @JsonProperty("poster_path")
     private String posterPath;
-    private String genre;
     private boolean adult;
+    @JsonProperty("genres")
+    private Genre[] genres;
     @JsonProperty("original_language")
     private String originLanguage;
     private String originCountry;
@@ -29,7 +31,7 @@ public class ApiTvSeriesDto {
     @JsonProperty("last_air_date")
     private LocalDate lastAirDate;
     @JsonProperty("number_of_seasons")
-    private int seasons;
+    private Integer seasons;
     @JsonProperty("number_of_episodes")
-    private int episodes;
+    private Integer episodes;
 }

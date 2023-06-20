@@ -26,9 +26,6 @@ public class TvSeriesApiService {
     }
 
     public List<TvSeriesDto> getTvSeriesDiscoverList(Integer page) {
-        if (page == null || page == 0) {
-            page = 1;
-        }
         ApiTvSeriesDtoPage apiTvSeriesPage = apiTvSeriesClient.getTvSeriesDiscoverPage(page);
         return tvSeriesMapper.mapToTvSeriesDtoList(apiTvSeriesPage.getTvSeries());
     }

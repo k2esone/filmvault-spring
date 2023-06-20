@@ -30,9 +30,9 @@ public class TvSeriesController {
     }
 
     @GetMapping("/{tvseriesid}")
-    public TvSeriesDto getTvSeries(@PathVariable Long Id) {
-        log.info("request for tvseries id - {}", Id);
-        return tvService.getTvSeriesById(Id);
+    public TvSeriesDto getTvSeries(@PathVariable Long tvseriesid) {
+        log.info("request for tvseries id - {}", tvseriesid);
+        return tvService.getTvSeriesById(tvseriesid);
     }
 
     @PatchMapping("/{tvseriesId}")

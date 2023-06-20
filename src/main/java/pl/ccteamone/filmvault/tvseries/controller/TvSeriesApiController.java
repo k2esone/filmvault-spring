@@ -22,12 +22,12 @@ public class TvSeriesApiController {
     }
 
     @GetMapping("/discovery")
-    public List<TvSeriesDto> getApiTvSeriesDisvovery(@RequestParam("page") Integer page) {
+    public List<TvSeriesDto> getApiTvSeriesDisvovery(@RequestParam(defaultValue = "1", required = false) Integer page) {
         return tvSeriesApiService.getTvSeriesDiscoverList(page);
     }
 
     @GetMapping("/search")
-    public List<TvSeriesDto> getApiTvSeriesSearch(@RequestParam("page") Integer page, @RequestParam("phrase") String phrase) {
+    public List<TvSeriesDto> getApiTvSeriesSearch(@RequestParam(defaultValue = "1", required = false) Integer page, @RequestParam("phrase") String phrase) {
         return tvSeriesApiService.getTvSeriesSearchList(page,phrase);
     }
 }

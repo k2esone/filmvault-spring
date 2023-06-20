@@ -197,9 +197,12 @@ public class TvSeriesService {
         tvSeries.setName(updateDto.getName());
         tvSeries.setPosterPath(updateDto.getPosterPath());
         tvSeries.setOverview(updateDto.getOverview());
+        tvSeries.setAdult(updateDto.isAdult());
         tvSeries.setFirstAirDate(updateDto.getFirstAirDate());
         tvSeries.setLastAirDate(updateDto.getLastAirDate());
+        tvSeries.setOriginLanguage(updateDto.getOriginLanguage());
         tvSeries.setSeasons(updateDto.getSeasons());
+        tvSeries.setEpisodes(updateDto.getEpisodes());
 
         updateDto.setGenres(updateDto.getGenres().stream()
                 .map(genreDto -> genreService.findByGenreName(genreDto.getName()))
