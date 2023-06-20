@@ -18,6 +18,7 @@ public class ApiMovieDto {
     private String overview;
     @JsonProperty("genres")
     private Genre[] genres;
+    @JsonProperty("runtime")
     private Integer runtime;
     @JsonProperty("poster_path")
     private String posterPath;

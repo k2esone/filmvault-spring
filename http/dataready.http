@@ -122,4 +122,4 @@ GET http://localhost:8080/api/movies/search?query=batman
 GET http://localhost:8080/api/movies/1/credits
 
 ### GET MOVIE BY ID - QUERIES EXTERNAL API FOR MORE DATA
-GET http://localhost:8080/api/movies/1
+GET http://localhost:8080/api/movies/12

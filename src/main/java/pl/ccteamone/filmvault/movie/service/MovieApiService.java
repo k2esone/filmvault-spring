@@ -21,8 +21,8 @@ public class MovieApiService {
     private final ApiMovieClient apiMovieClient;
     private final MovieMapper movieMapper;
 
-    public MovieDto getApiMovie(Long movId) {
-        return movieMapper.mapToMovieDto(apiMovieClient.getApiMovieByMovieId(movId));
+    public MovieDto getApiMovie(Long movieApiID) {
+        return movieMapper.mapToMovieDto(apiMovieClient.getApiMovieByMovieId(movieApiID));
     }
 
     public List<MovieDto> getMovieDiscoverList(Integer page) {

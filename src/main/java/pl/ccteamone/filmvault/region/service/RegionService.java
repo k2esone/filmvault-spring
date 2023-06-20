@@ -62,7 +62,6 @@ public class RegionService {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("Region not found, id: " + regionId);
         }
-
     }
 
     public boolean doesRegionExistsByCountryCode(String countryCode) {

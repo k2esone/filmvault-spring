@@ -61,9 +61,4 @@ public class MovieController {
         return movieService.getNewestMovieList(page);
     }
 
-    @GetMapping("/demo")
-    public MovieDto getMovieFromApi(@RequestParam("movieid") Long movieid) {
-        return movieService.getMovieByApiID(movieid);
-    }
-
 }

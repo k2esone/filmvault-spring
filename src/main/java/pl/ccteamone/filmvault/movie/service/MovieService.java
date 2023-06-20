@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import pl.ccteamone.filmvault.genre.dto.GenreDto;
 import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.CreditDto;
@@ -38,10 +37,6 @@ public class MovieService {
     private final Integer DAYS_BETWEEN_UPDATES = 7;
 
     public MovieDto createMovie(MovieDto create) {
-/*        if (create.getLastUpdate() == null || LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isAfter(create.getLastUpdate())) {
-            create = updateMovieDataFromApi(create);
-            create.setLastUpdate(LocalDate.now());
-        }*/
         Movie movieFromDto = movieMapper.mapToMovie(create);
         return movieMapper.mapToMovieDto(movieRepository.save(movieFromDto));
     }
@@ -55,7 +50,7 @@ public class MovieService {
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
 
         if (movie.getLastUpdate() == null || LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isAfter(movie.getLastUpdate())) {
-            movie = updateMovie(movieId, movie);
+            movie = updateMovieDataFromApi(movieId, movie);
         }
         return movie;
     }
@@ -63,8 +58,6 @@ public class MovieService {
     public MovieDto updateMovie(Long movieId, MovieDto update) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found"));
-
-        //Movie movieUpdateFromDto = movieMapper.mapToMovie(update);
 
         if (update.getTitle() != null) {
             movie.setTitle(update.getTitle());
@@ -93,19 +86,6 @@ public class MovieService {
             update.setApiID(movie.getApiID());
         }
 
-        Movie movieUpdate = movieMapper.mapToMovie(updateMovieDataFromApi(update));
-        movie.setRegions(movieUpdate.getRegions());
-        movie.setGenres(movieUpdate.getGenres());
-        movie.setVodPlatforms(movieUpdate.getVodPlatforms());
-/*        if (movieUpdateFromDto.getVodPlatforms() != null) {
-            movie.setVodPlatforms(movieUpdateFromDto.getVodPlatforms());
-        }
-        if (movieUpdateFromDto.getRegions() != null) {
-            movie.setRegions(movieUpdateFromDto.getRegions());
-        }
-        if (movieUpdateFromDto.getGenres() != null) {
-            movie.setGenres(movieUpdateFromDto.getGenres());
-        }*/
         movie.setLastUpdate(LocalDate.now());
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
@@ -195,23 +175,29 @@ public class MovieService {
                 .filter(movieDto -> !existsByApiID(movieDto.getApiID()) || !isMovieUpToDate(movieDto))
                 .toList().stream()
                 .map(this::createMovie).toList();
-/*        for (MovieDto movie : movies) {
-            createMovie(movie);
-        }*/
         return movies;
     }
 
-    private MovieDto updateMovieDataFromApi(MovieDto movie) {
-        //UPDATE REGION, VOD PLATFORMS, GENRES
-        MovieDto movieDto = movieApiService.getApiMovie(movie.getApiID());
-        Set<GenreDto> genres = movieDto.getGenres().stream()
+    private MovieDto updateMovieDataFromApi(Long movieID, MovieDto movieDto) {
+        MovieDto updateDto = movieApiService.getApiMovie(movieDto.getApiID());
+
+        Movie movie = movieRepository.findById(movieID)
+                .orElseThrow(() -> new RuntimeException("Movie id=" + movieID + " not found"));
+
+        movie.setTitle(updateDto.getTitle());
+        movie.setPosterPath(updateDto.getPosterPath());
+        movie.setOverview(updateDto.getOverview());
+        movie.setReleaseDate(updateDto.getReleaseDate());
+        movie.setRuntime(updateDto.getRuntime());
+        movie.setRating(updateDto.getRating());
+
+        updateDto.setGenres(updateDto.getGenres().stream()
                 .map(genreDto -> genreService.findByGenreName(genreDto.getName()))
-                .collect(Collectors.toSet());
-        movieDto.setGenres(genres);
+                .collect(Collectors.toSet()));
 
         Map<String, List<FileVODPlatformDto>> regionPlatformMap = movieApiService.getRegionPlatformMapByApiID(movieDto.getApiID());
 
-        movieDto.setVodPlatforms(regionPlatformMap.values().stream()
+        updateDto.setVodPlatforms(regionPlatformMap.values().stream()
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet())
                 .stream()
@@ -219,44 +205,24 @@ public class MovieService {
                 .map(platform -> vodPlatformService.getActiveVODPlatformByName(platform.getName()))
                 .collect(Collectors.toSet()));
 
-        movieDto.setRegions(regionPlatformMap.keySet().stream()
+        updateDto.setRegions(regionPlatformMap.keySet().stream()
                 .filter(regionService::doesRegionExistsByCountryCode)
                 .map(regionService::getRegionByCountryCode)
                 .collect(Collectors.toSet()));
-        return movieDto;
+        Movie update = movieMapper.mapToMovie(updateDto);
+        movie.setGenres(update.getGenres());
+        movie.setVodPlatforms(update.getVodPlatforms());
+        movie.setRegions(update.getRegions());
+        movie.setLastUpdate(LocalDate.now());
+
+        return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
 
     private boolean isMovieUpToDate(MovieDto movie) {
         return LocalDate.now().minusDays(7).isBefore(movie.getLastUpdate());
     }
 
-
     public CreditDto getCreditsByApiID(Long movieID) {
         return movieApiService.getApiCreditsForMovie(getMovieById(movieID).getApiID());
     }
-
-    public MovieDto getMovieByApiID(Long apiID) {
-        MovieDto movieDto = movieApiService.getApiMovie(apiID);
-        Set<GenreDto> genres = movieDto.getGenres().stream()
-                .map(genreDto -> genreService.findByGenreName(genreDto.getName()))
-                .collect(Collectors.toSet());
-        movieDto.setGenres(genres);
-
-        Map<String, List<FileVODPlatformDto>> regionPlatformMap = movieApiService.getRegionPlatformMapByApiID(apiID);
-
-        movieDto.setVodPlatforms(regionPlatformMap.values().stream()
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet())
-                .stream()
-                .filter(platform -> vodPlatformService.existsByActivePlatformName(platform.getName()))
-                .map(platform -> vodPlatformService.getActiveVODPlatformByName(platform.getName()))
-                .collect(Collectors.toSet()));
-
-        movieDto.setRegions(regionPlatformMap.keySet().stream()
-                .map(regionService::getRegionByCountryCode)
-                .collect(Collectors.toSet()));
-        return createMovie(movieDto);
-    }
-
-
 }
