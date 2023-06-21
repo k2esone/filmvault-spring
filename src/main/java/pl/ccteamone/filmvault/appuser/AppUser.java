@@ -46,7 +46,6 @@ public class AppUser implements UserDetails {
     private Gender gender;
 
     private String profilePic;
-    private String role;
     private boolean isActive;
 
     @CreationTimestamp

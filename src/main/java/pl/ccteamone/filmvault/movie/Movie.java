@@ -23,7 +23,7 @@ public class Movie {
     private String title;
     @JsonProperty("poster_path")
     private String posterPath;
-    @Column(length = 512)
+    @Column(length = 1024)
     private String overview; //opis do filmu
     @JsonProperty("release_date")
     private String releaseDate;

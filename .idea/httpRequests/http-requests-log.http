@@ -1,427 +1,537 @@
-GET http://localhost:8080/tvseries
-
-<> 2023-05-29T144505.200.json
-
-###
-
-DELETE http://localhost:8080/tvseries/3
-
-###
-
-GET http://localhost:8080/tvseries/3
-
-<> 2023-05-29T144455.200.json
-
-###
-
-PATCH http://localhost:8080/tvseries/3
-Content-Type: application/json
-
-{
-  "name": "ZZZZZZZZZZ"
-}
-
-<> 2023-05-29T144452.200.json
-
-###
-
-GET http://localhost:8080/tvseries/3
-
-<> 2023-05-29T144405.200.json
-
-###
-
-GET http://localhost:8080/tvseries/3
-
-<> 2023-05-29T144401.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-29T144356.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "kAasdasdad",
-  "description": "akdjslhaads",
-  "adult": true
-}
-
-<> 2023-05-29T144353.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "kAasdasdad",
-  "description": "akdjslhaikhsdha",
-  "adult": true
-}
-
-<> 2023-05-29T144319.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "kAAAAdad",
-  "description": "akdjslhaikhsdha",
-  "adult": true
-}
-
-<> 2023-05-29T144313.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "kAAAAdad",
-  "description": "akdjslhaikhsdha",
-  "adult": false
-}
-
-<> 2023-05-29T144255.200.json
-
-###
-
-GET http://localhost:8080/tvseries/3
-
-<> 2023-05-29T144155.500.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-29T144142.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "kAAAAdad",
-  "description": "akdjslhaikhsdha",
-  "adult": false
-}
-
-<> 2023-05-29T144140.200.json
-
-###
-
-GET http://localhost:8080/tvseries
-
-<> 2023-05-29T144111.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "ksadsdad",
-  "description": "akdjslhaikhsdha",
-  "adult": false
-}
-
-<> 2023-05-29T144108.200.json
-
-###
-
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "name": "kjahgsd",
-  "description": "akdjslhaikhsdha",
-  "adult": true
-}
-
-<> 2023-05-29T144052.200.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-05-29T133705.200.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-05-29T133701.200.json
-
-###
-
-GET http://localhost:8080/regions/3
-
-<> 2023-05-29T133655.500.json
-
-###
-
-GET http://localhost:8080/regions/3
-
-<> 2023-05-29T133651.500.json
-
-###
-
-PATCH http://localhost:8080/regions/3
-Content-Type: application/json
-
-{
-  "city": "AAAAA",
-  "flag": "Flag"
-}
-
-<> 2023-05-29T133643.500.json
-
-###
-
-GET http://localhost:8080/regions/3
-
-<> 2023-05-29T133637.500.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-05-29T133630.200.json
-
-###
-
-DELETE http://localhost:8080/regions/3
-
-###
-
-GET http://localhost:8080/regions/3
-
-<> 2023-05-29T133613.200.json
-
-###
-
-GET http://localhost:8080/regions/3
-
-<> 2023-05-29T133611.200.json
-
-###
-
-PATCH http://localhost:8080/regions/3
-Content-Type: application/json
-
-{
-  "city": "AAAAA",
-  "flag": "Flag"
-}
-
-<> 2023-05-29T133607.200.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-05-29T133558.200.json
-
-###
-
-POST http://localhost:8080/regions/add
-Content-Type: application/json
-
-{
-  "city": "awqsdqwda",
-  "country": "aasdfasda"
-}
-
-<> 2023-05-29T133556.200.json
-
-###
-
-GET http://localhost:8080/regions
-
-<> 2023-05-29T133522.200.json
-
-###
-
-POST http://localhost:8080/regions/add
-Content-Type: application/json
-
-{
-  "city": "awqsda",
-  "country": "aasdfasda"
-}
-
-<> 2023-05-29T133518.200.json
-
-###
-
-POST http://localhost:8080/regions/add
-Content-Type: application/json
-
-{
-  "city": "as;fdlka",
-  "country": "aasdfasda"
-}
-
-<> 2023-05-29T133513.200.json
-
-###
-
-GET http://localhost:8080/users
-
-<> 2023-05-29T131623.200.json
-
-###
-
-GET http://localhost:8080/users
-
-<> 2023-05-29T131620.200.json
-
-###
-
-PATCH http://localhost:8080/users/2
-Content-Type: application/json
-
-{
-  "name": "costam",
-  "surname": "ACDC",
-  "movies": [{
-    "id": 3
-  }]
-}
-
-<> 2023-05-29T131615.200.json
-
-###
-
-POST http://localhost:8080/users/register
-Content-Type: application/json
-
-{
-  "username": "stefan",
-  "password": "12sadasd3",
-  "email": "emasdasail@test.com"
-}
-
-<> 2023-05-29T131609.200.json
-
-###
-
-POST http://localhost:8080/users/register
-Content-Type: application/json
-
-{
-  "username": "stefania",
-  "password": "12sadasd3",
-  "email": "emasdasail@test.com"
-}
-
-<> 2023-05-29T131604.200.json
+GET http://localhost:8080/movies
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
 GET http://localhost:8080/movies
-
-<> 2023-05-29T131543.200.json
-
-###
-
-DELETE http://localhost:8080/movies/2
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-GET http://localhost:8080/movies
-
-<> 2023-05-29T131534.200.json
-
-###
-
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmC",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131532.200.json
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "filmC",
-  "overview": "askljdhlaskhd",
-  "releaseDate": "23/01/2020"
-}
-
-<> 2023-05-29T131531.200.json
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-GET http://localhost:8080/movies
-
-<> 2023-05-29T131458.200.json
-
-###
-
-DELETE http://localhost:8080/movies/2
-
-<> 2023-05-29T131455.500.json
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-GET http://localhost:8080/movies/2
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-29T131449.200.json
-
-###
-
-PATCH http://localhost:8080/movies/2
-Content-Type: application/json
-
-{
-  "title": "ASDFG",
-  "runtime": "2H"
-}
-
-<> 2023-05-29T131445.200.json
+<> 2023-06-20T205936.200.json
 
 ###
 
-GET http://localhost:8080/movies
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-29T131433.200.json
-
-###
-
-PATCH http://localhost:8080/movies/2
-Content-Type: application/json
-
-{
-  "title": "ASDFG",
-  "runtime": "2H"
-}
-
-<> 2023-05-29T131429.200.json
+<> 2023-06-20T205906-3.200.json
 
 ###
 
-GET http://localhost:8080/movies
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-05-29T131414.200.json
+<> 2023-06-20T205906-2.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T205906-1.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T205906.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T205905.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T205900.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=0
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T205112.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=0
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T205110.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/199?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204644.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=11
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204611.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=7
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204604.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=8
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204600.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=9
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204553.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=7
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204543.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=7
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204514.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/200?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T204452.200.json
+
+###
+
+GET http://localhost:8080/api/movies/search?query=harry
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203539.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203120-1.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203120.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203119.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203115-3.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203115-2.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203115-1.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203115.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203114.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203113.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203110.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203108.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203105.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203100.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T203056.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202904.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202902.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202437.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=4
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202427.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202421.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=3
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202328.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=5
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202324.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202317.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/52?rating=7
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T202311.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/39?rating=7
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T201903.500.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/39?rating=5
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T201858.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/39?rating=2
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T201838.200.json
+
+###
+
+PATCH http://localhost:8080/api/movies/add/rating/39?rating=1
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Cookie: JSESSIONID=3CF9BCFBBE82F2E3B4202A0E64A7C8C6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-20T201833.200.json
 
 ###
 

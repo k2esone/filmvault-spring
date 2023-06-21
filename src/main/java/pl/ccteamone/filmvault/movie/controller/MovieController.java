@@ -2,6 +2,7 @@ package pl.ccteamone.filmvault.movie.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
@@ -26,6 +27,7 @@ public class MovieController {
         return movieService.createMovie(create);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping
     public List<MovieDto> getMovieList() {
         log.info("request for movies list");
