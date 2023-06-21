@@ -1,6 +1,5 @@
 package pl.ccteamone.filmvault.movie;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ccteamone.filmvault.genre.Genre;
@@ -29,6 +28,7 @@ public class Movie {
     private LocalDate releaseDate;
     private Integer runtime;
     private Double rating;
+    private Integer voteCount;
     private LocalDate lastUpdate;
     private Long apiID;
 

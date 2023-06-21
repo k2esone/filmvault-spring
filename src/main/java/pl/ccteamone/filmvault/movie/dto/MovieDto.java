@@ -26,6 +26,7 @@ public class MovieDto {
     private Integer runtime;
     private Double rating;
     private LocalDate lastUpdate;
+    private Integer voteCount;
     private Long apiID;
     private Set<VODPlatformDto> vodPlatforms;
     private Set<RegionDto> regions;

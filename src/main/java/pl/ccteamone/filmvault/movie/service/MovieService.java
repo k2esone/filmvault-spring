@@ -19,6 +19,12 @@ import pl.ccteamone.filmvault.region.service.RegionService;
 import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
 import pl.ccteamone.filmvault.vodplatform.service.VODPlatformService;
 
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -82,14 +88,16 @@ public class MovieService {
         if (update.getRating() != null) {
             movie.setRating(update.getRating());
         }
-        if (update.getApiID() != null) {
-            movie.setApiID(update.getApiID());
+        if (update.getVoteCount() != null) {
+            movie.setVoteCount(update.getVoteCount());
         }
         if (update.getApiID() != null) {
             movie.setApiID(update.getApiID());
         } else {
             update.setApiID(movie.getApiID());
         }
+
+
 
         movie.setLastUpdate(LocalDate.now());
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
@@ -254,5 +262,33 @@ public class MovieService {
 
     public CreditDto getCreditsByApiID(Long movieID) {
         return movieApiService.getApiCreditsForMovie(getMovieById(movieID).getApiID());
+    }
+
+    public MovieDto addRating(Long movieId, int rating) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found with id: " + movieId));
+
+        try {
+            if (1 <= rating && rating <= 10) {
+                if (movie.getRating() == 0.0 || movie.getVoteCount() == 0) {
+                    movie.setRating((double) rating);
+                    movie.setVoteCount(1);
+                    return movieMapper.mapToMovieDto(movieRepository.save(movie));
+                }
+                DecimalFormat df = new DecimalFormat("#.##");
+                double v = movie.getRating() * movie.getVoteCount(); // sum of votes
+                double newRatingCount = v + rating;
+                int newVoteCount = movie.getVoteCount() + 1;
+                double newRating = newRatingCount / newVoteCount;
+                String formattedNumber = df.format(newRating);
+                movie.setRating(df.parse(formattedNumber).doubleValue());
+                movie.setVoteCount(newVoteCount);
+            } else {
+                throw new Exception("wrong rating given");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
 }
