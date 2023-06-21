@@ -19,11 +19,11 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
-    @PostMapping("/register")
-    public AppUserDto createUser(@RequestBody AppUserCreationDto request) {
-        log.info("user addition has been triggered: {}", request);
-        return appUserService.createAppUser(request);
-    }
+//    @PostMapping("/register")
+//    public AppUserDto createUser(@RequestBody AppUserCreationDto request) {
+//        log.info("user addition has been triggered: {}", request);
+//        return appUserService.createAppUser(request);
+//    }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/{username}/add-movie")

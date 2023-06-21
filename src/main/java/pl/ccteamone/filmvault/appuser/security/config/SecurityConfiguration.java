@@ -30,6 +30,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(toH2Console())
                 .permitAll()
+                .requestMatchers("/api/auth/**")
+                .permitAll()
                 .requestMatchers("/api/users/**")
                 .permitAll()
                 .requestMatchers("/api/genres/**")

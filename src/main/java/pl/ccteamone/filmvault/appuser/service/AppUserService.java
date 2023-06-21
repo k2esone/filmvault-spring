@@ -30,14 +30,14 @@ public class AppUserService {
     private final MovieService movieService;
     private final TvSeriesService tvSeriesService;
 
-    public AppUserDto createAppUser(AppUserCreationDto appUserCreationDto) {
-        AppUser appUser = AppUser.builder()
-                .email(appUserCreationDto.getEmail())
-                .password(appUserCreationDto.getPassword())
-                .username(appUserCreationDto.getUsername())
-                .build();
-        return appUserMapper.mapToAppUserDto(appUserRepository.save(appUser));
-    }
+//    public AppUserDto createAppUser(AppUserCreationDto appUserCreationDto) {
+//        AppUser appUser = AppUser.builder()
+//                .email(appUserCreationDto.getEmail())
+//                .password(appUserCreationDto.getPassword())
+//                .username(appUserCreationDto.getUsername())
+//                .build();
+//        return appUserMapper.mapToAppUserDto(appUserRepository.save(appUser));
+//    }
 
     public AppUserDto addMovieByTitle(String username, String movieTitle) {
         AppUser appUser = appUserRepository.findByUsername(username)
