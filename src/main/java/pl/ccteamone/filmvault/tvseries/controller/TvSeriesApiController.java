@@ -21,8 +21,8 @@ public class TvSeriesApiController {
         return tvSeriesApiService.getApiTvSeries(tvSeriesId);
     }
 
-    @GetMapping("/discovery")
-    public List<TvSeriesDto> getApiTvSeriesDisvovery(@RequestParam(defaultValue = "1", required = false) Integer page) {
+    @GetMapping("/discover")
+    public List<TvSeriesDto> getApiTvSeriesDiscover(@RequestParam(defaultValue = "1", required = false) Integer page) {
         return tvSeriesApiService.getTvSeriesDiscoverList(page);
     }
 
