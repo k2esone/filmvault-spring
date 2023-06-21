@@ -28,6 +28,10 @@ public class AuthService {
                 .email(request.getEmail())
                 .roleType(RoleType.USER)
                 .build();
+        String username = user.getUsername();
+        if (appUserRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("Username is already taken");
+        }
         appUserRepository.save(user);
 
         return jwtService.generateToken(user);

@@ -50,6 +50,17 @@ public class AppUserService {
         return appUserMapper.mapToAppUserDto(appUser);
     }
 
+    public AppUserDto addMovieByMovieIdToUser(String username, Long movieId) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
+        Movie movie = movieRepository.findById(movieId)
+                .stream().findAny()
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found, title: " + movieId));
+        appUser.getMovies().add(movie);
+        appUserRepository.save(appUser);
+        return appUserMapper.mapToAppUserDto(appUser);
+    }
+
     public AppUserDto addMovieByApiId(String username, Long movieApiId) {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
