@@ -2,6 +2,9 @@ package pl.ccteamone.filmvault.tvseries.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.region.service.RegionService;
@@ -28,8 +31,9 @@ public class TvSeriesService {
     private final VODPlatformService vodPlatformService;
     private final RegionService regionService;
 
-    private final Integer PAGES_FROM_API = 5;
-    private final Integer DAYS_BETWEEN_UPDATES = 7;
+    private static final int PAGES_FROM_API = 1;
+    private static final int DAYS_BETWEEN_UPDATES = 7;
+    private static final int PAGE_SIZE = 20;
 
 
     public TvSeriesDto createTvSeries(TvSeriesDto create) {
@@ -46,7 +50,7 @@ public class TvSeriesService {
         TvSeriesDto tvSeries = tvSeriesMapper.mapToTvSeriesDto(tvRepository.findById(tvSeriesId)
                 .orElseThrow(() -> new RuntimeException("Tv Series id=" + tvSeriesId + " not found")));
 
-        if (tvSeries.getLastUpdate() == null || LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isAfter(tvSeries.getLastUpdate())) {
+        if (isTvSeriesUpToDate(tvSeries)) {
             tvSeries = updateTvSeriesDataFromApi(tvSeriesId, tvSeries);
         }
         return tvSeries;
@@ -139,11 +143,10 @@ public class TvSeriesService {
                         .orElseThrow(() -> new RuntimeException("Unable to match tv series by title")));
             }
 
-            if (similarTvSeries.size() == 5) {
+            if (similarTvSeries.size() == 20) {
                 break;
             }
         }
-
         return similarTvSeries;
     }
 
@@ -154,7 +157,6 @@ public class TvSeriesService {
             String nGram = input.substring(i, i + n);
             nGrams.add(nGram);
         }
-
         return nGrams;
     }
 
@@ -169,7 +171,14 @@ public class TvSeriesService {
 
     public List<TvSeriesDto> getNewestTvSeriesList(Integer page) {
         List<TvSeriesDto> tvSeries = tvSeriesApiService.getTvSeriesDiscoverList(page);
-        return persistTvSeriesDtoList(tvSeries);
+        persistTvSeriesDtoList(tvSeries);
+
+        PageRequest pageRequest = PageRequest.of(page-1,PAGE_SIZE, Sort.by(Sort.Direction.DESC));
+        Page<TvSeries> tvPage = tvRepository.findAll(pageRequest);
+        return tvPage.stream()
+                .toList().stream()
+                .map(tvSeriesMapper::mapToTvSeriesDto)
+                .toList();
     }
 
     private void feedDBWithNewTvSeriesByQuery(String phrase) {
@@ -234,7 +243,10 @@ public class TvSeriesService {
         return tvSeriesMapper.mapToTvSeriesDto(tvRepository.save(tvSeries));
     }
 
-    private boolean isTvSeriesUpToDate(TvSeriesDto movie) {
-        return LocalDate.now().minusDays(7).isBefore(movie.getLastUpdate());
+    private boolean isTvSeriesUpToDate(TvSeriesDto series) {
+        if(series == null || series.getLastUpdate() == null) {
+            return false;
+        }
+        return LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isBefore(series.getLastUpdate());
     }
 }

@@ -5,6 +5,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.movie.Movie;
@@ -33,8 +36,10 @@ public class MovieService {
     private final VODPlatformService vodPlatformService;
     private final RegionService regionService;
 
-    private final Integer PAGES_FROM_API = 5;
-    private final Integer DAYS_BETWEEN_UPDATES = 7;
+    private static final int PAGES_FROM_API = 1;
+    private static final int DAYS_BETWEEN_UPDATES = 7;
+    private static final int PAGE_SIZE = 20;
+
 
     public MovieDto createMovie(MovieDto create) {
         Movie movieFromDto = movieMapper.mapToMovie(create);
@@ -49,7 +54,7 @@ public class MovieService {
         MovieDto movie = movieMapper.mapToMovieDto(movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie id=" + movieId + " not found")));
 
-        if (movie.getLastUpdate() == null || LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isAfter(movie.getLastUpdate())) {
+        if (isMovieUpToDate(movie)) {
             movie = updateMovieDataFromApi(movieId, movie);
         }
         return movie;
@@ -123,13 +128,14 @@ public class MovieService {
             int commonNGrams = countCommonNGrams(titleNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
+                //TODO: zmienić tak, alby zwracał filmy dokładnie o tym samym tytule
                 similarMovies.add(movies.stream()
                         .filter(match -> match.getTitle().equalsIgnoreCase(movie.getTitle()))
                         .findFirst()
                         .map(movieMapper::mapToMovieDto)
                         .orElseThrow(() -> new RuntimeException("Unable to match movie by title")));
             }
-            if (similarMovies.size() == 20) {
+            if (similarMovies.size() == PAGE_SIZE) {
                 break;
             }
         }
@@ -143,7 +149,6 @@ public class MovieService {
             String nGram = input.substring(i, i + n);
             nGrams.add(nGram);
         }
-
         return nGrams;
     }
 
@@ -159,28 +164,43 @@ public class MovieService {
 
     public List<MovieDto> getNewestMovieList(Integer page) {
         List<MovieDto> movies = movieApiService.getMovieDiscoverList(page);
+        movies = movies.stream()
+                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
+                .toList();
+        persistMovieDtoList(movies);
 
-
-
-
-        return persistMovieDtoList(movies);
+        PageRequest pageRequest = PageRequest.of(page - 1, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "releaseDate"));
+        Page<Movie> moviePage = movieRepository.findAll(pageRequest);
+        return moviePage.stream()
+                .toList().stream()
+                .map(movieMapper::mapToMovieDto)
+                .toList();
     }
 
     private void feedDBWithNewMoviesByQuery(String phrase) {
         List<MovieDto> movieBatch = new ArrayList<>();
-        for (int i = 1; i <= PAGES_FROM_API; i++) {
-            movieBatch.addAll(movieApiService.getMovieSearchList(i, phrase));
+        int pagesToSearch = PAGES_FROM_API;
+        int topPageSearch = 3;
+        for (int i = 1; i <= pagesToSearch; i++) {
+            List<MovieDto> pageContent = movieApiService.getMovieSearchList(i,phrase).stream()
+                    .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
+                    .collect(Collectors.toList());
+            movieBatch.addAll(pageContent);
+
+            if(movieBatch.size() < PAGE_SIZE && pagesToSearch < topPageSearch) {
+                pagesToSearch++;
+            }
         }
         persistMovieDtoList(movieBatch);
     }
 
     private List<MovieDto> persistMovieDtoList(List<MovieDto> movies) {
         movies = movies.stream()
-                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
-                .toList().stream()
+/*                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
+                .toList().stream()*/
                 .map(this::createMovie)
                 .toList().stream()
-                .map(movieUpdate -> updateMovieDataFromApi(movieUpdate.getId(),movieUpdate))
+                .map(movieUpdate -> updateMovieDataFromApi(movieUpdate.getId(), movieUpdate))
                 .collect(Collectors.toList());
         return movies;
     }
@@ -226,7 +246,10 @@ public class MovieService {
     }
 
     private boolean isMovieUpToDate(MovieDto movie) {
-        return LocalDate.now().minusDays(7).isBefore(movie.getLastUpdate());
+        if(movie == null || movie.getLastUpdate() == null) {
+            return false;
+        }
+        return LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isBefore(movie.getLastUpdate());
     }
 
     public CreditDto getCreditsByApiID(Long movieID) {
