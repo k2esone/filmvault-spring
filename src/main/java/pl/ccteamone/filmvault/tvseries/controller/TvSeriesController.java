@@ -2,6 +2,7 @@ package pl.ccteamone.filmvault.tvseries.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
@@ -17,6 +18,8 @@ public class TvSeriesController {
 
     private final TvSeriesService tvService;
 
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public TvSeriesDto createTvSeries(@RequestBody TvSeriesDto create) {
         log.info("adding new tvseries: {}", create);
@@ -35,12 +38,14 @@ public class TvSeriesController {
         return tvService.getTvSeriesById(tvseriesid);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{tvseriesId}")
     public TvSeriesDto updateTvSeries(@PathVariable Long tvseriesId, @RequestBody TvSeriesDto update) {
         log.info("update tvseries with id - {}, data: {}", tvseriesId, update);
         return tvService.updateTvSeries(tvseriesId, update);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{tvseriesId}")
     public void deleteTvSeries(@PathVariable Long tvseriesId) {
         log.info("delete movie with id - {}", tvseriesId);

@@ -18,35 +18,41 @@ import java.util.Set;
 public class MovieController {
     private final MovieService movieService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public MovieDto createMovie(@RequestBody MovieDto create) {
         log.info("adding new movie: {}", create);
         return movieService.createMovie(create);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping
     public List<MovieDto> getMovieList() {
         log.info("request for movies list");
         return movieService.getMovieList();
     }
+
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/{movieId}/credits")
     public CreditDto getCreditsByMovieApiID(@PathVariable Long movieId) {
         return movieService.getCreditsByApiID(movieId);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/{movieId}")
     public MovieDto getMovieById(@PathVariable Long movieId) {
         log.info("request for movie id - {}", movieId);
         return movieService.getMovieById(movieId);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{movieId}")
     public MovieDto updateMovie(@PathVariable Long movieId, @RequestBody MovieDto update) {
         log.info("update movie with id - {}, data: {}", movieId, update);
         return movieService.updateMovie(movieId, update);
     }
 
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{movieId}")
     public void deleteMovieById(@PathVariable Long movieId) {
         log.info("delete movie with id - {}", movieId);
@@ -63,6 +69,7 @@ public class MovieController {
         return movieService.getNewestMovieList(page);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PatchMapping("/add/rating/{movieId}")
     public MovieDto addRating (@PathVariable Long movieId, @RequestParam int rating) {
         return movieService.addRating(movieId, rating);
