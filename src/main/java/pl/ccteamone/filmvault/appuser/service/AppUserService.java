@@ -10,10 +10,15 @@ import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
 import pl.ccteamone.filmvault.appuser.mapper.AppUserMapper;
 import pl.ccteamone.filmvault.appuser.repository.AppUserRepository;
 import pl.ccteamone.filmvault.movie.Movie;
-import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
+import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
+import pl.ccteamone.filmvault.movie.service.MovieService;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -22,17 +27,16 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final AppUserMapper appUserMapper;
     private final MovieRepository movieRepository;
+    private final MovieService movieService;
+    private final TvSeriesService tvSeriesService;
 
-    public AppUserCreationDto createAppUser(AppUserCreationDto appUserCreationDto) {
-
+    public AppUserDto createAppUser(AppUserCreationDto appUserCreationDto) {
         AppUser appUser = AppUser.builder()
                 .email(appUserCreationDto.getEmail())
                 .password(appUserCreationDto.getPassword())
                 .username(appUserCreationDto.getUsername())
                 .build();
-
-        appUserRepository.save(appUser);
-        return appUserMapper.mapToAppUserCreationDto(appUser);
+        return appUserMapper.mapToAppUserDto(appUserRepository.save(appUser));
     }
 
     public AppUserDto addMovieByTitle(String username, String movieTitle) {
@@ -50,7 +54,6 @@ public class AppUserService {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, username: " + username));
         Movie movie = movieRepository.findByApiID(movieApiId)
-                .stream().findAny()
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found, title: " + movieApiId));
         appUser.getMovies().add(movie);
         appUserRepository.save(appUser);
@@ -70,37 +73,35 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
     }
 
-
-
     public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
         AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
 
         AppUser appUser = appUserMapper.mapToAppUser(appUserDto);
-        if(appUser.getEmail() != null){
+        if (appUser.getEmail() != null) {
             user.setEmail(appUser.getEmail());
         }
-        if(appUser.getName() != null) {
+        if (appUser.getName() != null) {
             user.setName(appUser.getName());
         }
-        if(appUser.getPassword() != null) {
+        if (appUser.getPassword() != null) {
             user.setPassword(appUser.getPassword());
         }
-        if(appUser.getSurname() != null) {
+        if (appUser.getSurname() != null) {
             user.setSurname(appUser.getSurname());
         }
-        if(appUser.getBirthDate() != null) {
+        if (appUser.getBirthDate() != null) {
             user.setBirthDate(appUser.getBirthDate());
         }
-        if(appUser.getGender() != null) {
+        if (appUser.getGender() != null) {
             user.setGender(appUser.getGender());
         }
-        if(appUser.getProfilePic() != null) {
+        if (appUser.getProfilePic() != null) {
             user.setProfilePic(appUser.getProfilePic());
         }
-        if(appUser.getRegion() != null) {
+        if (appUser.getRegion() != null) {
             user.setRegion(appUser.getRegion());
         }
-        if(appUser.getMovies() != null) {
+        if (appUser.getMovies() != null) {
             user.setMovies(appUser.getMovies());
         }
         if (appUser.getVodPlatforms() != null) {
@@ -118,5 +119,33 @@ public class AppUserService {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("AppUser not found, id: " + userId);
         }
+    }
+
+    public AppUserDto addMovieByID(Long userID, Long movieID) {
+        AppUserDto user = getUserById(userID);
+        MovieDto movie = movieService.getMovieById(movieID);
+        Set<MovieDto> userMovies = user.getMovies();
+        if (userMovies != null) {
+            userMovies.add(movie);
+        } else {
+            userMovies = new HashSet<>();
+            userMovies.add(movie);
+            user.setMovies(userMovies);
+        }
+        return updateUser(userID, user);
+    }
+
+    public AppUserDto addTvSeriesByID(Long userID, Long tvseriesID) {
+        AppUserDto user = getUserById(userID);
+        TvSeriesDto tvSeries = tvSeriesService.getTvSeriesById(tvseriesID);
+        Set<TvSeriesDto> userSeries = user.getTvSeries();
+        if(userSeries != null) {
+            userSeries.add(tvSeries);
+        } else {
+            userSeries = new HashSet<>();
+            userSeries.add(tvSeries);
+            user.setTvSeries(userSeries);
+        }
+        return updateUser(userID,user);
     }
 }

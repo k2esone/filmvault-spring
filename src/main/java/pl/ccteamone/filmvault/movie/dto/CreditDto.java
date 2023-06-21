@@ -17,7 +17,6 @@ public class CreditDto {
     public static class Cast {
         private String name;
         private String character;
-
     }
 
 }

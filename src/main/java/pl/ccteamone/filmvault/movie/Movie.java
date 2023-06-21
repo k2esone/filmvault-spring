@@ -1,11 +1,12 @@
 package pl.ccteamone.filmvault.movie;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import pl.ccteamone.filmvault.genre.Genre;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -21,18 +22,14 @@ public class Movie {
     @Column
     private Long id;
     private String title;
-    @JsonProperty("poster_path")
     private String posterPath;
-    @Column(length = 1024)
-    private String overview; //opis do filmu
-    @JsonProperty("release_date")
-    private String releaseDate;
-    private String runtime; //czas trwania filmu
-    private String credits; //moze byc kolekcją - aktorzy
-
-    //TODO: create rating implementation logic
-    @JsonProperty("vote_average")
+    @Column(length = 2048)
+    private String overview;
+    private LocalDate releaseDate;
+    private Integer runtime;
     private Double rating;
+    private Integer voteCount;
+    private LocalDate lastUpdate;
     private Long apiID;
 
     @ToString.Exclude
@@ -42,8 +39,11 @@ public class Movie {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
-    private Region region;
+    @ManyToMany
+    private Set<Region> regions;
+
+    @ManyToMany
+    private Set<Genre> genres;
 
 }
 

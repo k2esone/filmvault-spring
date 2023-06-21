@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.region.Region;
+import pl.ccteamone.filmvault.region.dto.FileRegionDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.appuser.Gender;
 import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
@@ -27,7 +28,7 @@ public class AppUserDto {
     private LocalDate birthDate;
     private Gender gender;
 
-    private Region region;
+    private FileRegionDto region;
 
     private String profilePic;
     private boolean isActive;

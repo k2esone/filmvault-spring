@@ -1,45 +1,52 @@
 package pl.ccteamone.filmvault.movie.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.CreditDto;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
-import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
-import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 import pl.ccteamone.filmvault.movie.service.MovieApiService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/movie")
+@RequestMapping("/demo/movies")
 public class MovieApiController {
 
-    private final MovieApiService movieApiService;
-    private final MovieRepository movieRepository;
-    private final MovieMapper movieMapper;
 
+
+    private final MovieApiService movieApiService;
+
+    @Operation(summary = "Returns movie DTO")
     @GetMapping("/{movId}")
     public MovieDto getApiMovie(@PathVariable Long movId) {
-        Movie movie = movieApiService.getApiMovie(movId);
-        movieRepository.save(movieApiService.getApiMovie(movId));
-        return movieMapper.mapToMovieDto(movie);
+        return movieApiService.getApiMovie(movId);
     }
 
-//    @GetMapping("/all")
-//    public void getAllApiMovie() {
-//        for (long i = 0; i < 10000 ; i++) {
-//            try {
-//                movieRepository.save(movieApiService.getApiMovie(i));
-//            } catch (Exception e) {
-//
-//            }
-//        }
-//    }
-    @GetMapping("credits/{movId}")
+/*    //TYLKO DO TESTÓW
+    @GetMapping("/platform/{id}")
+    public String something(@PathVariable("id") Long id) {
+        movieApiService.getRegionPlatformMapByID(id);
+        return "OK";
+    }*/
+
+    @GetMapping("/discovery")
+    public List<MovieDto> getApiMovieDiscovery(@RequestParam("page") Integer page) {
+        return movieApiService.getMovieDiscoverList(page);
+    }
+
+    @GetMapping("/credits/{movId}")
     public CreditDto getApiCreditsForMovieId(@PathVariable Long movId) {
         return movieApiService.getApiCreditsForMovie(movId);
+    }
+
+    @GetMapping("/search")
+    public List<MovieDto> getApiMovieSearch(@RequestParam("page") Integer page, @RequestParam("phrase") String phrase) {
+        return movieApiService.getMovieSearchList(page, phrase);
     }
 }

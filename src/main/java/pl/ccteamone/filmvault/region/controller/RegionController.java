@@ -9,7 +9,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/regions")
+@RequestMapping("/api/regions")
 public class RegionController {
 
     private final RegionService regionService;

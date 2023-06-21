@@ -4,22 +4,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.movie.Movie;
+import pl.ccteamone.filmvault.movie.dto.CreditDto;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
-import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.service.MovieService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 public class MovieController {
     private final MovieService movieService;
-    private final MovieMapper movieMapper;
 
     @PostMapping("/add")
     public MovieDto createMovie(@RequestBody MovieDto create) {
@@ -32,6 +29,10 @@ public class MovieController {
     public List<MovieDto> getMovieList() {
         log.info("request for movies list");
         return movieService.getMovieList();
+    }
+    @GetMapping("/{movieId}/credits")
+    public CreditDto getCreditsByMovieApiID(@PathVariable Long movieId) {
+        return movieService.getCreditsByApiID(movieId);
     }
 
     @GetMapping("/{movieId}")
@@ -53,8 +54,18 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public List<MovieDto> searchMovies(@RequestParam("query") String query) {
-        return movieService.searchMovies(query);
+    public Set<MovieDto> searchMovies(@RequestParam("query") String query) {
+        return movieService.findMovieByQuery(query);
+    }
+
+    @GetMapping("/discover")
+    public List<MovieDto> getNewestMovieList(@RequestParam(defaultValue = "1", required = false) Integer page) {
+        return movieService.getNewestMovieList(page);
+    }
+
+    @PatchMapping("/add/rating/{movieId}")
+    public MovieDto addRating (@PathVariable Long movieId, @RequestParam int rating) {
+        return movieService.addRating(movieId, rating);
     }
 
 }

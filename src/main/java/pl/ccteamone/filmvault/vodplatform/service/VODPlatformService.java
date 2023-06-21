@@ -10,6 +10,7 @@ import pl.ccteamone.filmvault.vodplatform.repository.VODPlatformRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -29,14 +30,18 @@ public class VODPlatformService {
                 .logoPath(platformDto.getLogoPath())
                 .vodURL(platformDto.getVodURL())
                 .active(platformDto.isActive())
-                .apiID(platformDto.getApiID())
                 .build();
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }
 
-    public List<VODPlatformDto> getVODPlatformDtoList() {
+    public List<VODPlatformDto> getVODPlatformDtoFullList() {
         return StreamSupport.stream(platformRepository.findAll().spliterator(), false)
                 .map(vodPlatformMapper::mapToVODPlatformDto).collect(Collectors.toList());
+    }
+
+    public List<VODPlatformDto> getVODPlatformActiveList() {
+        return vodPlatformMapper.mapToVODPlatformDtoSet(platformRepository.findAll().stream()
+                .filter(vodPlatform -> vodPlatform.isActive()).collect(Collectors.toSet())).stream().toList();
     }
     //TODO: create custom exception for handling missing VOD Platform
 
@@ -63,9 +68,6 @@ public class VODPlatformService {
         if (!vodPlatform.isActive()) {
             platform.setActive(vodPlatform.isActive());
         }
-        if (vodPlatform.getApiID() != null) {
-            platform.setApiID(vodPlatform.getApiID());
-        }
         return vodPlatformMapper.mapToVODPlatformDto(platformRepository.save(platform));
     }
 
@@ -73,8 +75,24 @@ public class VODPlatformService {
         try {
             platformRepository.deleteById(vodPlatformId);
         } catch (Exception e) {
-            throw  new EntityNotFoundException("VODPlatform id =" + vodPlatformId + " not found");
+            throw new EntityNotFoundException("VODPlatform id =" + vodPlatformId + " not found");
         }
-
     }
+
+    public boolean existsByPlatformName(String name) {
+        return platformRepository.existsByNameIgnoreCase(name);
+    }
+    public boolean existsByActivePlatformName(String name) {
+        return platformRepository.existsByNameIgnoreCaseAndActiveIsTrue(name);
+    }
+
+    public Set<VODPlatformDto> getActiveVODPlatform() {
+        return vodPlatformMapper.mapToVODPlatformDtoSet(platformRepository.findAllByActiveIsTrue());
+    }
+
+    public VODPlatformDto getActiveVODPlatformByName(String name) {
+        return vodPlatformMapper.mapToVODPlatformDto(platformRepository.findByNameAndActiveIsTrue(name)
+                .orElseThrow(() -> new RuntimeException("Platform not found or inactive")));
+    }
+
 }

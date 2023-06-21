@@ -10,7 +10,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class AppUserController {
     private final AppUserService appUserService;
 
@@ -19,7 +19,7 @@ public class AppUserController {
     }
 
     @PostMapping("/register")
-    public AppUserCreationDto createUser(@RequestBody AppUserCreationDto request) {
+    public AppUserDto createUser(@RequestBody AppUserCreationDto request) {
         log.info("user addition has been triggered: {}", request);
         return appUserService.createAppUser(request);
     }
@@ -28,11 +28,21 @@ public class AppUserController {
     public AppUserDto addMovieByTitleToUser(@PathVariable String username, @RequestParam String movieTitle) {
         return appUserService.addMovieByTitle(username, movieTitle);
     }
+
     @PostMapping("/{username}/add-movieid")
     public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId) {
         return appUserService.addMovieByApiId(username, movieApiId);
     }
 
+    @PostMapping("/{userid}/add/movie")
+    public AppUserDto addMovieByID(@PathVariable(value = "userid") Long userID, @RequestParam("movieid") Long movieID) {
+        return appUserService.addMovieByID(userID, movieID);
+    }
+
+    @PostMapping("/userid/add/tvseries")
+    public AppUserDto addTvSeriesByID(@PathVariable(value = "userid") Long userID, @RequestParam("tvseriesid") Long tvseriesID) {
+        return appUserService.addTvSeriesByID(userID,tvseriesID);
+    }
 
     //TODO: Set public fuction for searching users (public profile)
     @GetMapping()

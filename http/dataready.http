@@ -1,5 +1,5 @@
-###
-POST http://localhost:8080/users/register
+### CREATE USERS
+POST http://localhost:8080/api/users/register
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/users/register
+POST http://localhost:8080/api/users/register
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/users/register
+POST http://localhost:8080/api/users/register
 Content-Type: application/json
 
 {
@@ -28,297 +28,98 @@ Content-Type: application/json
   "email": "furman@mail.com"
 }
 
+### GET ALL USERS
+GET http://localhost:8080/api/users
 
-###
-PATCH http://localhost:8080/users/2
+### UPDATE BASIC USER DETAILS
+PATCH http://localhost:8080/api/users/1
 Content-Type: application/json
 
 {
-  "name": "Jason",
-  "surname": "Domofon",
-  "movies": [
-    {
-      "id": 3
-    }
-  ],
-  "tvSeries": [
-    {
-      "id": 3
-    }
-  ],
-  "vodPlatforms": [
-    {
-      "id": 1
-    }
-  ],
+  "name": "Bob",
+  "surname": "Dywan",
+  "birthDate": "1970-01-01",
+  "gender": "MALE",
+  "profilePic": "/some1_pic.jpg",
+  "role": "USER",
+  "isActive": true,
   "region": {
     "id": 2
   }
 }
 
 ###
-GET http://localhost:8080/users
-
-###
-GET http://localhost:8080/users/2
-
-###
-DELETE http://localhost:8080/users/2
-
-
-
-
-
-###
-POST http://localhost:8080/movies/add
+PATCH http://localhost:8080/api/users/2
 Content-Type: application/json
 
 {
-  "title": "Gone with a windmills",
-  "overview": "Some windmills",
-  "releaseDate": "23/01/2020"
-}
-
-###
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "No Title",
-  "overview": "Just no title",
-  "releaseDate": "23/01/2020"
-}
-
-###
-POST http://localhost:8080/movies/add
-Content-Type: application/json
-
-{
-  "title": "Martix",
-  "overview": "kjhgf",
-  "releaseDate": "23/01/2020"
-}
-
-###
-GET http://localhost:8080/movies
-
-###
-GET http://localhost:8080/movies/3
-
-###
-PATCH http://localhost:8080/movies/3
-Content-Type: application/json
-
-{
-  "title": "Matrix",
-  "runtime": "2H",
+  "name": "Jason",
+  "surname": "Domofon",
+  "birthDate": "1970-01-02",
+  "gender": "MALE",
+  "profilePic": "/some2_pic.jpg",
+  "role": "USER",
+  "isActive": true,
   "region": {
-    "id": 3
+    "id": 10
   }
 }
 
 ###
-DELETE http://localhost:8080/movies/2
-
-
-
-
-###
-POST http://localhost:8080/regions/add
+PATCH http://localhost:8080/api/users/3
 Content-Type: application/json
 
 {
-  "city": "Paris",
-  "country": "FR"
-}
-
-###
-POST http://localhost:8080/regions/add
-Content-Type: application/json
-
-{
-  "city": "London",
-  "country": "GB"
-}
-
-###
-POST http://localhost:8080/regions/add
-Content-Type: application/json
-
-{
-  "city": "New Work",
-  "country": "US"
-}
-
-###
-GET http://localhost:8080/regions
-
-###
-GET http://localhost:8080/regions/3
-
-###
-PATCH http://localhost:8080/regions/3
-Content-Type: application/json
-
-{
-  "city": "New York",
-  "flag": "Flag"
-}
-###
-PATCH http://localhost:8080/regions/1
-Content-Type: application/json
-
-{
-  "city": "Paris",
-  "flag": "WhiteFlag"
-}
-
-###
-DELETE http://localhost:8080/regions/3
-
-
-
-
-
-###
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "title": "Lucifer",
-  "description": "afjhd",
-  "adult": false
-}
-
-###
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "title": "Arcane",
-  "description": "zxcvv",
-  "adult": false
-}
-
-###
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "title": "House MD",
-  "description": "hhhhhh",
-  "adult": false
-}
-
-###
-POST http://localhost:8080/tvseries/add
-Content-Type: application/json
-
-{
-  "title": "Terminal List",
-  "description": "CAUTION, creation adds vodPlatforms 1 and 2 AND region 1",
-  "adult": false,
-  "genre": "action",
-  "poster": "poster.png",
-  "origin": "data file",
-  "firstAirDate": "2022-01-22",
-  "lastAirDate": "2022-01-23",
-  "seasons": 1,
-  "episodes": 7,
-  "vodPlatforms": [
-    {
-      "id": 3
-    },
-    {
-      "id": 2
-    }
-  ],
-  "apiID": 19283,
+  "name": "Uma",
+  "surname": "Furman",
+  "birthDate": "1970-01-01",
+  "gender": "FEMALE",
+  "profilePic": "/some3_pic.jpg",
+  "role": "USER",
+  "isActive": true,
   "region": {
-    "id": 1
+    "id": 4
   }
 }
 
-###
-GET http://localhost:8080/tvseries
+### GET ALL USERS
+GET http://localhost:8080/api/users
+
+### QUERY API FOR NEW MOVIES (20)
+GET http://localhost:8080/api/movies/discover
+
+### QUERY API FOR NEW MOVIES (20) ANOTHER PAGE
+GET http://localhost:8080/api/movies/discover?page=2
+
+### ADD MOVIES TO USERS LISTS
+POST http://localhost:8080/api/users/1/add/movie?movieid=17
 
 ###
-GET http://localhost:8080/tvseries/3
+POST http://localhost:8080/api/users/1/add/movie?movieid=2
 
 ###
-PATCH http://localhost:8080/tvseries/3
-Content-Type: application/json
-
-{
-  "vodPlatforms": [
-    {
-      "id": 2
-    },
-    {
-      "id": 1
-    }
-  ]
-}
+POST http://localhost:8080/api/users/1/add/movie?movieid=7
 
 ###
-DELETE http://localhost:8080/tvseries/3
-
-
-
-
-
-
-
-
-
+POST http://localhost:8080/api/users/2/add/movie?movieid=10
 
 ###
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Disney",
-  "logoPath": "dis dis",
-  "vodURL": "URL",
-  "active": true
-}
+POST http://localhost:8080/api/users/2/add/movie?movieid=12
 
 ###
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "HBO",
-  "logoPath": "oOoooOoo",
-  "vodURL": "URL",
-  "active": false
-}
+POST http://localhost:8080/api/users/3/add/movie?movieid=17
 
 ###
-POST http://localhost:8080/vodplatforms/add
-Content-Type: application/json
-
-{
-  "name": "Netflix",
-  "logoPath": "nooo",
-  "vodURL": "URL",
-  "active": true
-}
+POST http://localhost:8080/api/users/3/add/movie?movieid=9
 
 ###
-GET http://localhost:8080/vodplatforms
+POST http://localhost:8080/api/users/3/add/movie?movieid=2
 
-###
-GET http://localhost:8080/vodplatforms/2
+### QUERY API FOR NEW MOVIES (100) RETURNS 20 ACCURATE
+GET http://localhost:8080/api/movies/search?query=robin
 
-###
-PATCH http://localhost:8080/vodplatforms/2
-Content-Type: application/json
+### QUERY API FOR CREDITS BY MOVIE ID
+GET http://localhost:8080/api/movies/1/credits
 
-{
-  "vodURL": "TOJESTURL",
-  "active": false
-}
-
-###
-DELETE http://localhost:8080/vodplatforms/2
+### GET MOVIE BY ID - QUERIES EXTERNAL API FOR MORE DATA
+GET http://localhost:8080/api/movies/12

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.ccteamone.filmvault.genre.Genre;
 import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
@@ -21,35 +22,33 @@ public class TvSeries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(length = 512)
+    @Column(length = 2048)
     private String overview;
-    @JsonProperty("poster_path")
     private String posterPath;
-    private String genre;
     private boolean adult;
-    @JsonProperty("original_language")
+    private String originLanguage;
     private String originCountry;
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
-    @JsonProperty("first_air_date")
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     private LocalDate firstAirDate;
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
-    @JsonProperty("last_air_date")
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern = "dd/MM/yyyy")
     private LocalDate lastAirDate;
-    @JsonProperty("number_of_seasons")
     private int seasons;
     private int episodes;
+    private LocalDate lastUpdate;
     private Long apiID;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
-    private Region region;
+    @ManyToMany
+    private Set<Region> regions;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
 
+    @ManyToMany
+    private Set<Genre> genres;
 
 
 }

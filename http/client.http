@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/users/register
+POST http://localhost:8080/api/users/register
 Content-Type: application/json
 
 {
@@ -155,7 +155,7 @@ DELETE http://localhost:8080/tvseries/3
 
 
 ###
-POST http://localhost:8080/vodplatforms/add
+POST http://localhost:8080/api/providers/add
 Content-Type: application/json
 
 {
@@ -166,10 +166,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/vodplatforms
+GET http://localhost:8080/api/providers
 
 ###
-GET http://localhost:8080/vodplatforms/2
+GET http://localhost:8080/api/providers/1
 
 ###
 PATCH http://localhost:8080/vodplatforms/2
@@ -183,3 +183,12 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/vodplatforms/2
+
+###
+GET http://localhost:8080/api/movies
+
+###
+GET http://localhost:8080/api/movies/discovery?page=1
+
+###
+GET http://localhost:8080/api/movies/search?page=1&phrase=pira

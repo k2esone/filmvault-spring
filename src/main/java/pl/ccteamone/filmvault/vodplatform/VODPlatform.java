@@ -23,6 +23,5 @@ public class VODPlatform {
     private String logoPath;
     private String vodURL;
     private boolean active;
-    private String apiID;
 
 }
