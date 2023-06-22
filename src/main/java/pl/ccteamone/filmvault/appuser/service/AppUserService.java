@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.appuser.AppUser;
-import pl.ccteamone.filmvault.appuser.dto.AppUserCreationDto;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
+import pl.ccteamone.filmvault.appuser.dto.AppUserProfileDto;
 import pl.ccteamone.filmvault.appuser.mapper.AppUserMapper;
 import pl.ccteamone.filmvault.appuser.repository.AppUserRepository;
 import pl.ccteamone.filmvault.movie.Movie;
@@ -71,9 +71,9 @@ public class AppUserService {
         return appUserMapper.mapToAppUserDto(appUser);
     }
 
-    public List<AppUserDto> getUsersList() {
+    public List<AppUserProfileDto> getUsersList() {
         return appUserRepository.findAll()
-                .stream().map(appUserMapper::mapToAppUserDto)
+                .stream().map(appUserMapper::mapToAppUserProfileDto)
                 .toList();
     }
 
@@ -84,8 +84,15 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
     }
 
-    public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
-        AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
+    public AppUserDto getUserByName(String username) {
+        return appUserRepository.findByUsername(username)
+                .stream().map(appUserMapper::mapToAppUserDto)
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + username));
+    }
+
+    public AppUserDto updateUser(String username, AppUserDto appUserDto) {
+        AppUser user = appUserRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("AppUser not found, name: " + username));
 
         AppUser appUser = appUserMapper.mapToAppUser(appUserDto);
         if (appUser.getEmail() != null) {
@@ -132,8 +139,8 @@ public class AppUserService {
         }
     }
 
-    public AppUserDto addMovieByID(Long userID, Long movieID) {
-        AppUserDto user = getUserById(userID);
+    public AppUserDto addMovieByID(String username, Long movieID) {
+        AppUserDto user = getUserByName(username);
         MovieDto movie = movieService.getMovieById(movieID);
         Set<MovieDto> userMovies = user.getMovies();
         if (userMovies != null) {
@@ -143,11 +150,11 @@ public class AppUserService {
             userMovies.add(movie);
             user.setMovies(userMovies);
         }
-        return updateUser(userID, user);
+        return updateUser(username, user);
     }
 
-    public AppUserDto addTvSeriesByID(Long userID, Long tvseriesID) {
-        AppUserDto user = getUserById(userID);
+    public AppUserDto addTvSeriesByID(String username, Long tvseriesID) {
+        AppUserDto user = getUserByName(username);
         TvSeriesDto tvSeries = tvSeriesService.getTvSeriesById(tvseriesID);
         Set<TvSeriesDto> userSeries = user.getTvSeries();
         if(userSeries != null) {
@@ -157,6 +164,6 @@ public class AppUserService {
             userSeries.add(tvSeries);
             user.setTvSeries(userSeries);
         }
-        return updateUser(userID,user);
+        return updateUser(username,user);
     }
 }

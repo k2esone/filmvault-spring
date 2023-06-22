@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
+import pl.ccteamone.filmvault.appuser.dto.AppUserProfileDto;
 import pl.ccteamone.filmvault.appuser.security.config.JwtService;
 import pl.ccteamone.filmvault.appuser.service.AppUserService;
 
@@ -43,7 +44,7 @@ public class AppUserController {
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/{username}/add-movie-id")
     public AppUserDto addMovieByMovieIdToUser(@PathVariable String username, @RequestParam Long movieId,
-                                            @RequestHeader("Authorization") String bearerToken) {
+                                              @RequestHeader("Authorization") String bearerToken) {
         String token = bearerToken.substring(7);
         String extractedUsername = jwtService.extractUserName(token);
         if (extractedUsername.equals(username)) {
@@ -53,25 +54,44 @@ public class AppUserController {
         }
     }
 
-    //TODO DODAĆ HEADER
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/{username}/add-movieid")
-    public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId) {
-        return appUserService.addMovieByApiId(username, movieApiId);
+    public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId,
+                                            @RequestHeader("Authorization") String bearerToken) {
+        String token = bearerToken.substring(7);
+        String extractedUsername = jwtService.extractUserName(token);
+        if (extractedUsername.equals(username)) {
+            return appUserService.addMovieByApiId(username, movieApiId);
+        } else {
+            throw new RuntimeException("Unauthorized access");
+        }
     }
 
-    //TODO DODAĆ HEADER
+
     @PreAuthorize("hasAuthority('USER')")
-    @PostMapping("/{userid}/add/movie") // <-- MUSI BYC USERNAME
-    public AppUserDto addMovieByID(@PathVariable(value = "userid") Long userID, @RequestParam("movieid") Long movieID) {
-        return appUserService.addMovieByID(userID, movieID);
+    @PostMapping("/{username}/add/movie")
+    public AppUserDto addMovieByID(@PathVariable(value = "username") String username, @RequestParam("movieid") Long movieID,
+                                   @RequestHeader("Authorization") String bearerToken) {
+        String token = bearerToken.substring(7);
+        String extractedUsername = jwtService.extractUserName(token);
+        if (extractedUsername.equals(username)) {
+            return appUserService.addMovieByID(username, movieID);
+        } else {
+            throw new RuntimeException("Unauthorized access");
+        }
     }
 
-    //TODO DODAĆ HEADER
     @PreAuthorize("hasAuthority('USER')")
-    @PostMapping("/userid/add/tvseries") // <-- MUSI BYC USERNAME
-    public AppUserDto addTvSeriesByID(@PathVariable(value = "userid") Long userID, @RequestParam("tvseriesid") Long tvseriesID) {
-        return appUserService.addTvSeriesByID(userID,tvseriesID);
+    @PostMapping("/username/add/tvseries") // <-- MUSI BYC USERNAME
+    public AppUserDto addTvSeriesByID(@PathVariable(value = "username") String username, @RequestParam("tvseriesid") Long tvseriesID,
+                                      @RequestHeader("Authorization") String bearerToken) {
+        String token = bearerToken.substring(7);
+        String extractedUsername = jwtService.extractUserName(token);
+        if (extractedUsername.equals(username)) {
+            return appUserService.addTvSeriesByID(username, tvseriesID);
+        } else {
+            throw new RuntimeException("Unauthorized access");
+        }
     }
 
     //TODO: Set public fuction for searching users (public profile)
@@ -79,29 +99,39 @@ public class AppUserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping()
-    public List<AppUserDto> getUsersList() {
+    public List<AppUserProfileDto> getUsersList() {
         log.info("someone asked for an appUsers list");
         return appUserService.getUsersList();
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/{userId}") // <-- MUSI BYC USERNAME
+    @GetMapping("/{userId}")
     public AppUserDto getUserById(@PathVariable Long userId) {
         log.info("someone asked for user with id - {}", userId);
         return appUserService.getUserById(userId);
     }
 
-    //TODO: logic for authorization
-    //TODO DODAĆ HEADER !!!
-    //TODO DODAĆ HEADER !!!
-    //TODO DODAĆ HEADER !!!
-    //TODO DODAĆ HEADER !!!
-    @PreAuthorize("hasAuthority('USER')")
-    @PatchMapping("/{userId}") // <-- MUSI BYĆ USERNAME
-    public AppUserDto updateUser(@PathVariable Long userId, @RequestBody AppUserDto request) {
-        log.info("user update with id - {} has been triggered, data: {}", userId, request);
-        return appUserService.updateUser(userId, request);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/{username}")
+    public AppUserDto getUserByName(@PathVariable String username) {
+        log.info("someone asked for user with name - {}", username);
+        return appUserService.getUserByName(username);
+    }
 
+    //TODO: logic for authorization
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PatchMapping("/{username}")
+    public AppUserDto updateUser(@PathVariable String username, @RequestBody AppUserDto request,
+                                 @RequestHeader("Authorization") String bearerToken) {
+        log.info("user update with id - {} has been triggered, data: {}", username, request);
+                String token = bearerToken.substring(7);
+        String extractedUsername = jwtService.extractUserName(token);
+        if (extractedUsername.equals(username)) {
+            return appUserService.updateUser(username, request);
+        } else {
+            throw new RuntimeException("Unauthorized access");
+        }
     }
 
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)

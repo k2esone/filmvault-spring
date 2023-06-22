@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import pl.ccteamone.filmvault.appuser.AppUser;
 import pl.ccteamone.filmvault.appuser.dto.AppUserCreationDto;
 import pl.ccteamone.filmvault.appuser.dto.AppUserDto;
+import pl.ccteamone.filmvault.appuser.dto.AppUserProfileDto;
 
 
 import java.util.Set;
@@ -14,6 +15,9 @@ public interface AppUserMapper {
 
 
     AppUserDto mapToAppUserDto(AppUser appUser);
+    AppUserProfileDto mapToAppUserProfileDto(AppUser appUser);
+
+    AppUserProfileDto mapToAppUserProfileDto(AppUserDto appUserDto);
 
     AppUserCreationDto mapToAppUserCreationDto(AppUser appUser);
 
