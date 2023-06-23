@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.ccteamone.filmvault.movie.dto.*;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.webclient.ApiMovieClient;
-import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
 
 import java.util.List;
@@ -54,11 +53,21 @@ public class MovieApiService {
     }
 
     public MovieDtoPage getMovieTitleSearchPage(Integer page, String phrase) {
-        return movieMapper.mapToMovieDtoPage(apiMovieClient.getMoviesTitleSearchPage(page,phrase));
+        return movieMapper.mapToMovieDtoPage(apiMovieClient.getMoviesTitleSearchPage(page, phrase));
     }
 
     public Map<String, List<FileVODPlatformDto>> getRegionPlatformMapByApiID(Long id) {
         return apiMovieClient.getRegionsOfPlatformsByMovieApiID(id);
+    }
+
+    public MovieDtoPage getMoviePopularPage(String lang, Integer page) {
+        if (page == null || page == 0) {
+            page = 1;
+        }
+        if(lang == null || lang.isEmpty()) {
+            lang = "en-US";
+        }
+        return movieMapper.mapToMovieDtoPage(apiMovieClient.getPopularMoviesPage(lang, page));
     }
 
     /*

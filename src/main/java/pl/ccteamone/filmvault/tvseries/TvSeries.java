@@ -34,6 +34,7 @@ public class TvSeries {
     private LocalDate lastAirDate;
     private int seasons;
     private int episodes;
+    private Double popularity;
     private LocalDate lastUpdate;
     private Long apiID;
 

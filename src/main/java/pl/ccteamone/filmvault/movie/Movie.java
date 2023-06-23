@@ -27,6 +27,7 @@ public class Movie {
     private String overview;
     private LocalDate releaseDate;
     private Integer runtime;
+    private Double popularity;
     private Double rating;
     private Integer voteCount;
     private LocalDate lastUpdate;

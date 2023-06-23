@@ -24,6 +24,7 @@ public class MovieDto {
     private String overview;
     private LocalDate releaseDate;
     private Integer runtime;
+    private Double popularity;
     private Double rating;
     private LocalDate lastUpdate;
     private Integer voteCount;

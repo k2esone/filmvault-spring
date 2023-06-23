@@ -10,6 +10,7 @@ import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.region.service.RegionService;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.mapper.TvSeriesMapper;
 import pl.ccteamone.filmvault.tvseries.repository.TvSeriesRepository;
 import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
@@ -189,12 +190,12 @@ public class TvSeriesService {
         int pagesToSearch = PAGES_FROM_API;
         int topPageSearch = 3;
         for (int i = 1; i <= pagesToSearch; i++) {
-            List<TvSeriesDto> pageContent = tvSeriesApiService.getTvSeriesSearchList(i,phrase).stream()
+            List<TvSeriesDto> pageContent = tvSeriesApiService.getTvSeriesSearchList(i, phrase).stream()
                     .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
                     .collect(Collectors.toList());
             tvSeriesBatch.addAll(pageContent);
 
-            if(tvSeriesBatch.size() < PAGE_SIZE && pagesToSearch < topPageSearch) {
+            if (tvSeriesBatch.size() < PAGE_SIZE && pagesToSearch < topPageSearch) {
                 pagesToSearch++;
             }
         }
@@ -203,8 +204,8 @@ public class TvSeriesService {
 
     private List<TvSeriesDto> persistTvSeriesDtoList(List<TvSeriesDto> tvSeries) {
         tvSeries = tvSeries.stream()
-   /*             .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
-                .toList().stream()*/
+                /*             .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
+                             .toList().stream()*/
                 .map(this::createTvSeries)
                 .toList().stream()
                 .map(tvUpdate -> updateTvSeriesDataFromApi(tvUpdate.getId(), tvUpdate))
@@ -260,5 +261,22 @@ public class TvSeriesService {
             return false;
         }
         return LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isBefore(series.getLastUpdate());
+    }
+
+    public List<TvSeriesDto> getPopularTvSeriesList(String lang, Integer page) {
+        TvSeriesDtoPage tvSeriesPage = tvSeriesApiService.getTvSeriesPopularPage(lang, page);
+        if (tvSeriesPage == null || tvSeriesPage.getTvSeries() == null) {
+            throw new RuntimeException("Unable to retrieve popular TV Series batch");
+        }
+
+        persistTvSeriesDtoList(tvSeriesPage.getTvSeries().stream()
+                .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
+                .collect(Collectors.toList()));
+
+        PageRequest popularPageRequest = PageRequest.of(page - 1, PAGE_SIZE, Sort.Direction.DESC, "popularity");
+        Page<TvSeries> popularTvSeriesPage = tvRepository.findAll(popularPageRequest);
+        return popularTvSeriesPage.stream()
+                .map(tvSeriesMapper::mapToTvSeriesDto)
+                .collect(Collectors.toList());
     }
 }

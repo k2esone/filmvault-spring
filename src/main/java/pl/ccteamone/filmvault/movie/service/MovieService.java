@@ -13,6 +13,7 @@ import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.movie.dto.CreditDto;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
+import pl.ccteamone.filmvault.movie.dto.MovieDtoPage;
 import pl.ccteamone.filmvault.movie.mapper.MovieMapper;
 import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 import pl.ccteamone.filmvault.region.service.RegionService;
@@ -98,7 +99,6 @@ public class MovieService {
         }
 
 
-
         movie.setLastUpdate(LocalDate.now());
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
     }
@@ -180,7 +180,7 @@ public class MovieService {
         PageRequest pageRequest = PageRequest.of(page - 1, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "releaseDate"));
         Page<Movie> moviePage = movieRepository.findAll(pageRequest);
         return moviePage.stream()
-                .toList().stream()
+/*                .toList().stream()*/
                 .map(movieMapper::mapToMovieDto)
                 .toList();
     }
@@ -190,12 +190,12 @@ public class MovieService {
         int pagesToSearch = PAGES_FROM_API;
         int topPageSearch = 3;
         for (int i = 1; i <= pagesToSearch; i++) {
-            List<MovieDto> pageContent = movieApiService.getMovieSearchList(i,phrase).stream()
+            List<MovieDto> pageContent = movieApiService.getMovieSearchList(i, phrase).stream()
                     .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
                     .collect(Collectors.toList());
             movieBatch.addAll(pageContent);
 
-            if(movieBatch.size() < PAGE_SIZE && pagesToSearch < topPageSearch) {
+            if (movieBatch.size() < PAGE_SIZE && pagesToSearch < topPageSearch) {
                 pagesToSearch++;
             }
         }
@@ -254,7 +254,7 @@ public class MovieService {
     }
 
     private boolean isMovieUpToDate(MovieDto movie) {
-        if(movie == null || movie.getLastUpdate() == null) {
+        if (movie == null || movie.getLastUpdate() == null) {
             return false;
         }
         return LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isBefore(movie.getLastUpdate());
@@ -290,5 +290,22 @@ public class MovieService {
             throw new RuntimeException(e);
         }
         return movieMapper.mapToMovieDto(movieRepository.save(movie));
+    }
+
+    public List<MovieDto> getPopularMovieList(Integer page, String lang) {
+        MovieDtoPage moviePage = movieApiService.getMoviePopularPage(lang, page);
+        if (moviePage == null || moviePage.getMovies() == null) {
+            throw new RuntimeException("Unable to retrieve popular movie batch");
+        }
+
+        persistMovieDtoList(moviePage.getMovies().stream()
+                .filter(movieDto -> !existsByApiID(movieDto.getApiID()))
+                .collect(Collectors.toList()));
+
+        PageRequest popularPageRequest = PageRequest.of(page - 1, PAGE_SIZE, Sort.Direction.DESC, "popularity");
+        Page<Movie> popularMoviesPage = movieRepository.findAll(popularPageRequest);
+        return popularMoviesPage.stream()
+                .map(movieMapper::mapToMovieDto)
+                .collect(Collectors.toList());
     }
 }
