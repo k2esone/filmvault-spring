@@ -53,7 +53,7 @@ public class AppUserController {
     }
 
     @GetMapping("/userdata")
-    public AppUserDto getUserByName(@RequestParam(name = "user") String username) {
+    public AppUserDto getUserByUsername(@RequestParam(name = "user") String username) {
         return appUserService.getUserDtoByUsername(username);
     }
     @GetMapping("/{userId}")
@@ -67,7 +67,11 @@ public class AppUserController {
     public AppUserDto updateUser(@PathVariable Long userId, @RequestBody AppUserDto request) {
         log.info("user update with id - {} has been triggered, data: {}", userId, request);
         return appUserService.updateUser(userId, request);
+    }
 
+    @PatchMapping("/update")
+    public AppUserDto updateUserByUsername(@RequestParam(name = "username")String username,@RequestBody AppUserDto appUserDto) {
+        return appUserService.updateUserByUsername(username,appUserDto);
     }
 
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)

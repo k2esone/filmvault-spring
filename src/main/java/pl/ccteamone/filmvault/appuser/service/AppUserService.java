@@ -143,7 +143,7 @@ public class AppUserService {
         AppUserDto user = appUserMapper.mapToAppUserDto(getUserByUsername(username));
         TvSeriesDto tvSeries = tvSeriesService.getTvSeriesById(tvseriesID);
         Set<TvSeriesDto> userSeries = user.getTvSeries();
-        if(userSeries != null) {
+        if (userSeries != null) {
             userSeries.add(tvSeries);
         } else {
             userSeries = new HashSet<>();
@@ -155,5 +155,12 @@ public class AppUserService {
 
     public AppUserDto getUserDtoByUsername(String username) {
         return appUserMapper.mapToAppUserDto(getUserByUsername(username));
+    }
+
+    public AppUserDto updateUserByUsername(String username, AppUserDto appUserDto) {
+        if (!username.equals(appUserDto.getUsername())) {
+            throw new RuntimeException("Username " + username + " database record mismatch");
+        }
+        return updateUser(appUserDto.getId(), appUserDto);
     }
 }
