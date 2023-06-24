@@ -34,4 +34,6 @@ public class ApiTvSeriesDto {
     private Integer seasons;
     @JsonProperty("number_of_episodes")
     private Integer episodes;
+    @JsonProperty("popularity")
+    private Double popularity;
 }

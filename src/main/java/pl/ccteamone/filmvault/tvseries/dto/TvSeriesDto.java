@@ -28,6 +28,7 @@ public class TvSeriesDto {
     private LocalDate lastAirDate;
     private Integer seasons;
     private Integer episodes;
+    private Double popularity;
     private LocalDate lastUpdate;
     private Long apiID;
     private Set<VODPlatformDto> vodPlatforms;

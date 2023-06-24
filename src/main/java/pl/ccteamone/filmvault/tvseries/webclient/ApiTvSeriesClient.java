@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoPage;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
 
 import java.util.*;
@@ -17,9 +18,10 @@ import java.util.*;
 @Slf4j
 public class ApiTvSeriesClient {
         /*
-    https://api.themoviedb.org/3/tv/11?api_key=2cf008cfced14e2935757fdbc052768b
-    https://api.themoviedb.org/3/search/tv?api_key=2cf008cfced14e2935757fdbc052768b&query=
-    https://api.themoviedb.org/3/tv/222/watch/providers?api_key=2cf008cfced14e2935757fdbc052768b
+    https://api.themoviedb.org/3/tv/11?api_key=
+    https://api.themoviedb.org/3/search/tv?api_key=&query=
+    https://api.themoviedb.org/3/tv/222/watch/providers?api_key=
+    https://api.themoviedb.org/3/discover/tv?api_key=&language=en-US&popular&sort_by=popularity.desc
 
      */
 
@@ -80,5 +82,9 @@ public class ApiTvSeriesClient {
 
     private <T> T callGetMethod(String TYPE_URL, String url, Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(TYPE_URL + url, responseType, objects);
+    }
+
+    public ApiTvSeriesDtoPage getTvSeriesPopularPage(String lang, Integer page) {
+        return callGetMethod(API_DISCOVER_URL,"?api_key={apiKey}&language={lang}&page={page}&popular&sort_by=popularity.desc",ApiTvSeriesDtoPage.class,API_KEY,lang,page);
     }
 }

@@ -19,9 +19,10 @@ import java.util.*;
 public class ApiMovieClient {
 
     /*
-    https://api.themoviedb.org/3/movie/22?api_key=2cf008cfced14e2935757fdbc052768b
-    https://api.themoviedb.org/3/search/movie?api_key=2cf008cfced14e2935757fdbc052768b&query=
-    https://api.themoviedb.org/3/movie/22/watch/providers?api_key=2cf008cfced14e2935757fdbc052768b
+    https://api.themoviedb.org/3/movie/22?api_key=
+    https://api.themoviedb.org/3/search/movie?api_key=&query=
+    https://api.themoviedb.org/3/movie/22/watch/providers?api_key=
+    https://api.themoviedb.org/3/discover/movie?api_key=&language=en-US&page=1&sort_by=popularity.desc
 
      */
     private static final String API_MOVIE_URL = "https://api.themoviedb.org/3/movie/";
@@ -49,6 +50,10 @@ public class ApiMovieClient {
         return callGetMethod(API_SEARCH_URL, "?api_key={apiKey}&page={page}&query={phrase}", ApiMovieDtoPage.class, API_KEY, page, phrase);
     }
 
+    public ApiMovieDtoPage getPopularMoviesPage(String lang, Integer page) {
+        return callGetMethod(API_DISCOVER_URL, "?api_key={apiKey}&language={lang}&page={page}&sort_by=popularity.desc", ApiMovieDtoPage.class, API_KEY, lang, page);
+    }
+
     public Map<String, List<FileVODPlatformDto>> getRegionsOfPlatformsByMovieApiID(Long id) {
         String response = callGetMethod(API_MOVIE_URL, "{movie_id}/watch/providers?api_key={apiKey}", String.class, id, API_KEY);
         Map<String, List<FileVODPlatformDto>> resultMap = new HashMap<>();
@@ -60,10 +65,10 @@ public class ApiMovieClient {
             Map<String, Object> resultsMap = (Map<String, Object>) responseMap.get("results");
             for (Map.Entry<String, Object> entry : resultsMap.entrySet()) {
                 String regionCode = entry.getKey();
-                Map<String,Object> regionMap = (Map<String, Object>) entry.getValue();
-                List<Map<String,Object>> platformsList = (List<Map<String, Object>>) regionMap.get("flatrate");
+                Map<String, Object> regionMap = (Map<String, Object>) entry.getValue();
+                List<Map<String, Object>> platformsList = (List<Map<String, Object>>) regionMap.get("flatrate");
                 List<FileVODPlatformDto> fileVODPlatformDtoList = new ArrayList<>();
-                if(platformsList != null) {
+                if (platformsList != null) {
                     for (Map<String, Object> platform : platformsList) {
                         FileVODPlatformDto fileVODPlatformDto = new FileVODPlatformDto();
                         fileVODPlatformDto.setName((String) platform.get("provider_name"));
@@ -72,7 +77,7 @@ public class ApiMovieClient {
                         fileVODPlatformDtoList.add(fileVODPlatformDto);
                     }
                 }
-                resultMap.put(regionCode,fileVODPlatformDtoList);
+                resultMap.put(regionCode, fileVODPlatformDtoList);
             }
 
         } catch (JsonProcessingException e) {
@@ -84,5 +89,4 @@ public class ApiMovieClient {
     private <T> T callGetMethod(String TYPE_URL, String url, Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(TYPE_URL + url, responseType, objects);
     }
-
 }

@@ -62,4 +62,10 @@ public class TvSeriesController {
         return tvService.getNewestTvSeriesList(page);
     }
 
+    @GetMapping("/popular")
+    public List<TvSeriesDto> getPopularTvSeriesList(@RequestParam(defaultValue = "1", required = false) Integer page,
+                                                    @RequestParam(defaultValue = "en-US", required = false) String lang) {
+        return tvService.getPopularTvSeriesList(lang, page);
+    }
+
 }

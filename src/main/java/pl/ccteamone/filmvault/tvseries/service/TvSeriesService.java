@@ -10,6 +10,7 @@ import pl.ccteamone.filmvault.genre.service.GenreService;
 import pl.ccteamone.filmvault.region.service.RegionService;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 import pl.ccteamone.filmvault.tvseries.mapper.TvSeriesMapper;
 import pl.ccteamone.filmvault.tvseries.repository.TvSeriesRepository;
 import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
@@ -171,9 +172,12 @@ public class TvSeriesService {
 
     public List<TvSeriesDto> getNewestTvSeriesList(Integer page) {
         List<TvSeriesDto> tvSeries = tvSeriesApiService.getTvSeriesDiscoverList(page);
+        tvSeries = tvSeries.stream()
+                .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
+                .toList();
         persistTvSeriesDtoList(tvSeries);
 
-        PageRequest pageRequest = PageRequest.of(page-1,PAGE_SIZE, Sort.by(Sort.Direction.DESC));
+        PageRequest pageRequest = PageRequest.of(page - 1, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "firstAirDate"));
         Page<TvSeries> tvPage = tvRepository.findAll(pageRequest);
         return tvPage.stream()
                 .toList().stream()
@@ -183,19 +187,28 @@ public class TvSeriesService {
 
     private void feedDBWithNewTvSeriesByQuery(String phrase) {
         List<TvSeriesDto> tvSeriesBatch = new ArrayList<>();
-        for (int i = 1; i <= PAGES_FROM_API; i++) {
-            tvSeriesBatch.addAll(tvSeriesApiService.getTvSeriesSearchList(i, phrase));
+        int pagesToSearch = PAGES_FROM_API;
+        int topPageSearch = 3;
+        for (int i = 1; i <= pagesToSearch; i++) {
+            List<TvSeriesDto> pageContent = tvSeriesApiService.getTvSeriesSearchList(i, phrase).stream()
+                    .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
+                    .collect(Collectors.toList());
+            tvSeriesBatch.addAll(pageContent);
+
+            if (tvSeriesBatch.size() < PAGE_SIZE && pagesToSearch < topPageSearch) {
+                pagesToSearch++;
+            }
         }
         persistTvSeriesDtoList(tvSeriesBatch);
     }
 
     private List<TvSeriesDto> persistTvSeriesDtoList(List<TvSeriesDto> tvSeries) {
         tvSeries = tvSeries.stream()
-                .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
-                .toList().stream()
+                /*             .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
+                             .toList().stream()*/
                 .map(this::createTvSeries)
                 .toList().stream()
-                .map(tvUpdate -> updateTvSeriesDataFromApi(tvUpdate.getId(),tvUpdate))
+                .map(tvUpdate -> updateTvSeriesDataFromApi(tvUpdate.getId(), tvUpdate))
                 .collect(Collectors.toList());
         return tvSeries;
     }
@@ -244,9 +257,26 @@ public class TvSeriesService {
     }
 
     private boolean isTvSeriesUpToDate(TvSeriesDto series) {
-        if(series == null || series.getLastUpdate() == null) {
+        if (series == null || series.getLastUpdate() == null) {
             return false;
         }
         return LocalDate.now().minusDays(DAYS_BETWEEN_UPDATES).isBefore(series.getLastUpdate());
+    }
+
+    public List<TvSeriesDto> getPopularTvSeriesList(String lang, Integer page) {
+        TvSeriesDtoPage tvSeriesPage = tvSeriesApiService.getTvSeriesPopularPage(lang, page);
+        if (tvSeriesPage == null || tvSeriesPage.getTvSeries() == null) {
+            throw new RuntimeException("Unable to retrieve popular TV Series batch");
+        }
+
+        persistTvSeriesDtoList(tvSeriesPage.getTvSeries().stream()
+                .filter(tvSeriesDto -> !existsByApiID(tvSeriesDto.getApiID()))
+                .collect(Collectors.toList()));
+
+        PageRequest popularPageRequest = PageRequest.of(page - 1, PAGE_SIZE, Sort.Direction.DESC, "popularity");
+        Page<TvSeries> popularTvSeriesPage = tvRepository.findAll(popularPageRequest);
+        return popularTvSeriesPage.stream()
+                .map(tvSeriesMapper::mapToTvSeriesDto)
+                .collect(Collectors.toList());
     }
 }
