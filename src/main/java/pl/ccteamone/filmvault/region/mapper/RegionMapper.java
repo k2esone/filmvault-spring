@@ -1,32 +1,25 @@
 package pl.ccteamone.filmvault.region.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
 import pl.ccteamone.filmvault.region.Region;
-import pl.ccteamone.filmvault.region.dto.UpdateRegionResponse;
-import pl.ccteamone.filmvault.region.dto.RegionResponse;
+import pl.ccteamone.filmvault.region.dto.FileRegionDto;
+import pl.ccteamone.filmvault.region.dto.RegionDto;
 
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
 
-public class RegionMapper {
+@Mapper(componentModel = "spring")
+public interface RegionMapper {
 
-    public static RegionResponse mapLocationToLocationResponse(Region region) {
-        return new RegionResponse(
-                region.getId(),
-                region.getCity(),
-                region.getCountry(),
-                region.getFlag(),
-                region.getMyUsers().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                region.getTvSeries().stream().map(i ->i.getId()).collect(Collectors.toSet())
-        );
-    }
+    RegionDto mapToRegionDto(Region region);
 
-    public static UpdateRegionResponse locationToLocationResponse(Region region) {
-        return new UpdateRegionResponse(
-                region.getId(),
-                region.getCity(),
-                region.getCountry(),
-                region.getFlag(),
-                region.getMyUsers().stream().map(i->i.getId()).collect(Collectors.toSet()),
-                region.getTvSeries().stream().map(i ->i.getId()).collect(Collectors.toSet())
-        );
-    }
+    @InheritInverseConfiguration(name = "mapToRegionDto")
+    Region mapToRegion(RegionDto regionDto);
+
+    RegionDto mapToRegionDto (FileRegionDto fileRegionDto);
+    List<RegionDto> mapToRegionDtoList(List<FileRegionDto> fileRegionDtoList);
+    Set<RegionDto> mapToRegionDtoSet(Set<Region> regionSet);
+    Set<Region> mapToRegionSet(Set<RegionDto> regionDtoSet);
+
 }

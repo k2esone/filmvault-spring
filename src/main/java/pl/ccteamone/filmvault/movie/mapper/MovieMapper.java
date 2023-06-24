@@ -1,40 +1,37 @@
 package pl.ccteamone.filmvault.movie.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.movie.Movie;
-import pl.ccteamone.filmvault.movie.dto.MovieResponse;
-import pl.ccteamone.filmvault.movie.dto.UpdateMovieResponse;
+import pl.ccteamone.filmvault.movie.dto.ApiMovieDto;
+import pl.ccteamone.filmvault.movie.dto.ApiMovieDtoPage;
+import pl.ccteamone.filmvault.movie.dto.MovieDto;
+import pl.ccteamone.filmvault.movie.dto.MovieDtoPage;
 
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
 
-public class MovieMapper {
+@Mapper(componentModel = "spring")
+public interface MovieMapper {
 
-    public static MovieResponse mapMovieToMovieResponse(Movie movie) {
-        return new MovieResponse(
-                movie.getId(),
-                movie.getTitle(),
-                movie.getPosterPath(),
-                movie.getOverview(),
-                movie.getReleaseDate(),
-                movie.getRuntime(),
-                movie.getCredits(),
-                movie.getRating(),
-                movie.getMyUsers().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                movie.getVodPlatforms().stream().map(i -> i.getId()).collect(Collectors.toSet())
+    MovieDto mapToMovieDto(Movie movie);
 
-        );
-    }
-    public static UpdateMovieResponse movieToMovieResponse(Movie movie) {
-        return new UpdateMovieResponse(
-                movie.getId(),
-                movie.getTitle(),
-                movie.getPosterPath(),
-                movie.getOverview(),
-                movie.getReleaseDate(),
-                movie.getRuntime(),
-                movie.getCredits(),
-                movie.getRating(),
-                movie.getMyUsers().stream().map(i ->i.getId()).collect(Collectors.toSet()),
-                movie.getVodPlatforms().stream().map(i ->i.getId()).collect(Collectors.toSet())
-        );
-    }
+    @InheritInverseConfiguration(name = "mapToMovieDto")
+    Movie mapToMovie(MovieDto movieDto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "id", target = "apiID")
+    MovieDto mapToMovieDto(ApiMovieDto apiMovieDto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "id", target = "apiID")
+    List<MovieDto> mapToMovieDtoList(List<ApiMovieDto> apiMovieDtoList);
+
+    MovieDtoPage mapToMovieDtoPage(ApiMovieDtoPage apiMovieDtoPage);
+
+    Set<MovieDto> mapToMovieDtoSet(Set<Movie> movieSet);
+
+    @InheritInverseConfiguration(name = "mapToMovieDtoSet")
+    Set<Movie> mapToMovieSet(Set<MovieDto> movieDtoSet);
+
 }

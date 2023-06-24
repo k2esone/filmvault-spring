@@ -1,46 +1,36 @@
 package pl.ccteamone.filmvault.tvseries.mapper;
+
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.tvseries.dto.TvSeriesResponse;
-import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesResponse;
+import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.dto.ApiTvSeriesDtoPage;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDtoPage;
 
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
 
-public class TvSeriesMapper {
+@Mapper(componentModel = "spring")
+public interface TvSeriesMapper {
 
-    public static TvSeriesResponse mapTvSeriesToTvSeriesResponse(TvSeries tvSeries) {
-        return new TvSeriesResponse(
-                tvSeries.getId(),
-                tvSeries.getName(),
-                tvSeries.getDescription(),
-                tvSeries.getGenre(),
-                tvSeries.getPoster(),
-                tvSeries.isAdult(),
-                tvSeries.getOrigin(),
-                tvSeries.getFirstAirDate(),
-                tvSeries.getLastAirDate(),
-                tvSeries.getSeasons(),
-                tvSeries.getRegion(),
-                tvSeries.getPlatforms().stream().map(i->i.getId()).collect(Collectors.toSet()),
-                tvSeries.getMyUsers().stream().map(i->i.getId()).collect(Collectors.toSet()),
-                tvSeries.getApiID()
-        );
-    }
-    public static UpdateTvSeriesResponse tvSeriesToTvSeriesResponse(TvSeries tvSeries) {
-        return new UpdateTvSeriesResponse(
-                tvSeries.getId(),
-                tvSeries.getName(),
-                tvSeries.getDescription(),
-                tvSeries.getGenre(),
-                tvSeries.getPoster(),
-                tvSeries.isAdult(),
-                tvSeries.getOrigin(),
-                tvSeries.getFirstAirDate(),
-                tvSeries.getLastAirDate(),
-                tvSeries.getSeasons(),
-                tvSeries.getRegion(),
-                tvSeries.getPlatforms().stream().map(i->i.getId()).collect(Collectors.toSet()),
-                tvSeries.getMyUsers().stream().map(i->i.getId()).collect(Collectors.toSet()),
-                tvSeries.getApiID()
-        );
-    }
+    TvSeriesDto mapToTvSeriesDto(TvSeries tvSeries);
+
+    @InheritInverseConfiguration(name = "mapToTvSeriesDto")
+    TvSeries mapToTvSeries(TvSeriesDto tvSeriesDto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "id", target = "apiID")
+    TvSeriesDto mapToTvSeriesDto(ApiTvSeriesDto apiTvSeriesDto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "id", target = "apiID")
+    List<TvSeriesDto> mapToTvSeriesDtoList(List<ApiTvSeriesDto> apiTvSeriesDtoList);
+
+    TvSeriesDtoPage mapToTvSeriesDtoPage(ApiTvSeriesDtoPage apiTvSeriesDtoPage);
+
+    Set<TvSeriesDto> mapToTvSeriesDtoSet(Set<TvSeries> tvSeriesSet);
+
+    @InheritInverseConfiguration(name = "mapToTvSeriesDtoSet")
+    Set<TvSeries> mapToTvSeriesSet(Set<TvSeriesDto> tvSeriesDtoSet);
 }

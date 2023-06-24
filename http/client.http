@@ -1,0 +1,194 @@
+###
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "username": "basia",
+  "password": "s4bgbbssw!",
+  "email": "tomekw.waw@gmail.com"
+}
+
+###
+POST http://localhost:8080/users/Bob/add-movie?movieTitle=Martix
+
+###
+PATCH http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+  "name": "Adrian",
+  "surname": "Zwierz",
+  "movies": [{
+    "id": 3
+  }],
+  "tvSeries": [{
+    "id": 3
+  }],
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 2
+  }
+}
+
+
+###
+GET http://localhost:8080/users
+
+###
+GET http://localhost:8080/users/4
+
+###
+DELETE http://localhost:8080/users/2
+
+
+
+
+
+###
+POST http://localhost:8080/movies/add
+Content-Type: application/json
+
+{
+  "title": "Karaiby",
+  "overview": "Brum brum!",
+  "releaseDate": "23/01/2020"
+}
+
+###
+GET http://localhost:8080/movies
+
+###
+GET http://localhost:8080/movies/2
+
+###
+PATCH http://localhost:8080/movies/2
+Content-Type: application/json
+
+{
+  "runtime": "2H",
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 1
+  }
+}
+
+###
+DELETE http://localhost:8080/movies/2
+
+
+
+
+###
+POST http://localhost:8080/regions/add
+Content-Type: application/json
+
+{
+  "city": "London",
+  "country": "UK"
+}
+
+###
+GET http://localhost:8080/regions
+
+###
+GET http://localhost:8080/regions/3
+
+###
+PATCH http://localhost:8080/regions/3
+Content-Type: application/json
+
+{
+  "city": "AAAAA",
+  "flag": "Flag"
+}
+
+###
+DELETE http://localhost:8080/regions/3
+
+
+
+
+
+###
+POST http://localhost:8080/tvseries/add
+Content-Type: application/json
+
+{
+  "title": "Muminki",
+  "description": "Bukaaaa",
+  "adult": true
+}
+
+###
+GET http://localhost:8080/tvseries
+
+###
+GET http://localhost:8080/tvseries/3
+
+###
+PATCH http://localhost:8080/tvseries/3
+Content-Type: application/json
+
+{
+  "title": "ZZZZZZZZZZ",
+  "vodPlatforms": [{
+    "id": 1
+  }],
+  "region": {
+    "id": 2
+  }
+}
+
+###
+DELETE http://localhost:8080/tvseries/3
+
+
+
+
+
+
+
+
+
+###
+POST http://localhost:8080/api/providers/add
+Content-Type: application/json
+
+{
+  "name": "VOD",
+  "logoPath": "VODLogo",
+  "vodURL": "www.vod.pl",
+  "active": false
+}
+
+###
+GET http://localhost:8080/api/providers
+
+###
+GET http://localhost:8080/api/providers/1
+
+###
+PATCH http://localhost:8080/vodplatforms/2
+Content-Type: application/json
+
+{
+  "name": "NOOOOOOOOOOOOOOO",
+  "vodURL": "TOJESTURL",
+  "active": true
+}
+
+###
+DELETE http://localhost:8080/vodplatforms/2
+
+###
+GET http://localhost:8080/api/movies
+
+###
+GET http://localhost:8080/api/movies/discovery?page=1
+
+###
+GET http://localhost:8080/api/movies/search?page=1&phrase=pira

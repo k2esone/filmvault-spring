@@ -2,18 +2,14 @@ package pl.ccteamone.filmvault.region.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.region.dto.CreateRegionRequest;
-import pl.ccteamone.filmvault.region.dto.RegionResponse;
-import pl.ccteamone.filmvault.region.dto.UpdateRegionRequest;
-import pl.ccteamone.filmvault.region.dto.UpdateRegionResponse;
+import pl.ccteamone.filmvault.region.dto.RegionDto;
 import pl.ccteamone.filmvault.region.service.RegionService;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/api/regions")
 public class RegionController {
 
     private final RegionService regionService;
@@ -22,33 +18,33 @@ public class RegionController {
         this.regionService = regionService;
     }
 
-    @PostMapping()
-    public RegionResponse createLocation(@RequestBody CreateRegionRequest request) {
-        log.info("location addition has been triggered: {}", request);
-        return regionService.createLocation(request);
+    @PostMapping("/add")
+    public RegionDto createRegion(@RequestBody RegionDto request) {
+        log.info("region addition has been triggered: {}", request);
+        return regionService.createRegion(request);
     }
 
     @GetMapping()
-    public List<RegionResponse> getLocationsList() {
-        log.info("someone asked for a locations list");
-        return regionService.getLocationsList();
+    public List<RegionDto> getRegionList() {
+        log.info("someone asked for a region list");
+        return regionService.getRegionList();
     }
 
     @GetMapping("/{regionId}")
-    public RegionResponse getLocationById(@PathVariable UUID regionId) {
-        log.info("someone asked for a location with id - {}", regionId);
-        return regionService.getLocationById(regionId);
+    public RegionDto getRegionById(@PathVariable Long regionId) {
+        log.info("someone asked for a region with id - {}", regionId);
+        return regionService.getRegionById(regionId);
     }
 
     @PatchMapping("/{regionId}")
-    public UpdateRegionResponse updateLocation (@PathVariable UUID regionId, @RequestBody UpdateRegionRequest request) {
-        log.info("location update with id - {} has been triggered, data: {}", regionId, request);
-        return regionService.updateLocation(regionId, request);
+    public RegionDto updateRegion(@PathVariable Long regionId, @RequestBody RegionDto request) {
+        log.info("region update with id - {} has been triggered, data: {}", regionId, request);
+        return regionService.updateRegion(regionId, request);
     }
 
     @DeleteMapping("/{regionId}")
-        public void deleteLocationById(UUID regionId) {
-        log.info("someone ask to delete location with id - {}", regionId);
-        regionService.deleteLocationById(regionId);
+        public void deleteRegionById(@PathVariable Long regionId) {
+        log.info("someone ask to delete region with id - {}", regionId);
+        regionService.deleteRegionById(regionId);
     }
 }

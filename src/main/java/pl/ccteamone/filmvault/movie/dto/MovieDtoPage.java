@@ -1,0 +1,22 @@
+package pl.ccteamone.filmvault.movie.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class MovieDtoPage {
+
+    private Long page;
+    private Long totalPages;
+    private Long totalResults;
+    private List<MovieDto> movies = new ArrayList<>();
+}

@@ -2,41 +2,49 @@ package pl.ccteamone.filmvault.movie;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.user.MyUser;
+import pl.ccteamone.filmvault.genre.Genre;
+import pl.ccteamone.filmvault.region.Region;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
+import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long id;
     private String title;
     private String posterPath;
+    @Column(length = 2048)
     private String overview;
-    private String releaseDate;
-    private String runtime;
-    private String credits;
-    private double rating;
-
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "movies")
-    private Set<MyUser> myUsers;
+    private LocalDate releaseDate;
+    private Integer runtime;
+    private Double popularity;
+    private Double rating;
+    private Integer voteCount;
+    private LocalDate lastUpdate;
+    private Long apiID;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    private Set<Region> regions;
+
+    @ManyToMany
+    private Set<Genre> genres;
 
 }
 

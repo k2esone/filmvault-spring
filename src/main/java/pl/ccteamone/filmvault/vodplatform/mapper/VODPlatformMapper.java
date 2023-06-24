@@ -1,42 +1,23 @@
 package pl.ccteamone.filmvault.vodplatform.mapper;
 
-import pl.ccteamone.filmvault.movie.Movie;
-import pl.ccteamone.filmvault.movie.dto.MovieResponse;
-import pl.ccteamone.filmvault.movie.dto.UpdateMovieResponse;
+import org.mapstruct.Mapper;
 import pl.ccteamone.filmvault.vodplatform.VODPlatform;
-import pl.ccteamone.filmvault.vodplatform.dto.UpdateVODPlatformResponse;
-import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformResponse;
+import pl.ccteamone.filmvault.vodplatform.dto.FileVODPlatformDto;
+import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
 
-public class VODPlatformMapper {
+@Mapper(componentModel = "spring")
+public interface VODPlatformMapper {
 
-    public static VODPlatformResponse mapVODPlatformToVODPlatformResponse(VODPlatform vodPlatform) {
-        return new VODPlatformResponse(
-                vodPlatform.getId(),
-                vodPlatform.getName(),
-                vodPlatform.getLogoPath(),
-                vodPlatform.getVodURL(),
-                vodPlatform.isAvailable(),
-                vodPlatform.getApiID(),
-                vodPlatform.getMyUsers().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                vodPlatform.getMovies().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                vodPlatform.getTvSeries().stream().map(i -> i.getId()).collect(Collectors.toSet())
+    VODPlatformDto mapToVODPlatformDto(VODPlatform platform);
 
-        );
-    }
-    public static UpdateVODPlatformResponse vodPlatformToVODPlatformResponse(VODPlatform vodPlatform) {
-        return new UpdateVODPlatformResponse(
-                vodPlatform.getId(),
-                vodPlatform.getName(),
-                vodPlatform.getLogoPath(),
-                vodPlatform.getVodURL(),
-                vodPlatform.isAvailable(),
-                vodPlatform.getApiID(),
-                vodPlatform.getMyUsers().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                vodPlatform.getMovies().stream().map(i -> i.getId()).collect(Collectors.toSet()),
-                vodPlatform.getTvSeries().stream().map(i -> i.getId()).collect(Collectors.toSet())
+    VODPlatform mapToVODPlatform(VODPlatformDto platformDto);
 
-        );
-    }
+    VODPlatformDto mapToVODPlatformDto(FileVODPlatformDto fileVODPlatformDto);
+    List<VODPlatformDto> mapToVODPlatformDtoList(List<FileVODPlatformDto> fileVODPlatformDtoList);
+
+    Set<VODPlatform> mapToVODPlatformSet(Set<VODPlatformDto> vodPlatformDtoSet);
+    Set<VODPlatformDto> mapToVODPlatformDtoSet(Set<VODPlatform> vodPlatformSet);
 }

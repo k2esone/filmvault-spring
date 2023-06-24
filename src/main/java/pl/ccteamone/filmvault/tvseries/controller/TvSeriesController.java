@@ -1,55 +1,66 @@
 package pl.ccteamone.filmvault.tvseries.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import pl.ccteamone.filmvault.tvseries.dto.CreateTvSeriesRequest;
-import pl.ccteamone.filmvault.tvseries.dto.TvSeriesResponse;
-import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesRequest;
-import pl.ccteamone.filmvault.tvseries.dto.UpdateTvSeriesResponse;
+import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/tvseries")
+@RequestMapping("/api/tvseries")
 public class TvSeriesController {
 
     private final TvSeriesService tvService;
 
-    public TvSeriesController(TvSeriesService tvService) {
-        this.tvService = tvService;
+    @PostMapping("/add")
+    public TvSeriesDto createTvSeries(@RequestBody TvSeriesDto create) {
+        log.info("adding new tvseries: {}", create);
+        return tvService.createTvSeries(create);
     }
 
-
-    @PostMapping()
-    public TvSeriesResponse createTvSeries(@RequestBody CreateTvSeriesRequest request) {
-        log.info("tvSeries addition has been triggered: {}", request);
-        return tvService.createTvSeries(request);
-    }
-
-    @GetMapping()
-    public List<TvSeriesResponse> getTvSeriesList() {
-        log.info("someone asked for a tvSeries list");
+    @GetMapping
+    public List<TvSeriesDto> getTvSeriesList() {
+        log.info("request for tvsesies list");
         return tvService.getTvSeriesList();
     }
-    @GetMapping("/{tvSeriesId}")
-    public TvSeriesResponse getTvSeriesById(@PathVariable UUID tvSeriesId) {
-        log.info("someone asked for tvSeries with id - {}", tvSeriesId);
-        return tvService.getTvSeriesById(tvSeriesId);
+
+    @GetMapping("/{tvseriesid}")
+    public TvSeriesDto getTvSeries(@PathVariable Long tvseriesid) {
+        log.info("request for tvseries id - {}", tvseriesid);
+        return tvService.getTvSeriesById(tvseriesid);
     }
 
-    @PatchMapping("/{tvSeriesId}")
-    public UpdateTvSeriesResponse updateTvSeries (@PathVariable UUID tvSeriesId, @RequestBody UpdateTvSeriesRequest request) {
-        log.info("tvSeries update with id - {} has been triggered, data: {}", tvSeriesId, request);
-        return tvService.updateTvSeries(tvSeriesId, request);
-
+    @PatchMapping("/{tvseriesId}")
+    public TvSeriesDto updateTvSeries(@PathVariable Long tvseriesId, @RequestBody TvSeriesDto update) {
+        log.info("update tvseries with id - {}, data: {}", tvseriesId, update);
+        return tvService.updateTvSeries(tvseriesId, update);
     }
 
-    @DeleteMapping("/{tvSeriesId}")
-    public void deleteTvSeriesById(UUID tvSeriesId) {
-        log.info("someone ask to delete tvSeries with id - {}", tvSeriesId);
-        tvService.deleteTvSeriesById(tvSeriesId);
+    @DeleteMapping("/{tvseriesId}")
+    public void deleteTvSeries(@PathVariable Long tvseriesId) {
+        log.info("delete movie with id - {}", tvseriesId);
+        tvService.deleteTvSeries(tvseriesId);
     }
+
+    @GetMapping("/search")
+    public Set<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
+        return tvService.findTvSeriesByQuery(query);
+    }
+
+    @GetMapping("/discover")
+    public List<TvSeriesDto> getNewestTvSeriesList(@RequestParam(defaultValue = "1", required = false) Integer page) {
+        return tvService.getNewestTvSeriesList(page);
+    }
+
+    @GetMapping("/popular")
+    public List<TvSeriesDto> getPopularTvSeriesList(@RequestParam(defaultValue = "1", required = false) Integer page,
+                                                    @RequestParam(defaultValue = "en-US", required = false) String lang) {
+        return tvService.getPopularTvSeriesList(lang, page);
+    }
+
 }

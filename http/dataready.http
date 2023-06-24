@@ -1,0 +1,125 @@
+### CREATE USERS
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "username": "Bob",
+  "password": "qwerty",
+  "email": "dywan@mail.com"
+}
+
+###
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "username": "Jason",
+  "password": "qwerty",
+  "email": "domofon@mail.com"
+}
+
+###
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "username": "Uma",
+  "password": "qwerty",
+  "email": "furman@mail.com"
+}
+
+### GET ALL USERS
+GET http://localhost:8080/api/users
+
+### UPDATE BASIC USER DETAILS
+PATCH http://localhost:8080/api/users/1
+Content-Type: application/json
+
+{
+  "name": "Bob",
+  "surname": "Dywan",
+  "birthDate": "1970-01-01",
+  "gender": "MALE",
+  "profilePic": "/some1_pic.jpg",
+  "role": "USER",
+  "isActive": true,
+  "region": {
+    "id": 2
+  }
+}
+
+###
+PATCH http://localhost:8080/api/users/2
+Content-Type: application/json
+
+{
+  "name": "Jason",
+  "surname": "Domofon",
+  "birthDate": "1970-01-02",
+  "gender": "MALE",
+  "profilePic": "/some2_pic.jpg",
+  "role": "USER",
+  "isActive": true,
+  "region": {
+    "id": 10
+  }
+}
+
+###
+PATCH http://localhost:8080/api/users/3
+Content-Type: application/json
+
+{
+  "name": "Uma",
+  "surname": "Furman",
+  "birthDate": "1970-01-01",
+  "gender": "FEMALE",
+  "profilePic": "/some3_pic.jpg",
+  "role": "USER",
+  "isActive": true,
+  "region": {
+    "id": 4
+  }
+}
+
+### GET ALL USERS
+GET http://localhost:8080/api/users
+
+### QUERY API FOR NEW MOVIES (20)
+GET http://localhost:8080/api/movies/discover
+
+### QUERY API FOR NEW MOVIES (20) ANOTHER PAGE
+GET http://localhost:8080/api/movies/discover?page=2
+
+### ADD MOVIES TO USERS LISTS
+POST http://localhost:8080/api/users/1/add/movie?movieid=17
+
+###
+POST http://localhost:8080/api/users/1/add/movie?movieid=2
+
+###
+POST http://localhost:8080/api/users/1/add/movie?movieid=7
+
+###
+POST http://localhost:8080/api/users/2/add/movie?movieid=10
+
+###
+POST http://localhost:8080/api/users/2/add/movie?movieid=12
+
+###
+POST http://localhost:8080/api/users/3/add/movie?movieid=17
+
+###
+POST http://localhost:8080/api/users/3/add/movie?movieid=9
+
+###
+POST http://localhost:8080/api/users/3/add/movie?movieid=2
+
+### QUERY API FOR NEW MOVIES (100) RETURNS 20 ACCURATE
+GET http://localhost:8080/api/movies/search?query=robin
+
+### QUERY API FOR CREDITS BY MOVIE ID
+GET http://localhost:8080/api/movies/1/credits
+
+### GET MOVIE BY ID - QUERIES EXTERNAL API FOR MORE DATA
+GET http://localhost:8080/api/movies/12

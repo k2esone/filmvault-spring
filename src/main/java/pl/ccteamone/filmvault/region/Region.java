@@ -2,13 +2,12 @@ package pl.ccteamone.filmvault.region;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ccteamone.filmvault.tvseries.TvSeries;
-import pl.ccteamone.filmvault.user.MyUser;
+import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.util.Set;
-import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -16,21 +15,11 @@ import java.util.UUID;
 public class Region {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    private String city;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String countryCode;
     private String country;
     private String flag;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "region")
-    private Set<MyUser> myUsers;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "region")
-    private Set<TvSeries> tvSeries;
+    @ManyToMany
+    private Set<VODPlatform> vodPlatforms;
 }
-
