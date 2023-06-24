@@ -32,7 +32,8 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/application.properties
+/src/main/resources/application-mysql.properties
+/src/main/resources/application-h2.yaml
 /src/main/resources/application.yaml
 
 /data
