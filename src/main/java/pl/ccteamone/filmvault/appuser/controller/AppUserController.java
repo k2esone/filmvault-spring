@@ -29,7 +29,7 @@ public class AppUserController {
 //        return appUserService.createAppUser(request);
 //    }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add-movie-title")
     public AppUserDto addMovieByTitleToUser(@PathVariable String username, @RequestParam String movieTitle,
                                             @RequestHeader("Authorization") String bearerToken) {
@@ -42,7 +42,7 @@ public class AppUserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add-movie-id")
     public AppUserDto addMovieByMovieIdToUser(@PathVariable String username, @RequestParam Long movieId,
                                               @RequestHeader("Authorization") String bearerToken) {
@@ -55,7 +55,7 @@ public class AppUserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add-movieid")
     public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId,
                                             @RequestHeader("Authorization") String bearerToken) {
@@ -69,7 +69,7 @@ public class AppUserController {
     }
 
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add/movie")
     public AppUserDto addMovieByID(@PathVariable(value = "username") String username, @RequestParam("movieid") Long movieID,
                                    @RequestHeader("Authorization") String bearerToken) {
@@ -82,7 +82,7 @@ public class AppUserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/username/add/tvseries") // <-- MUSI BYC USERNAME
     public AppUserDto addTvSeriesByID(@PathVariable(value = "username") String username, @RequestParam("tvseriesid") Long tvseriesID,
                                       @RequestHeader("Authorization") String bearerToken) {
@@ -107,7 +107,7 @@ public class AppUserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{userId}")
-    public AppUserDto getUserById(@PathVariable Long userId) {
+    public AppUserProfileDto getUserById(@PathVariable Long userId) {
         log.info("someone asked for user with id - {}", userId);
         return appUserService.getUserById(userId);
     }
@@ -121,7 +121,7 @@ public class AppUserController {
 
     //TODO: logic for authorization
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PatchMapping("/update")
     public AppUserDto updateUser(@RequestParam String username, @RequestBody AppUserDto request,
                                  @RequestHeader("Authorization") String bearerToken) {
@@ -135,11 +135,13 @@ public class AppUserController {
         }
     }
 
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PatchMapping("/{username}/platforms/add")
     public AppUserDto addPlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
         return appUserService.addPlatformById(username, id);
     }
 
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PatchMapping("/{username}/platforms/remove")
     public AppUserDto removePlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
         return appUserService.removePlatformById(username, id);
