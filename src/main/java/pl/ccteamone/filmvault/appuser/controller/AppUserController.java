@@ -134,6 +134,8 @@ public class AppUserController {
         }
     }
 
+ /*   @PatchMapping("/platforms")*/
+
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{userId}")
