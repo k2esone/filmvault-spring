@@ -135,6 +135,15 @@ public class AppUserController {
         }
     }
 
+    @PatchMapping("/{username}/platforms/add")
+    public AppUserDto addPlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
+        return appUserService.addPlatformById(username, id);
+    }
+
+    @PatchMapping("/{username}/platforms/remove")
+    public AppUserDto removePlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
+        return appUserService.removePlatformById(username, id);
+    }
     /*   @PatchMapping("/platforms")*/
 
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)
