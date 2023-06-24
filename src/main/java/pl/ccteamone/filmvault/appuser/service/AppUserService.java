@@ -77,9 +77,9 @@ public class AppUserService {
                 .toList();
     }
 
-    public AppUserProfileDto getUserById(Long userId) {
+    public AppUserDto getUserById(Long userId) {
         return appUserRepository.findById(userId)
-                .stream().map(appUserMapper::mapToAppUserProfileDto)
+                .stream().map(appUserMapper::mapToAppUserDto)
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
     }

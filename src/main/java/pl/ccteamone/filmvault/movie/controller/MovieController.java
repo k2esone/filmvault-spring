@@ -31,13 +31,13 @@ public class MovieController {
         return movieService.getMovieList();
     }
 
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/{movieId}/credits")
     public CreditDto getCreditsByMovieApiID(@PathVariable Long movieId) {
         return movieService.getCreditsByApiID(movieId);
     }
 
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/{movieId}")
     public MovieDto getMovieById(@PathVariable Long movieId) {
         log.info("request for movie id - {}", movieId);
@@ -69,7 +69,7 @@ public class MovieController {
         return movieService.getNewestMovieList(page);
     }
 
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @PatchMapping("/add/rating/{movieId}")
     public MovieDto addRating (@PathVariable Long movieId, @RequestParam int rating) {
         return movieService.addRating(movieId, rating);
