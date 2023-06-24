@@ -31,7 +31,6 @@ public class AppUserDto {
     private FileRegionDto region;
 
     private String profilePic;
-    private String role;
     private boolean isActive;
 
     private LocalDateTime createdAt;

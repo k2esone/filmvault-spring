@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import pl.ccteamone.filmvault.movie.Movie;
 import pl.ccteamone.filmvault.tvseries.TvSeries;
 import pl.ccteamone.filmvault.region.Region;
@@ -11,20 +14,17 @@ import pl.ccteamone.filmvault.vodplatform.VODPlatform;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
-@Getter
 @Setter
+@Getter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-<<<<<<<< HEAD:src/main/java/pl/ccteamone/filmvault/appuser/MyUser.java
-public class MyUser {
-========
-public class AppUser {
->>>>>>>> develop:src/main/java/pl/ccteamone/filmvault/appuser/AppUser.java
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,6 @@ public class AppUser {
     private Gender gender;
 
     private String profilePic;
-    private String role;
     private boolean isActive;
 
     @CreationTimestamp
@@ -74,6 +73,35 @@ public class AppUser {
     @EqualsAndHashCode.Exclude
     @ManyToMany
     private Set<VODPlatform> vodPlatforms;
+
+    @Enumerated(value = EnumType.STRING)
+    private RoleType roleType;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(roleType.name()));
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }
 
