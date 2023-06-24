@@ -9,6 +9,7 @@ import pl.ccteamone.filmvault.appuser.service.AppUserService;
 import java.util.List;
 
 @Slf4j
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/users")
 public class AppUserController {
@@ -34,14 +35,14 @@ public class AppUserController {
         return appUserService.addMovieByApiId(username, movieApiId);
     }
 
-    @PostMapping("/{userid}/add/movie")
-    public AppUserDto addMovieByID(@PathVariable(value = "userid") Long userID, @RequestParam("movieid") Long movieID) {
-        return appUserService.addMovieByID(userID, movieID);
+    @PostMapping("/{username}/add/movie")
+    public AppUserDto addMovieByID(@PathVariable(value = "username") String username, @RequestParam(name = "movieid") Long movieID) {
+        return appUserService.addMovieByID(username, movieID);
     }
 
-    @PostMapping("/userid/add/tvseries")
-    public AppUserDto addTvSeriesByID(@PathVariable(value = "userid") Long userID, @RequestParam("tvseriesid") Long tvseriesID) {
-        return appUserService.addTvSeriesByID(userID,tvseriesID);
+    @PostMapping("/username/add/tvseries")
+    public AppUserDto addTvSeriesByID(@PathVariable(name = "username") String username, @RequestParam("tvseriesid") Long tvseriesID) {
+        return appUserService.addTvSeriesByID(username, tvseriesID);
     }
 
     //TODO: Set public fuction for searching users (public profile)
@@ -51,6 +52,10 @@ public class AppUserController {
         return appUserService.getUsersList();
     }
 
+    @GetMapping("/{username}")
+    public AppUserDto getUserByName(@PathVariable(name = "username") String username) {
+        return appUserService.getUserDtoByUsername(username);
+    }
     @GetMapping("/{userId}")
     public AppUserDto getUserById(@PathVariable Long userId) {
         log.info("someone asked for user with id - {}", userId);

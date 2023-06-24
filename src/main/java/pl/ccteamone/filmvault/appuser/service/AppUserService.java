@@ -73,6 +73,10 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
     }
 
+    private AppUser getUserByUsername(String username) {
+        return appUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Unable to find " + username + " in database"));
+    }
+
     public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
         AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
 
@@ -121,8 +125,8 @@ public class AppUserService {
         }
     }
 
-    public AppUserDto addMovieByID(Long userID, Long movieID) {
-        AppUserDto user = getUserById(userID);
+    public AppUserDto addMovieByID(String username, Long movieID) {
+        AppUserDto user = appUserMapper.mapToAppUserDto(getUserByUsername(username));
         MovieDto movie = movieService.getMovieById(movieID);
         Set<MovieDto> userMovies = user.getMovies();
         if (userMovies != null) {
@@ -132,11 +136,11 @@ public class AppUserService {
             userMovies.add(movie);
             user.setMovies(userMovies);
         }
-        return updateUser(userID, user);
+        return updateUser(user.getId(), user);
     }
 
-    public AppUserDto addTvSeriesByID(Long userID, Long tvseriesID) {
-        AppUserDto user = getUserById(userID);
+    public AppUserDto addTvSeriesByID(String username, Long tvseriesID) {
+        AppUserDto user = appUserMapper.mapToAppUserDto(getUserByUsername(username));
         TvSeriesDto tvSeries = tvSeriesService.getTvSeriesById(tvseriesID);
         Set<TvSeriesDto> userSeries = user.getTvSeries();
         if(userSeries != null) {
@@ -146,6 +150,10 @@ public class AppUserService {
             userSeries.add(tvSeries);
             user.setTvSeries(userSeries);
         }
-        return updateUser(userID,user);
+        return updateUser(user.getId(), user);
+    }
+
+    public AppUserDto getUserDtoByUsername(String username) {
+        return appUserMapper.mapToAppUserDto(getUserByUsername(username));
     }
 }
