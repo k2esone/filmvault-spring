@@ -114,13 +114,13 @@ public class AppUserController {
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/userdata")
-    public AppUserDto getUserByUsername(@RequestParam String username,
+    public AppUserProfileDto getUserByUsername(@RequestParam String username,
                                         @RequestHeader("Authorization") String bearerToken) {
         log.info("someone asked for user with name - {}", username);
         String token = bearerToken.substring(7);
         String extractedUsername = jwtService.extractUserName(token);
         if (extractedUsername.equals(username)) {
-            return appUserService.getUserDtoByUsername(username);
+            return appUserService.getUserDtoByUsernameProfileDTO(username);
         } else {
             throw new RuntimeException("Unauthorized access");
         }

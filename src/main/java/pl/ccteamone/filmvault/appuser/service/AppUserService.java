@@ -92,6 +92,9 @@ public class AppUserService {
     private AppUser getUserByUsername(String username) {
         return appUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Unable to find " + username + " in database"));
     }
+    private AppUser getUserByUsernameProfileDTO(String username) {
+        return appUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Unable to find " + username + " in database"));
+    }
 
     public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
         AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, name: " + userId));
@@ -172,7 +175,9 @@ public class AppUserService {
     public AppUserDto getUserDtoByUsername(String username) {
         return appUserMapper.mapToAppUserDto(getUserByUsername(username));
     }
-
+    public AppUserProfileDto getUserDtoByUsernameProfileDTO(String username) {
+        return appUserMapper.mapToAppUserProfileDto(getUserByUsernameProfileDTO(username));
+    }
     public AppUserDto updateUserByUsername(String username, AppUserDto appUserDto) {
         if (!username.equals(appUserDto.getUsername())) {
             throw new RuntimeException("Username " + username + " database record mismatch");
