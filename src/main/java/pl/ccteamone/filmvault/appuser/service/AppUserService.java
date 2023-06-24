@@ -15,10 +15,14 @@ import pl.ccteamone.filmvault.movie.repository.MovieRepository;
 import pl.ccteamone.filmvault.movie.service.MovieService;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
 import pl.ccteamone.filmvault.tvseries.service.TvSeriesService;
+import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
+import pl.ccteamone.filmvault.vodplatform.service.VODPlatformService;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,6 +33,7 @@ public class AppUserService {
     private final MovieRepository movieRepository;
     private final MovieService movieService;
     private final TvSeriesService tvSeriesService;
+    private final VODPlatformService platformService;
 
     public AppUserDto createAppUser(AppUserCreationDto appUserCreationDto) {
         AppUser appUser = AppUser.builder()
@@ -163,4 +168,30 @@ public class AppUserService {
         }
         return updateUser(appUserDto.getId(), appUserDto);
     }
+
+    public AppUserDto addPlatformById(String username, Long id) {
+        VODPlatformDto vodPlatformDto = platformService.getVODPlatformDtoById(id);
+        AppUserDto userDto = getUserDtoByUsername(username);
+        if(vodPlatformDto == null) {
+            throw new RuntimeException("Unable to find VOD Platform");
+        }
+
+        userDto.getVodPlatforms().add(vodPlatformDto);
+        return updateUser(userDto.getId(),userDto);
+    }
+
+    public AppUserDto removePlatformById(String username, Long id) {
+        VODPlatformDto vodPlatformDto = platformService.getVODPlatformDtoById(id);
+        AppUserDto userDto = getUserDtoByUsername(username);
+        if(vodPlatformDto == null) {
+            throw new RuntimeException("Unable to find VOD Platform");
+        }
+
+        Set<VODPlatformDto> platforms = userDto.getVodPlatforms().stream()
+                .filter(platformDto -> !Objects.equals(platformDto.getId(), vodPlatformDto.getId()))
+                .collect(Collectors.toSet());
+        userDto.setVodPlatforms(platforms);
+        return updateUser(userDto.getId(), userDto);
+    }
+
 }

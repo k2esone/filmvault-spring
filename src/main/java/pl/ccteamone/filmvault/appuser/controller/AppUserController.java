@@ -56,6 +56,7 @@ public class AppUserController {
     public AppUserDto getUserByUsername(@RequestParam(name = "user") String username) {
         return appUserService.getUserDtoByUsername(username);
     }
+
     @GetMapping("/{userId}")
     public AppUserDto getUserById(@PathVariable Long userId) {
         log.info("someone asked for user with id - {}", userId);
@@ -70,11 +71,19 @@ public class AppUserController {
     }
 
     @PatchMapping("/update")
-    public AppUserDto updateUserByUsername(@RequestParam(name = "username")String username,@RequestBody AppUserDto appUserDto) {
-        return appUserService.updateUserByUsername(username,appUserDto);
+    public AppUserDto updateUserByUsername(@RequestParam(name = "username") String username, @RequestBody AppUserDto appUserDto) {
+        return appUserService.updateUserByUsername(username, appUserDto);
     }
 
- /*   @PatchMapping("/platforms")*/
+    @PatchMapping("/{username}/platforms/add")
+    public AppUserDto addPlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
+        return appUserService.addPlatformById(username, id);
+    }
+
+    @PatchMapping("/{username}/platforms/remove")
+    public AppUserDto removePlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
+        return appUserService.removePlatformById(username, id);
+    }
 
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)
     @DeleteMapping("/{userId}")
