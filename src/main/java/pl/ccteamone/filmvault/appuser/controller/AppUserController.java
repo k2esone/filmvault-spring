@@ -74,6 +74,8 @@ public class AppUserController {
         return appUserService.updateUserByUsername(username,appUserDto);
     }
 
+ /*   @PatchMapping("/platforms")*/
+
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)
     @DeleteMapping("/{userId}")
     public void deleteUserById(@PathVariable Long userId) {
