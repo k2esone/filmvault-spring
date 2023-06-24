@@ -52,8 +52,8 @@ public class AppUserController {
         return appUserService.getUsersList();
     }
 
-    @GetMapping("/{username}")
-    public AppUserDto getUserByName(@PathVariable(name = "username") String username) {
+    @GetMapping("/userdata")
+    public AppUserDto getUserByName(@RequestParam(name = "user") String username) {
         return appUserService.getUserDtoByUsername(username);
     }
     @GetMapping("/{userId}")
