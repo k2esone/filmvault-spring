@@ -28,7 +28,7 @@ public class AppUserController {
 //        return appUserService.createAppUser(request);
 //    }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add-movie-title")
     public AppUserDto addMovieByTitleToUser(@PathVariable String username, @RequestParam String movieTitle,
                                             @RequestHeader("Authorization") String bearerToken) {
@@ -41,7 +41,7 @@ public class AppUserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add-movie-id")
     public AppUserDto addMovieByMovieIdToUser(@PathVariable String username, @RequestParam Long movieId,
                                               @RequestHeader("Authorization") String bearerToken) {
@@ -54,7 +54,7 @@ public class AppUserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add-movieid")
     public AppUserDto addMovieByApiIdToUser(@PathVariable String username, @RequestParam Long movieApiId,
                                             @RequestHeader("Authorization") String bearerToken) {
@@ -68,7 +68,7 @@ public class AppUserController {
     }
 
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{username}/add/movie")
     public AppUserDto addMovieByID(@PathVariable(value = "username") String username, @RequestParam("movieid") Long movieID,
                                    @RequestHeader("Authorization") String bearerToken) {
@@ -81,8 +81,8 @@ public class AppUserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
-    @PostMapping("/username/add/tvseries") // <-- MUSI BYC USERNAME
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PostMapping("/{username}/add/tvseries") // <-- MUSI BYC USERNAME
     public AppUserDto addTvSeriesByID(@PathVariable(value = "username") String username, @RequestParam("tvseriesid") Long tvseriesID,
                                       @RequestHeader("Authorization") String bearerToken) {
         String token = bearerToken.substring(7);
@@ -93,10 +93,6 @@ public class AppUserController {
             throw new RuntimeException("Unauthorized access");
         }
     }
-
-    //TODO: Set public fuction for searching users (public profile)
-    // FUTURE -> Change appUserDTO to profileDTO with hidden private informations
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping()
     public List<AppUserProfileDto> getUsersList() {
@@ -106,7 +102,7 @@ public class AppUserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{userId}")
-    public AppUserDto getUserById(@PathVariable Long userId) {
+    public AppUserProfileDto getUserById(@PathVariable Long userId) {
         log.info("someone asked for user with id - {}", userId);
         return appUserService.getUserById(userId);
     }
@@ -118,9 +114,7 @@ public class AppUserController {
         return appUserService.getUserByName(username);
     }
 
-    //TODO: logic for authorization
-
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PatchMapping("/{username}")
     public AppUserDto updateUser(@PathVariable String username, @RequestBody AppUserDto request,
                                  @RequestHeader("Authorization") String bearerToken) {
