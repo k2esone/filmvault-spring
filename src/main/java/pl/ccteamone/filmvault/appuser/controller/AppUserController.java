@@ -11,6 +11,7 @@ import pl.ccteamone.filmvault.appuser.service.AppUserService;
 import java.util.List;
 
 @Slf4j
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/users")
 public class AppUserController {
@@ -112,29 +113,29 @@ public class AppUserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/{username}")
-    public AppUserDto getUserByName(@PathVariable String username) {
+    @GetMapping("/userdata")
+    public AppUserDto getUserByUsername(@RequestParam String username) {
         log.info("someone asked for user with name - {}", username);
-        return appUserService.getUserByName(username);
+        return appUserService.getUserDtoByUsername(username);
     }
 
     //TODO: logic for authorization
 
     @PreAuthorize("hasAuthority('USER')")
-    @PatchMapping("/{username}")
-    public AppUserDto updateUser(@PathVariable String username, @RequestBody AppUserDto request,
+    @PatchMapping("/update")
+    public AppUserDto updateUser(@RequestParam String username, @RequestBody AppUserDto request,
                                  @RequestHeader("Authorization") String bearerToken) {
         log.info("user update with id - {} has been triggered, data: {}", username, request);
-                String token = bearerToken.substring(7);
+        String token = bearerToken.substring(7);
         String extractedUsername = jwtService.extractUserName(token);
         if (extractedUsername.equals(username)) {
-            return appUserService.updateUser(username, request);
+            return appUserService.updateUserByUsername(username, request);
         } else {
             throw new RuntimeException("Unauthorized access");
         }
     }
 
- /*   @PatchMapping("/platforms")*/
+    /*   @PatchMapping("/platforms")*/
 
     //TODO: logic and scope of deleted entities and inapp content (set movie tables/ratings created by Anonymous)
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -69,6 +69,12 @@ public class MovieController {
         return movieService.getNewestMovieList(page);
     }
 
+    @GetMapping("/popular")
+    public List<MovieDto> getPopularMovieList(@RequestParam(defaultValue = "1", required = false) Integer page,
+                                              @RequestParam(defaultValue = "en-US", required = false) String lang) {
+        return movieService.getPopularMovieList(page,lang);
+    }
+
     @PreAuthorize("hasAuthority('USER')")
     @PatchMapping("/add/rating/{movieId}")
     public MovieDto addRating (@PathVariable Long movieId, @RequestParam int rating) {

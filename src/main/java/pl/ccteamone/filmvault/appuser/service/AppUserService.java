@@ -84,15 +84,12 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + userId));
     }
 
-    public AppUserDto getUserByName(String username) {
-        return appUserRepository.findByUsername(username)
-                .stream().map(appUserMapper::mapToAppUserDto)
-                .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("AppUser not found, id: " + username));
+    private AppUser getUserByUsername(String username) {
+        return appUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Unable to find " + username + " in database"));
     }
 
-    public AppUserDto updateUser(String username, AppUserDto appUserDto) {
-        AppUser user = appUserRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("AppUser not found, name: " + username));
+    public AppUserDto updateUser(Long userId, AppUserDto appUserDto) {
+        AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("AppUser not found, name: " + userId));
 
         AppUser appUser = appUserMapper.mapToAppUser(appUserDto);
         if (appUser.getEmail() != null) {
@@ -140,7 +137,7 @@ public class AppUserService {
     }
 
     public AppUserDto addMovieByID(String username, Long movieID) {
-        AppUserDto user = getUserByName(username);
+        AppUserDto user = appUserMapper.mapToAppUserDto(getUserByUsername(username));
         MovieDto movie = movieService.getMovieById(movieID);
         Set<MovieDto> userMovies = user.getMovies();
         if (userMovies != null) {
@@ -150,11 +147,11 @@ public class AppUserService {
             userMovies.add(movie);
             user.setMovies(userMovies);
         }
-        return updateUser(username, user);
+        return updateUser(user.getId(), user);
     }
 
     public AppUserDto addTvSeriesByID(String username, Long tvseriesID) {
-        AppUserDto user = getUserByName(username);
+        AppUserDto user = appUserMapper.mapToAppUserDto(getUserByUsername(username));
         TvSeriesDto tvSeries = tvSeriesService.getTvSeriesById(tvseriesID);
         Set<TvSeriesDto> userSeries = user.getTvSeries();
         if(userSeries != null) {
@@ -164,6 +161,17 @@ public class AppUserService {
             userSeries.add(tvSeries);
             user.setTvSeries(userSeries);
         }
-        return updateUser(username,user);
+        return updateUser(user.getId(), user);
+    }
+
+    public AppUserDto getUserDtoByUsername(String username) {
+        return appUserMapper.mapToAppUserDto(getUserByUsername(username));
+    }
+
+    public AppUserDto updateUserByUsername(String username, AppUserDto appUserDto) {
+        if (!username.equals(appUserDto.getUsername())) {
+            throw new RuntimeException("Username " + username + " database record mismatch");
+        }
+        return updateUser(appUserDto.getId(), appUserDto);
     }
 }
