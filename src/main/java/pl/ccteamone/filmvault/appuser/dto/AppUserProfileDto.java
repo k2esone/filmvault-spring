@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import pl.ccteamone.filmvault.movie.dto.MovieDto;
 import pl.ccteamone.filmvault.tvseries.dto.TvSeriesDto;
+import pl.ccteamone.filmvault.vodplatform.dto.VODPlatformDto;
 
 import java.util.Set;
 
@@ -16,4 +17,5 @@ public class AppUserProfileDto {
     private String name;
     private Set<MovieDto> movies;
     private Set<TvSeriesDto> tvSeries;
+    private Set<VODPlatformDto> platforms;
 }
