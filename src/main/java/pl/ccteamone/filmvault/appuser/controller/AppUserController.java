@@ -83,7 +83,7 @@ public class AppUserController {
     }
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    @PostMapping("/username/add/tvseries") // <-- MUSI BYC USERNAME
+    @PostMapping("/{username}/add/tvseries") // <-- MUSI BYC USERNAME
     public AppUserDto addTvSeriesByID(@PathVariable(value = "username") String username, @RequestParam("tvseriesid") Long tvseriesID,
                                       @RequestHeader("Authorization") String bearerToken) {
         String token = bearerToken.substring(7);
@@ -159,13 +159,13 @@ public class AppUserController {
     }
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    @PatchMapping("/{username}/platforms/add")
+    @PostMapping("/{username}/platforms/add")
     public AppUserDto addPlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
         return appUserService.addPlatformById(username, id);
     }
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    @PatchMapping("/{username}/platforms/remove")
+    @PostMapping("/{username}/platforms/remove")
     public AppUserDto removePlatform(@PathVariable(name = "username") String username, @RequestParam(name = "id") Long id) {
         return appUserService.removePlatformById(username, id);
     }
