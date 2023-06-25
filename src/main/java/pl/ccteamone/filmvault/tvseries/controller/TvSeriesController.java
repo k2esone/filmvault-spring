@@ -53,7 +53,7 @@ public class TvSeriesController {
     }
 
     @GetMapping("/search")
-    public Set<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
+    public List<TvSeriesDto> searchTvSeries(@RequestParam("query") String query) {
         return tvService.findTvSeriesByQuery(query);
     }
 

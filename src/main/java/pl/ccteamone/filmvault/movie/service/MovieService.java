@@ -121,7 +121,7 @@ public class MovieService {
     }
 
     // NGRAM SEARCH -> *** *** *** ***
-    public Set<MovieDto> findMovieByQuery(String query) {
+    public List<MovieDto> findMovieByQuery(String query) {
         feedDBWithNewMoviesByQuery(query);
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query.substring(0, 1));
         Set<MovieDto> similarMovies = new HashSet<>();
@@ -137,17 +137,30 @@ public class MovieService {
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
                 //TODO: zmienić tak, alby zwracał filmy dokładnie o tym samym tytule
-                similarMovies.add(movies.stream()
+                similarMovies.addAll(movies.stream()
                         .filter(match -> match.getTitle().equalsIgnoreCase(movie.getTitle()))
-                        .findFirst()
                         .map(movieMapper::mapToMovieDto)
-                        .orElseThrow(() -> new RuntimeException("Unable to match movie by title")));
+                        .collect(Collectors.toList()));
             }
-            if (similarMovies.size() == PAGE_SIZE) {
-                break;
-            }
+//            if (similarMovies.size() == PAGE_SIZE) {
+//                break;
+//            }
         }
-        return similarMovies;
+        return similarMovies.stream()
+                .collect(Collectors.toSet()).stream()
+                .sorted(Comparator.comparing(movieDto -> {
+                    String[] words = query.split(" ");
+                    int count = 0;
+                    for (String word : words) {
+                        if(movieDto.getTitle().toLowerCase().contains(word.toLowerCase())){
+                            count++;
+                        }
+                    }
+                    return count;
+                },Comparator.reverseOrder()))
+                .toList().stream()
+                .limit(40)
+                .collect(Collectors.toList());
     }
 
     private List<String> generateNGrams(String input, int n) {

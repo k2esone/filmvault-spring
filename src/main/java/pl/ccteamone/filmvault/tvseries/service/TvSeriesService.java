@@ -122,7 +122,7 @@ public class TvSeriesService {
                 .orElseThrow(() -> new RuntimeException("Tv Series not found")));
     }
 
-    public Set<TvSeriesDto> findTvSeriesByQuery(String query) {
+    public List<TvSeriesDto> findTvSeriesByQuery(String query) {
         feedDBWithNewTvSeriesByQuery(query);
         List<TvSeries> tvSeries = tvRepository.findByNameContainingIgnoreCase(query.substring(0, 1));
         Set<TvSeriesDto> similarTvSeries = new HashSet<>();
@@ -137,18 +137,31 @@ public class TvSeriesService {
             int commonNGrams = countCommonNGrams(nameNGrams, queryNGrams);
 
             if (commonNGrams >= 2) { // <-- Licznik prawdopodobieństwa
-                similarTvSeries.add(tvSeries.stream()
+                similarTvSeries.addAll(tvSeries.stream()
                         .filter(match -> match.getName().equalsIgnoreCase(tvSerie.getName()))
-                        .findFirst()
                         .map(tvSeriesMapper::mapToTvSeriesDto)
-                        .orElseThrow(() -> new RuntimeException("Unable to match tv series by title")));
+                        .collect(Collectors.toList()));
             }
 
-            if (similarTvSeries.size() == 20) {
-                break;
-            }
+//            if (similarTvSeries.size() == 20) {
+//                break;
+//            }
         }
-        return similarTvSeries;
+        return similarTvSeries.stream()
+                .collect(Collectors.toSet()).stream()
+                .sorted(Comparator.comparing(tvSeriesDto -> {
+                    String[] words = query.split(" ");
+                    int count = 0;
+                    for (String word : words) {
+                        if(tvSeriesDto.getName().toLowerCase().contains(word.toLowerCase())){
+                            count++;
+                        }
+                    }
+                    return count;
+                },Comparator.reverseOrder()))
+                .toList().stream()
+                .limit(40)
+                .collect(Collectors.toList());
     }
 
     private List<String> generateNGrams(String input, int n) {

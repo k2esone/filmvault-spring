@@ -60,7 +60,7 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public Set<MovieDto> searchMovies(@RequestParam("query") String query) {
+    public List<MovieDto> searchMovies(@RequestParam("query") String query) {
         return movieService.findMovieByQuery(query);
     }
 
