@@ -114,17 +114,33 @@ public class AppUserController {
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/userdata")
-    public AppUserProfileDto getUserByUsername(@RequestParam String username,
+    public AppUserDto getUserByUsername(@RequestParam String username,
                                         @RequestHeader("Authorization") String bearerToken) {
         log.info("someone asked for user with name - {}", username);
         String token = bearerToken.substring(7);
         String extractedUsername = jwtService.extractUserName(token);
         if (extractedUsername.equals(username)) {
-            return appUserService.getUserDtoByUsernameProfileDTO(username);
+            return appUserService.getUserDtoByUsername(username);
         } else {
             throw new RuntimeException("Unauthorized access");
         }
     }
+
+
+    //TODO: UPDATE PROFILDTO TO FRONTEND
+//    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+//    @GetMapping("/userdata")
+//    public AppUserProfileDto getUserByUsername(@RequestParam String username,
+//                                        @RequestHeader("Authorization") String bearerToken) {
+//        log.info("someone asked for user with name - {}", username);
+//        String token = bearerToken.substring(7);
+//        String extractedUsername = jwtService.extractUserName(token);
+//        if (extractedUsername.equals(username)) {
+//            return appUserService.getUserDtoByUsernameProfileDTO(username);
+//        } else {
+//            throw new RuntimeException("Unauthorized access");
+//        }
+//    }
 
     //TODO: logic for authorization
 
