@@ -21,7 +21,7 @@ import java.util.List;
 public class RegionFileUploader implements DataInitializer {
     private final RegionService regionService;
     private final RegionMapper regionMapper;
-    private static final String JSON_FILE_PATH = "src/main/resources/imports/regions.json";
+    private static final String JSON_FILE_PATH = "/app/imports/regions.json";
 
 
     public void initializeRegionsJsonFile() {

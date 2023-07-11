@@ -14,6 +14,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/tvseries")
+@CrossOrigin(origins = "*")
 public class TvSeriesController {
 
     private final TvSeriesService tvService;

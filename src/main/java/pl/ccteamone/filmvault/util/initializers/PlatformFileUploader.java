@@ -23,7 +23,7 @@ public class PlatformFileUploader implements DataInitializer {
     private final VODPlatformService platformService;
     private final VODPlatformMapper platformMapper;
 
-    private static final String JSON_FILE_PATH = "src/main/resources/imports/vodplatforms.json";
+    private static final String JSON_FILE_PATH = "/app/imports/vodplatforms.json";
 
     public void initializePlatformsJsonFile() {
         ObjectMapper mapper = new ObjectMapper();

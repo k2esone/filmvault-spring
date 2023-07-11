@@ -20,7 +20,7 @@ import java.util.List;
 public class GenreFileUploader implements DataInitializer {
 
     private final GenreService genreService;
-    private static final String JSON_FILE_PATH = "src/main/resources/imports/genre.json";
+    private static final String JSON_FILE_PATH = "/app/imports/genre.json";
 
 
     public void initializeGenreJsonFile() {

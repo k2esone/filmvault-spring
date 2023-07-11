@@ -11,6 +11,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/genres")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class GenreController {
     private final GenreService genreService;
 

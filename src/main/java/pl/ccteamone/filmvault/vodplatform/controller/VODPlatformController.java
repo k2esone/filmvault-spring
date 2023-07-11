@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/providers")
+@CrossOrigin(origins = "*")
 public class VODPlatformController {
 
     private final VODPlatformService platformService;

@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/demo/movies")
+@CrossOrigin(origins = "*")
 public class MovieApiController {
 
 

@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/demo/tvseries")
+@CrossOrigin(origins = "*")
 public class TvSeriesApiController {
 
     private final TvSeriesApiService tvSeriesApiService;
